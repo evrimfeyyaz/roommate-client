@@ -1,25 +1,18 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React from 'react'
 
-import { storiesOf } from '@storybook/react-native';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+import { storiesOf } from '@storybook/react-native'
+import { linkTo } from '@storybook/addon-links'
 
-import Button from './Button';
-import CenterView from './CenterView';
-import Welcome from './Welcome';
+import CenterView from './CenterView'
+import Welcome from './Welcome'
+import { Switch } from '../../src/components/common'
 
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
+import centerViewStyle from './CenterView/style'
 
-storiesOf('Button', module)
-  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
-  .add('with text', () => (
-    <Button onPress={action('clicked-text')}>
-      <Text>Hello Button</Text>
-    </Button>
+storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />)
+
+storiesOf('Switch', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('regular', () => (
+    <Switch tint={['#c1b296', '#998263']} />
   ))
-  .add('with some emoji', () => (
-    <Button onPress={action('clicked-emoji')}>
-      <Text>😀 😎 👍 💯</Text>
-    </Button>
-  ));
