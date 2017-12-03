@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "rules": {
+    "semi": ["error", "never"],
+    "comma-dangle": ["error", "never"],
+    "eol-last": "off",
+    "no-use-before-define": "off",
+    "no-trailing-spaces": "off",
+    "react/jsx-filename-extension": "off"
+  }
+}
