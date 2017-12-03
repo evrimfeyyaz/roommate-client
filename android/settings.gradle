@@ -1,0 +1,3 @@
+rootProject.name = 'roommate_client'
+
+include ':app'
