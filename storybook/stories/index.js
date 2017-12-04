@@ -7,7 +7,8 @@ import CenterView from './CenterView'
 import Welcome from './Welcome'
 import {
   Switch,
-  SideMenuItem
+  SideMenuItem,
+  SideMenu
 } from '../../src/components/common'
 
 import centerViewStyle from './CenterView/style'
@@ -28,4 +29,7 @@ storiesOf('Menu', module)
   ))
   .add('item selected', () => (
     <SideMenuItem title="Home" iconSvgPath={icons.test} isSelected />
+  ))
+  .add('full menu', () => (
+    <SideMenu />
   ))

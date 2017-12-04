@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text
+  Text,
+  TouchableWithoutFeedback
 } from 'react-native'
 
 import PropTypes from 'prop-types'
@@ -26,14 +27,16 @@ class SideMenuItem extends Component {
 
   render() {
     return (
-      <View style={style.container}>
-        <View style={this.styleForSelectedIndicator()} />
+      <TouchableWithoutFeedback onPress={() => this.props.onPress(this.props.id)}>
+        <View style={style.container}>
+          <View style={this.styleForSelectedIndicator()} />
 
-        <Svg height={30} width={30} viewBox="0 0 50 50">
-          <Path d={this.props.iconSvgPath} fill={this.iconFillColor()} />
-        </Svg>
-        <Text style={this.styleForTitle()}>{this.props.title}</Text>
-      </View>
+          <Svg height={30} width={30} viewBox="0 0 50 50">
+            <Path d={this.props.iconSvgPath} fill={this.iconFillColor()} />
+          </Svg>
+          <Text style={this.styleForTitle()}>{this.props.title}</Text>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
@@ -41,11 +44,14 @@ class SideMenuItem extends Component {
 SideMenuItem.propTypes = {
   title: PropTypes.string.isRequired,
   iconSvgPath: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool
+  isSelected: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  onPress: PropTypes.func
 }
 
 SideMenuItem.defaultProps = {
-  isSelected: false
+  isSelected: false,
+  onPress: null
 }
 
 export default SideMenuItem
