@@ -1,4 +1,7 @@
 import React from 'react'
+import {
+  Text
+} from 'react-native'
 
 import { storiesOf } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
@@ -17,6 +20,7 @@ import {
 
 import centerViewStyle from './CenterView/style'
 import icons from '../../assets/icons'
+import * as theme from '../../theme'
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
@@ -45,4 +49,19 @@ storiesOf('Button', module)
   ))
   .add('secondary', () => (
     <SecondaryButton title="Wake-Up Alarm" onPress={action('secondary-button-press')} />
+  ))
+
+storiesOf('Text', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('title', () => (
+    <Text style={theme.textStyles.title}>Page Title</Text>
+  ))
+  .add('heading', () => (
+    <Text style={theme.textStyles.heading}>Heading</Text>
+  ))
+  .add('heading 2', () => (
+    <Text style={theme.textStyles.heading1}>Heading 2</Text>
+  ))
+  .add('heading 3', () => (
+    <Text style={theme.textStyles.heading2}>Heading 3</Text>
   ))
