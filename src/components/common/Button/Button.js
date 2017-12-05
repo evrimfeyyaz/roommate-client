@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
   Text,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  View
 } from 'react-native'
 
 import PropTypes from 'prop-types'
@@ -10,12 +11,24 @@ import LinearGradient from 'react-native-linear-gradient'
 import style from './style'
 
 class Button extends Component {
+  renderGradientBackground() {
+    if (this.props.gradientColors === null) {
+      return null
+    }
+
+    return <LinearGradient colors={this.props.gradientColors} style={style.gradientContainer} />
+  }
+
   render() {
     return (
       <TouchableWithoutFeedback onPress={this.props.onPress}>
-        <LinearGradient colors={['#c1b296', '#998263']} style={style.container}>
-          <Text style={style.title}>{this.props.title}</Text>
-        </LinearGradient>
+        <View style={[style.container, this.props.style.container]}>
+          {this.renderGradientBackground()}
+
+          <Text style={[style.title, this.props.style.title]}>{this.props.title}</Text>
+
+          <View style={[style.borderContainer, this.props.style.borderContainer]} />
+        </View>
       </TouchableWithoutFeedback>
     )
   }
@@ -23,12 +36,20 @@ class Button extends Component {
 
 Button.propTypes = {
   title: PropTypes.string,
-  onPress: PropTypes.func
+  onPress: PropTypes.func,
+  gradientColors: PropTypes.arrayOf(PropTypes.string),
+  style: PropTypes.shape({
+    container: View.propTypes.style,
+    title: Text.propTypes.style,
+    borderContainer: View.propTypes.style
+  })
 }
 
 Button.defaultProps = {
   title: '',
-  onPress: null
+  onPress: null,
+  style: {},
+  gradientColors: null
 }
 
 export default Button

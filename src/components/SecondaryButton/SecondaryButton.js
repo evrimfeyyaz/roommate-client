@@ -5,18 +5,17 @@ import { Button } from '../common'
 
 import style from './style'
 
-const PrimaryButton = ({ title, onPress }) => (
+const SecondaryButton = ({ title, onPress }) => (
   <Button
     title={title}
     onPress={onPress}
     style={style}
-    gradientColors={['#c1b296', '#998263']}
   />
 )
 
-PrimaryButton.propTypes = {
+SecondaryButton.propTypes = {
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired
 }
 
-export default PrimaryButton
+export default SecondaryButton

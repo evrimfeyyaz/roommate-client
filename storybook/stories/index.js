@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { storiesOf } from '@storybook/react-native'
-import { linkTo } from '@storybook/addon-links'
 import { action } from '@storybook/addon-actions'
 
 import CenterView from './CenterView'
@@ -9,10 +8,11 @@ import Welcome from './Welcome'
 import {
   Switch,
   SideMenuItem,
-  SideMenu,
+  SideMenu
 } from '../../src/components/common'
 import {
-  PrimaryButton
+  PrimaryButton,
+  SecondaryButton
 } from '../../src/components'
 
 import centerViewStyle from './CenterView/style'
@@ -41,5 +41,8 @@ storiesOf('Menu', module)
 storiesOf('Button', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('primary', () => (
-    <PrimaryButton title="Book a Table" onPress={action('button-press')} />
+    <PrimaryButton title="Book a Table" onPress={action('primary-button-press')} />
+  ))
+  .add('secondary', () => (
+    <SecondaryButton title="Wake-Up Alarm" onPress={action('secondary-button-press')} />
   ))
