@@ -25,10 +25,10 @@ storiesOf('Switch', module)
 storiesOf('Menu', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('item', () => (
-    <SideMenuItem title="Home" iconSvgPath={icons.test} />
+    <SideMenuItem title="Home" id="home" iconSvgPath={icons.test} />
   ))
   .add('item selected', () => (
-    <SideMenuItem title="Home" iconSvgPath={icons.test} isSelected />
+    <SideMenuItem title="Home" id="home" iconSvgPath={icons.test} isSelected />
   ))
   .add('full menu', () => (
     <SideMenu />

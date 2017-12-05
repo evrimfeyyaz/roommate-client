@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
   container: {
     paddingVertical: 15,
-    paddingHorizontal: 30,
+    paddingHorizontal: 15,
     alignItems: 'center'
   },
   selectedIndicator: {
@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   title: {
     marginTop: 10,
-    fontSize: 12,
+    fontSize: 10,
     color: 'silver'
   },
   selectedTitle: {

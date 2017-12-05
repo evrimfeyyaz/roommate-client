@@ -39,7 +39,7 @@ class SideMenu extends Component {
 
   render() {
     return (
-      <View>
+      <View style={style.container}>
         {this.renderItem('Home', 'home', icons.test)}
         {this.renderItem('My Stay', 'my-stay', icons.test)}
         {this.renderItem('Food', 'food', icons.test)}
