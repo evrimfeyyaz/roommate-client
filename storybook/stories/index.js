@@ -10,8 +10,10 @@ import {
   Switch,
   SideMenuItem,
   SideMenu,
-  Button
 } from '../../src/components/common'
+import {
+  PrimaryButton
+} from '../../src/components'
 
 import centerViewStyle from './CenterView/style'
 import icons from '../../assets/icons'
@@ -38,6 +40,6 @@ storiesOf('Menu', module)
 
 storiesOf('Button', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .add('gradient filled', () => (
-    <Button title="Book a Table" onPress={action('button-press')} />
+  .add('primary', () => (
+    <PrimaryButton title="Book a Table" onPress={action('button-press')} />
   ))
