@@ -20,15 +20,25 @@ class Button extends Component {
     return <LinearGradient colors={this.props.gradientColors} style={style.gradientContainer} />
   }
 
+  renderIcon() {
+    if (this.props.iconSvgPath === null) {
+      return null
+    }
+
+    return (
+      <Svg height={15} width={15} viewBox="0 0 50 50" style={style.icon}>
+        <Path d={this.props.iconSvgPath} fill="#d2b994" />
+      </Svg>
+    )
+  }
+
   render() {
     return (
       <TouchableWithoutFeedback onPress={this.props.onPress}>
         <View style={[style.container, this.props.style.container]}>
           {this.renderGradientBackground()}
 
-          <Svg height={15} width={15} viewBox="0 0 50 50">
-            <Path d={this.props.iconSvgPath} fill="#d2b994" />
-          </Svg>
+          {this.renderIcon()}
           <Text style={[style.title, this.props.style.title]}>{this.props.title}</Text>
 
           <View style={[style.borderContainer, this.props.style.borderContainer]} />

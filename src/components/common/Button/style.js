@@ -7,13 +7,15 @@ const style = StyleSheet.create({
     borderRadius: 999,
     flexDirection: 'row'
   },
+  icon: {
+    marginRight: 10
+  },
   title: {
     textAlign: 'center',
     color: '#fff',
     backgroundColor: 'rgba(0, 0, 0, 0)',
     // This needs to be added so that the title won't fall behind the thumb.
-    elevation: 999,
-    marginLeft: 10
+    elevation: 999
   },
   gradientContainer: {
     position: 'absolute',
