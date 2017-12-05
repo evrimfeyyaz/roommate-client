@@ -5,6 +5,9 @@ import {
 } from 'react-native'
 
 import PropTypes from 'prop-types'
+import {
+  SecondaryButton
+} from '../'
 
 import styles from './styles'
 import * as theme from '../../../theme'
@@ -15,6 +18,8 @@ const TopBar = ({ title }) => (
 
     <Text style={theme.textStyles.title}>4:00PM</Text>
     <Text style={theme.textStyles.heading2}>Fri</Text>
+
+    <SecondaryButton title="Wake-Up Alarm" />
   </View>
 )
 
