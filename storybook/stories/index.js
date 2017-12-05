@@ -15,7 +15,8 @@ import {
 } from '../../src/components/common'
 import {
   PrimaryButton,
-  SecondaryButton
+  SecondaryButton,
+  TopBar
 } from '../../src/components'
 
 import centerViewStyle from './CenterView/style'
@@ -64,4 +65,10 @@ storiesOf('Text', module)
   ))
   .add('heading 3', () => (
     <Text style={theme.textStyles.heading2}>Heading 3</Text>
+  ))
+
+storiesOf('Top bar', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('regular', () => (
+    <TopBar title="Home" />
   ))

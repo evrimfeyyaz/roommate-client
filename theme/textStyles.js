@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
   heading2: {
     fontSize: 14,
     color: '#fff',
-    opacity: 0.5
+    opacity: 0.5,
+    lineHeight: 22
   }
 })
 
