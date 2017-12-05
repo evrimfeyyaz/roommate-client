@@ -13,9 +13,7 @@ const style = StyleSheet.create({
   title: {
     textAlign: 'center',
     color: '#fff',
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-    // This needs to be added so that the title won't fall behind the thumb.
-    elevation: 999
+    backgroundColor: 'rgba(0, 0, 0, 0)'
   },
   gradientContainer: {
     position: 'absolute',
