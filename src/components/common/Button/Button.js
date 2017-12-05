@@ -7,6 +7,7 @@ import {
 
 import PropTypes from 'prop-types'
 import LinearGradient from 'react-native-linear-gradient'
+import Svg, { Path } from 'react-native-svg'
 
 import style from './style'
 
@@ -25,6 +26,9 @@ class Button extends Component {
         <View style={[style.container, this.props.style.container]}>
           {this.renderGradientBackground()}
 
+          <Svg height={15} width={15} viewBox="0 0 50 50">
+            <Path d={this.props.iconSvgPath} fill="#d2b994" />
+          </Svg>
           <Text style={[style.title, this.props.style.title]}>{this.props.title}</Text>
 
           <View style={[style.borderContainer, this.props.style.borderContainer]} />
@@ -42,14 +46,16 @@ Button.propTypes = {
     container: View.propTypes.style,
     title: Text.propTypes.style,
     borderContainer: View.propTypes.style
-  })
+  }),
+  iconSvgPath: PropTypes.string
 }
 
 Button.defaultProps = {
   title: '',
   onPress: null,
   style: {},
-  gradientColors: null
+  gradientColors: null,
+  iconSvgPath: null
 }
 
 export default Button
