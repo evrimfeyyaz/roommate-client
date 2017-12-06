@@ -1,7 +1,4 @@
 import React from 'react'
-import {
-  Text
-} from 'react-native'
 
 import { storiesOf } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
@@ -11,7 +8,9 @@ import Welcome from './Welcome'
 import {
   Switch,
   SideMenuItem,
-  SideMenu
+  SideMenu,
+  Title,
+  Heading
 } from '../../src/components/common'
 import {
   PrimaryButton,
@@ -21,7 +20,6 @@ import {
 
 import centerViewStyle from './CenterView/style'
 import icons from '../../assets/icons'
-import * as theme from '../../theme'
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
@@ -55,16 +53,16 @@ storiesOf('Button', module)
 storiesOf('Text', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('title', () => (
-    <Text style={theme.textStyles.title}>Page Title</Text>
+    <Title>Page Title</Title>
   ))
   .add('heading', () => (
-    <Text style={theme.textStyles.heading}>Heading</Text>
+    <Heading>Heading</Heading>
   ))
   .add('heading 2', () => (
-    <Text style={theme.textStyles.heading1}>Heading 2</Text>
+    <Heading2>Heading 2</Heading2>
   ))
   .add('heading 3', () => (
-    <Text style={theme.textStyles.heading2}>Heading 3</Text>
+    <Heading3>Heading 3</Heading3>
   ))
 
 storiesOf('Top bar', module)

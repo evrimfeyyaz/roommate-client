@@ -1,19 +1,24 @@
 import { StyleSheet } from 'react-native'
 
-import * as theme from '../../../theme'
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'flex-end',
     paddingHorizontal: 30
   },
-  title: StyleSheet.flatten([
-    theme.textStyles.title,
-    {
-      flex: 1
-    }
-  ])
+  title: {
+    flex: 1
+  },
+  time: {
+    margin: 5
+  },
+  dayOfWeek: {
+    margin: 5
+  },
+  wakeUpAlarmButton: {
+    margin: 5
+  }
 })
 
 export default styles

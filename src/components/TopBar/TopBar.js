@@ -1,25 +1,27 @@
 import React from 'react'
 import {
-  Text,
   View
 } from 'react-native'
 
 import PropTypes from 'prop-types'
+
 import {
   SecondaryButton
 } from '../'
-
+import {
+  Title,
+  Heading3
+} from '../common'
 import styles from './styles'
-import * as theme from '../../../theme'
 
 const TopBar = ({ title }) => (
   <View style={styles.container}>
-    <Text style={styles.title}>{title}</Text>
+    <Title style={styles.title}>{title}</Title>
 
-    <Text style={theme.textStyles.title}>4:00PM</Text>
-    <Text style={theme.textStyles.heading2}>Fri</Text>
+    <Title style={styles.time}>4:00PM</Title>
+    <Heading3 style={styles.dayOfWeek}>Fri</Heading3>
 
-    <SecondaryButton title="Wake-Up Alarm" />
+    <SecondaryButton style={styles.wakeUpAlarmButton} title="Wake-Up Alarm" />
   </View>
 )
 
