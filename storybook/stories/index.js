@@ -10,7 +10,9 @@ import {
   SideMenuItem,
   SideMenu,
   Title,
-  Heading
+  Heading,
+  Heading2,
+  Heading3
 } from '../../src/components/common'
 import {
   PrimaryButton,
@@ -50,7 +52,7 @@ storiesOf('Button', module)
     <SecondaryButton title="Wake-Up Alarm" onPress={action('secondary-button-press')} />
   ))
 
-storiesOf('Text', module)
+storiesOf('Typography', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('title', () => (
     <Title>Page Title</Title>
