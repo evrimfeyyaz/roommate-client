@@ -1,23 +1,35 @@
 import React from 'react'
+import {
+  ViewPropTypes
+} from 'react-native'
 
 import PropTypes from 'prop-types'
 import { Button } from '../common'
 
-import style from './style'
-import icons from '../../../assets/icons'
+import styles from './styles'
 
-const SecondaryButton = ({ title, onPress }) => (
+const SecondaryButton = ({ title, onPress, style, iconSvgPath }) => (
   <Button
     title={title}
     onPress={onPress}
-    style={style}
-    iconSvgPath={icons.test}
+    style={[styles.container, style]}
+    borderStyle={styles.border}
+    iconSvgPath={iconSvgPath}
   />
 )
 
 SecondaryButton.propTypes = {
-  title: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired
+  title: PropTypes.string,
+  onPress: PropTypes.func,
+  style: ViewPropTypes.style,
+  iconSvgPath: PropTypes.string
+}
+
+SecondaryButton.defaultProps = {
+  title: '',
+  onPress: null,
+  style: null,
+  iconSvgPath: null
 }
 
 export default SecondaryButton

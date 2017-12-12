@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     shadowColor: '#000',
     shadowOffset: {
@@ -13,4 +13,4 @@ const style = StyleSheet.create({
   }
 })
 
-export default style
+export default styles

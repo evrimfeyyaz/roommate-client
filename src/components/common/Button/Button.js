@@ -2,14 +2,18 @@ import React, { Component } from 'react'
 import {
   Text,
   TouchableWithoutFeedback,
-  View
+  View,
+  ViewPropTypes
 } from 'react-native'
 
 import PropTypes from 'prop-types'
 import LinearGradient from 'react-native-linear-gradient'
-import Svg, { Path } from 'react-native-svg'
 
-import style from './style'
+import {
+  SvgIcon
+} from '../.'
+import colors from '../../../config/colors'
+import styles from './styles'
 
 class Button extends Component {
   renderGradientBackground() {
@@ -17,31 +21,19 @@ class Button extends Component {
       return null
     }
 
-    return <LinearGradient colors={this.props.gradientColors} style={style.gradientContainer} />
-  }
-
-  renderIcon() {
-    if (this.props.iconSvgPath === null) {
-      return null
-    }
-
-    return (
-      <Svg height={15} width={15} viewBox="0 0 50 50" style={style.icon}>
-        <Path d={this.props.iconSvgPath} fill="#d2b994" />
-      </Svg>
-    )
+    return <LinearGradient colors={this.props.gradientColors} style={styles.gradientContainer} />
   }
 
   render() {
     return (
       <TouchableWithoutFeedback onPress={this.props.onPress}>
-        <View style={[style.container, this.props.style.container]}>
+        <View style={[styles.container, this.props.style]}>
           {this.renderGradientBackground()}
 
-          {this.renderIcon()}
-          <Text style={[style.title, this.props.style.title]}>{this.props.title}</Text>
+          <SvgIcon style={styles.icon} height={15} width={15} fill={colors.icon} iconSvgPath={this.props.iconSvgPath} />
+          <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text>
 
-          <View style={[style.borderContainer, this.props.style.borderContainer]} />
+          <View style={[styles.borderContainer, this.props.borderStyle]} />
         </View>
       </TouchableWithoutFeedback>
     )
@@ -52,18 +44,18 @@ Button.propTypes = {
   title: PropTypes.string,
   onPress: PropTypes.func,
   gradientColors: PropTypes.arrayOf(PropTypes.string),
-  style: PropTypes.shape({
-    container: View.propTypes.style,
-    title: Text.propTypes.style,
-    borderContainer: View.propTypes.style
-  }),
+  style: ViewPropTypes.style,
+  titleStyle: Text.propTypes.style,
+  borderStyle: ViewPropTypes.style,
   iconSvgPath: PropTypes.string
 }
 
 Button.defaultProps = {
   title: '',
   onPress: null,
-  style: {},
+  style: null,
+  titleStyle: null,
+  borderStyle: null,
   gradientColors: null,
   iconSvgPath: null
 }

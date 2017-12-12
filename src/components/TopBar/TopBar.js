@@ -7,21 +7,29 @@ import PropTypes from 'prop-types'
 
 import {
   SecondaryButton
-} from '../'
+} from '../.'
 import {
   Title,
-  Heading3
+  Heading3,
+  SvgIcon
 } from '../common'
+import icons from '../../../assets/icons'
 import styles from './styles'
+import colors from '../../config/colors'
 
 const TopBar = ({ title }) => (
   <View style={styles.container}>
     <Title style={styles.title}>{title}</Title>
 
-    <Title style={styles.time}>4:00PM</Title>
-    <Heading3 style={styles.dayOfWeek}>Fri</Heading3>
+    <View style={styles.timeAndDayContainer}>
+      <Title>4:00PM</Title>
+      <Heading3 style={styles.dayOfWeek}>Fri</Heading3>
+    </View>
 
-    <SecondaryButton style={styles.wakeUpAlarmButton} title="Wake-Up Alarm" />
+    <SecondaryButton style={styles.wakeUpAlarmButton} title="Wake-Up Alarm" iconSvgPath={icons.test} />
+
+    <SvgIcon width={25} height={25} fill={colors.icon} iconSvgPath={icons.test} style={styles.weatherIcon}/>
+    <Title>12°</Title>
   </View>
 )
 

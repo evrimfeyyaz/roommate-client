@@ -4,20 +4,25 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     paddingHorizontal: 30
   },
   title: {
     flex: 1
   },
-  time: {
-    margin: 5
+  timeAndDayContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginRight: 20
   },
   dayOfWeek: {
-    margin: 5
+    marginLeft: 5
   },
   wakeUpAlarmButton: {
-    margin: 5
+    marginRight: 20
+  },
+  weatherIcon: {
+    marginRight: 5
   }
 })
 

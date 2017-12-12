@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native'
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
   },
-  borderContainer: {
+  border: {
     borderColor: '#fff',
     borderWidth: 1,
     opacity: 0.1
   }
 })
 
-export default style
+export default styles
