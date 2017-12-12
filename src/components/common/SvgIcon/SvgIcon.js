@@ -22,6 +22,7 @@ SvgIcon.propTypes = {
   iconSvgPath: PropTypes.string,
   fill: PropTypes.string.isRequired,
   style: ViewPropTypes.style,
+  // TODO: Get the following two props directly from the styles prop.
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired
 }

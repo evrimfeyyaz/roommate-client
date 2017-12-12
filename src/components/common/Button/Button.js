@@ -30,7 +30,13 @@ class Button extends Component {
         <View style={[styles.container, this.props.style]}>
           {this.renderGradientBackground()}
 
-          <SvgIcon style={styles.icon} height={15} width={15} fill={colors.icon} iconSvgPath={this.props.iconSvgPath} />
+          <SvgIcon
+            style={styles.icon}
+            height={15}
+            width={15}
+            fill={colors.icon}
+            iconSvgPath={this.props.iconSvgPath}
+          />
           <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text>
 
           <View style={[styles.borderContainer, this.props.borderStyle]} />

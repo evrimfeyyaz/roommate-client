@@ -12,7 +12,8 @@ import {
   Title,
   Heading,
   Heading2,
-  Heading3
+  Heading3,
+  Card
 } from '../../src/components/common'
 import {
   PrimaryButton,
@@ -22,13 +23,14 @@ import {
 
 import centerViewStyle from './CenterView/style'
 import icons from '../../assets/icons'
+import TextComponentFactory from "../../src/components/common/TextComponentFactory/TextComponentFactory"
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
 storiesOf('Switch', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('regular', () => (
-    <Switch tint={['#c1b296', '#998263']} />
+    <Switch backgroundColors={['#c1b296', '#998263']} />
   ))
 
 storiesOf('Menu', module)
@@ -71,4 +73,12 @@ storiesOf('Top bar', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('regular', () => (
     <TopBar title="Home" />
+  ))
+
+storiesOf('Card', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('regular', () => (
+    <Card backgroundColors={['#232a37', '#2e3745']} style={{ height: 250, width: 250, borderRadius: 25 }}>
+      <Title style={{ backgroundColor: 'rgba(0,0,0,0)' }}>Test</Title>
+    </Card>
   ))

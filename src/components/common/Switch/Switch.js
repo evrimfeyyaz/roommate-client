@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types'
 import LinearGradient from 'react-native-linear-gradient'
 
-import style from './style'
+import styles from './styles'
 
 class Switch extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class Switch extends Component {
     const paddingForShadow = 8
 
     return StyleSheet.flatten([
-      style.container,
+      styles.container,
       {
         height: height + paddingForShadow,
         width,
@@ -60,7 +60,7 @@ class Switch extends Component {
     const { height, width, borderWidth } = this.props.style
 
     return StyleSheet.flatten([
-      style.borderContainer,
+      styles.borderContainer,
       {
         height,
         width,
@@ -74,7 +74,7 @@ class Switch extends Component {
     const { height, width } = this.props.style
 
     return StyleSheet.flatten([
-      style.thumb,
+      styles.thumb,
       {
         height,
         width: width / 2,
@@ -92,24 +92,17 @@ class Switch extends Component {
     return { right: 0 } // Align right when "off."
   }
 
-  renderThumb() {
-    const { tint } = this.props
-
-    if (Array.isArray(tint)) {
-      return <LinearGradient colors={this.props.tint} style={this.styleForThumb()} />
-    }
-
-    return <View style={[this.styleForThumb(), { backgroundColor: tint }]} />
-  }
-
   render() {
     return (
       <TouchableWithoutFeedback onPress={this.toggleSwitch}>
         <View style={this.styleForContainer()}>
-          {this.renderThumb()}
+          <LinearGradient
+            style={this.styleForThumb()}
+            colors={this.props.backgroundColors}
+          />
 
-          <Text style={[style.title, this.props.titleStyle]}>{this.props.onTitle}</Text>
-          <Text style={[style.title, this.props.titleStyle]}>{this.props.offTitle}</Text>
+          <Text style={[styles.title, this.props.titleStyle]}>{this.props.onTitle}</Text>
+          <Text style={[styles.title, this.props.titleStyle]}>{this.props.offTitle}</Text>
           <View style={this.styleForBorderContainer()} />
         </View>
       </TouchableWithoutFeedback>
@@ -120,10 +113,7 @@ class Switch extends Component {
 Switch.propTypes = {
   style: ViewPropTypes.style,
   titleStyle: Text.propTypes.style,
-  tint: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string)
-  ]).isRequired,
+  backgroundColors: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.bool,
   onTitle: PropTypes.string,
   offTitle: PropTypes.string
