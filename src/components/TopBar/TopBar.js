@@ -28,7 +28,13 @@ const TopBar = ({ title }) => (
 
     <SecondaryButton style={styles.wakeUpAlarmButton} title="Wake-Up Alarm" iconSvgPath={icons.test} />
 
-    <SvgIcon width={25} height={25} fill={colors.icon} iconSvgPath={icons.test} style={styles.weatherIcon}/>
+    <SvgIcon
+      width={25}
+      height={25}
+      fill={colors.icon}
+      iconSvgPath={icons.test}
+      style={styles.weatherIcon}
+    />
     <Title>12°</Title>
   </View>
 )
