@@ -5,11 +5,9 @@ import {
 
 import PropTypes from 'prop-types'
 
-import styles from './styles'
-
-const TextComponentFactory = (componentStyle) => {
+function createTextComponent(defaultStyle) {
   const TextComponent = ({ children, style }) => (
-    <Text style={[styles.text, componentStyle, style]}>
+    <Text style={[defaultStyle, style]}>
       {children}
     </Text>
   )
@@ -27,4 +25,4 @@ const TextComponentFactory = (componentStyle) => {
   return TextComponent
 }
 
-export default TextComponentFactory
+export default createTextComponent

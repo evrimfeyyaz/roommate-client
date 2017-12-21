@@ -10,29 +10,43 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import styles from './styles'
 
-const Card = ({ backgroundColors, style, children }) => {
-  return (
-    <LinearGradient
-      colors={backgroundColors}
-      style={[styles.container, style]}
-      start={{ x: 0, y: 1 }}
-      end={{ x: 1, y: 1 }}
-    >
-      {children}
-    </LinearGradient>
-  )
+class Card extends Component {
+  backgroundStyle() {
+    return [
+      styles.gradientBackground,
+      { opacity: this.props.backgroundOpacity }
+    ]
+  }
+
+  render() {
+    const { backgroundColors, style, children } = this.props
+
+    return (
+      <View style={[styles.container, style]}>
+        <LinearGradient
+          colors={backgroundColors}
+          style={styles.gradientBackground}
+          start={{ x: 0, y: 1 }}
+          end={{ x: 1, y: 1 }}
+        />
+        {children}
+      </View>
+    )
+  }
 }
 
 Card.propTypes = {
   style: ViewPropTypes.style,
   backgroundColors: PropTypes.arrayOf(PropTypes.string),
-  children: PropTypes.node
+  children: PropTypes.node,
+  backgroundOpacity: PropTypes.number
 }
 
 Card.defaultProps = {
   style: null,
   backgroundColors: null,
-  children: null
+  children: null,
+  backgroundOpacity: 1
 }
 
 export default Card

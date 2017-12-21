@@ -23,7 +23,6 @@ import {
 
 import centerViewStyle from './CenterView/style'
 import icons from '../../assets/icons'
-import TextComponentFactory from "../../src/components/common/TextComponentFactory/TextComponentFactory"
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import TextComponentFactory from '../../TextComponentFactory/TextComponentFactory'
+import createTextComponent from '../../HigherOrderComponents/createTextComponent'
 import styles from './styles'
 
-export default TextComponentFactory(styles.text)
+export default createTextComponent(styles.text)
