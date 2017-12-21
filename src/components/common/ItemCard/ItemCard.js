@@ -1,11 +1,11 @@
 import React from 'react'
 import {
-  Image,
   View
 } from 'react-native'
 
 import PropTypes from 'prop-types'
 import LinearGradient from 'react-native-linear-gradient'
+import FastImage from 'react-native-fast-image'
 
 import {
   Heading2,
@@ -16,11 +16,10 @@ import styles from './styles'
 const ItemCard = ({ imageUri, title, description, price }) => {
   return (
     <View style={styles.container}>
-      <Image
+      <FastImage
         style={styles.image}
         source={{ uri: imageUri }}
-        resizeMode="cover"
-        resizeMethod="scale"
+        resizeMode={FastImage.resizeMode.cover}
       />
 
       <LinearGradient

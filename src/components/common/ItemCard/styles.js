@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 3,
     shadowOpacity: 0.3,
-    elevation: 4
+    elevation: 4,
+    overflow: 'hidden'
   },
   title: {
     marginBottom: 3

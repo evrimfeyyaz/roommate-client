@@ -10,6 +10,7 @@
   "dependencies": {
     "react": "16.0.0",
     "react-native": "^0.50.4",
+    "react-native-fast-image": "^2.0.1",
     "react-native-linear-gradient": "^2.3.0",
     "react-native-svg": "5.5.1"
   },
