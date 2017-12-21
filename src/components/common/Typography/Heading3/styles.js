@@ -2,10 +2,12 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 14,
-    opacity: 0.5,
-    lineHeight: 22,
-    color: '#fff'
+    fontFamily: 'NunitoSans-Regular',
+    fontSize: 12,
+    opacity: 0.6,
+    lineHeight: 17,
+    color: '#fff',
+    backgroundColor: 'rgba(0, 0, 0, 0)'
   }
 })
 

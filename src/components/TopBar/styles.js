@@ -16,7 +16,8 @@ export default StyleSheet.create({
     marginRight: 20
   },
   dayOfWeek: {
-    marginLeft: 5
+    marginLeft: 5,
+    marginBottom: 3
   },
   wakeUpAlarmButton: {
     marginRight: 20

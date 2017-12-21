@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 24,
+    fontFamily: 'NunitoSans-Regular',
+    fontSize: 22,
+    lineHeight: 30,
     color: '#fff'
   }
 })

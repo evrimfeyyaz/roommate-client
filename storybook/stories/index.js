@@ -13,7 +13,7 @@ import {
   Heading,
   Heading2,
   Heading3,
-  Card
+  ItemCard
 } from '../../src/components/common'
 import {
   PrimaryButton,
@@ -74,10 +74,13 @@ storiesOf('Top bar', module)
     <TopBar title="Home" />
   ))
 
-storiesOf('Card', module)
+storiesOf('ItemCard', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('regular', () => (
-    <Card backgroundColors={['#232a37', '#2e3745']} style={{ height: 250, width: 250, borderRadius: 25 }}>
-      <Title style={{ backgroundColor: 'rgba(0,0,0,0)' }}>Test</Title>
-    </Card>
+    <ItemCard
+      imageUri="https://static.pexels.com/photos/691077/pexels-photo-691077.jpeg"
+      title="Mexican Omelet"
+      description="Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant."
+      price="$16"
+    />
   ))
