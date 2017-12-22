@@ -8,6 +8,7 @@
     "no-use-before-define": "off",
     "no-trailing-spaces": "off",
     "global-require": "off",
-    "react/jsx-filename-extension": "off"
+    "react/jsx-filename-extension": "off",
+    "object-curly-newline": "off"
   }
 }

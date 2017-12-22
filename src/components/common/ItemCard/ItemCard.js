@@ -13,26 +13,24 @@ import {
 } from '../.'
 import styles from './styles'
 
-const ItemCard = ({ imageUri, title, description, price }) => {
-  return (
-    <View style={styles.container}>
-      <FastImage
-        style={styles.image}
-        source={{ uri: imageUri }}
-        resizeMode={FastImage.resizeMode.cover}
-      />
+const ItemCard = ({ imageUri, title, description, price }) => (
+  <View style={styles.container}>
+    <FastImage
+      style={styles.image}
+      source={{ uri: imageUri }}
+      resizeMode={FastImage.resizeMode.cover}
+    />
 
-      <LinearGradient
-        colors={['rgba(36, 43, 55, 0)', 'rgba(37, 37, 42, 1)']}
-        style={styles.gradientOverlay}
-      />
+    <LinearGradient
+      colors={['rgba(36, 43, 55, 0)', 'rgba(37, 37, 42, 1)']}
+      style={styles.gradientOverlay}
+    />
 
-      <Heading2 style={styles.title}>{title}</Heading2>
-      <Heading3 style={styles.description} numberOfLines={2}>{description}</Heading3>
-      <Heading2 style={styles.price}>{price}</Heading2>
-    </View>
-  )
-}
+    <Heading2 style={styles.title}>{title}</Heading2>
+    <Heading3 style={styles.description} numberOfLines={2}>{description}</Heading3>
+    <Heading2 style={styles.price}>{price}</Heading2>
+  </View>
+)
 
 ItemCard.propTypes = {
   imageUri: PropTypes.string,
