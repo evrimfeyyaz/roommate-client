@@ -10,7 +10,7 @@ import FastImage from 'react-native-fast-image'
 import {
   Heading2,
   Heading3
-} from '../.'
+} from '../../.'
 import styles from './styles'
 
 const ItemCard = ({ imageUri, title, description, price }) => (

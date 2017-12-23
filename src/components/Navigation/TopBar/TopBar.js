@@ -6,16 +6,14 @@ import {
 import PropTypes from 'prop-types'
 
 import {
-  SecondaryButton
-} from '../.'
-import {
+  SecondaryButton,
   Title,
   Heading3,
   SvgIcon
-} from '../common'
-import icons from '../../../assets/icons'
+} from '../../.'
+import icons from '../../../../assets/icons'
 import styles from './styles'
-import colors from '../../config/colors'
+import colors from '../../../config/colors'
 
 const TopBar = ({ title }) => (
   <View style={styles.container}>

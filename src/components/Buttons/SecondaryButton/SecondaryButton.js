@@ -2,10 +2,8 @@ import React from 'react'
 import {
   ViewPropTypes
 } from 'react-native'
-
 import PropTypes from 'prop-types'
-import { Button } from '../common'
-
+import { Button } from '../../.'
 import styles from './styles'
 
 const SecondaryButton = ({ title, onPress, style, iconSvgPath }) => (

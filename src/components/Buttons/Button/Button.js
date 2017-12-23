@@ -11,10 +11,11 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import {
   SvgIcon
-} from '../.'
+} from '../../.'
 import colors from '../../../config/colors'
 import styles from './styles'
 
+// TODO: Give this a better name or make it a HOC.
 class Button extends Component {
   renderGradientBackground() {
     if (this.props.gradientColors === null) {

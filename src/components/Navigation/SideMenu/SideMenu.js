@@ -5,9 +5,9 @@ import {
 } from 'react-native'
 
 import PropTypes from 'prop-types'
-import { SideMenuItem } from '../'
+import SideMenuItem from './Item/SideMenuItem'
 
-import style from './style'
+import styles from './styles'
 import icons from '../../../../assets/icons'
 
 class SideMenu extends Component {
@@ -39,7 +39,7 @@ class SideMenu extends Component {
 
   render() {
     return (
-      <View style={style.container}>
+      <View style={styles.container}>
         {this.renderItem('Home', 'home', icons.test)}
         {this.renderItem('My Stay', 'my-stay', icons.test)}
         {this.renderItem('Food', 'food', icons.test)}
