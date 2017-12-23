@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
-import {
-  LayoutAnimation,
-  View
-} from 'react-native'
-
+import { View } from 'react-native'
 import PropTypes from 'prop-types'
-import SideMenuItem from './Item/SideMenuItem'
 
+import SideMenuItem from './Item/SideMenuItem'
 import styles from './styles'
 import icons from '../../../../assets/icons'
 
@@ -18,21 +14,22 @@ class SideMenu extends Component {
   }
 
   state = {
-    selectedItemId: null
+    selectedItemIndex: null
   }
 
-  setActiveItem(id) {
-    this.setState({ selectedItemId: id })
+  setActiveItem(index) {
+    this.setState({ selectedItemIndex: index })
   }
 
-  renderItem(title, id, iconSvgPath) {
+  renderItem(title, index, unselectedIcon, selectedIcon) {
     return (
       <SideMenuItem
         title={title}
-        id={id}
-        iconSvgPath={iconSvgPath}
+        index={index}
+        unselectedIcon={unselectedIcon}
+        selectedIcon={selectedIcon}
         onPress={this.setActiveItem}
-        isSelected={this.state.selectedItemId === id}
+        isSelected={this.state.selectedItemIndex === index}
       />
     )
   }
@@ -40,14 +37,16 @@ class SideMenu extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.renderItem('Home', 'home', icons.test)}
-        {this.renderItem('My Stay', 'my-stay', icons.test)}
-        {this.renderItem('Food', 'food', icons.test)}
-        {this.renderItem('Room Controls', 'room-controls', icons.test)}
-        {this.renderItem('Transportation', 'transportation', icons.test)}
-        {this.renderItem('Housekeeping', 'housekeeping', icons.test)}
-        {this.renderItem('Massage', 'massage', icons.test)}
-        {this.renderItem('Hotel', 'hotel', icons.test)}
+        {this.renderItem(
+          'Home', 0,
+          require('../../../../assets/images/home-icon.png'),
+          require('../../../../assets/images/home-icon-selected.png')
+        )}
+        {this.renderItem(
+          'Food', 1,
+          require('../../../../assets/images/food-icon.png'),
+          require('../../../../assets/images/food-icon-selected.png')
+        )}
       </View>
     )
   }

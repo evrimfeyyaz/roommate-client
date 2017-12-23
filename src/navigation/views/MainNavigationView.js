@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StatusBar } from 'react-native'
+import { View, StatusBar } from 'react-native'
 import { PropTypes } from 'prop-types'
 import { addNavigationHelpers } from 'react-navigation'
 

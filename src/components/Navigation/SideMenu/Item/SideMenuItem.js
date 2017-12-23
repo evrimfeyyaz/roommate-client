@@ -1,39 +1,34 @@
 import React, { Component } from 'react'
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback
-} from 'react-native'
-
+import { View, Text, TouchableWithoutFeedback, Image } from 'react-native'
 import PropTypes from 'prop-types'
-import Svg, { Path } from 'react-native-svg'
 
-import style from './style'
+import styles from './styles'
 
 class SideMenuItem extends Component {
   styleForSelectedIndicator() {
-    return this.props.isSelected ? style.selectedIndicator : null
+    return this.props.isSelected ? styles.selectedIndicator : null
   }
 
   styleForTitle() {
     return this.props.isSelected ?
-      [style.title, style.selectedTitle] :
-      style.title
+      [styles.title, styles.selectedTitle] :
+      styles.title
   }
 
-  iconFillColor() {
-    return this.props.isSelected ? '#d2b994' : '#fff'
+  iconUri() {
+    const { isSelected, unselectedIcon, selectedIcon } = this.props
+
+    return isSelected ? selectedIcon : unselectedIcon
   }
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={() => this.props.onPress(this.props.id)}>
-        <View style={style.container}>
+      <TouchableWithoutFeedback onPress={() => this.props.onPress(this.props.index)}>
+        <View style={styles.container}>
           <View style={this.styleForSelectedIndicator()} />
 
-          <Svg height={30} width={30} viewBox="0 0 50 50">
-            <Path d={this.props.iconSvgPath} fill={this.iconFillColor()} />
-          </Svg>
+          <Image source={this.iconUri()} />
+
           <Text style={this.styleForTitle()}>{this.props.title}</Text>
         </View>
       </TouchableWithoutFeedback>
@@ -43,9 +38,11 @@ class SideMenuItem extends Component {
 
 SideMenuItem.propTypes = {
   title: PropTypes.string.isRequired,
-  iconSvgPath: PropTypes.string.isRequired,
+  // Icons below are passed as `require(...)`. That's why they are "numbers."
+  unselectedIcon: PropTypes.number.isRequired,
+  selectedIcon: PropTypes.number.isRequired,
   isSelected: PropTypes.bool,
-  id: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   onPress: PropTypes.func
 }
 

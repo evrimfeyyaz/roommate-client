@@ -6,7 +6,7 @@ import styles from './styles'
 const FoodScreen = () => (
   <View style={styles.container}>
     <Title>
-      Coming Soon
+      Food Screen
     </Title>
   </View>
 )
