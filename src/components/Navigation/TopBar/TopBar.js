@@ -1,41 +1,23 @@
-import React from 'react'
-import {
-  View
-} from 'react-native'
-
+import React, { Component } from 'react'
+import { View } from 'react-native'
 import PropTypes from 'prop-types'
-
-import {
-  SecondaryButton,
-  Title,
-  Heading3,
-  SvgIcon
-} from '../../.'
-import icons from '../../../../assets/icons'
+import { Title, Heading3 } from '../../.'
 import styles from './styles'
-import colors from '../../../config/colors'
 
-const TopBar = ({ title }) => (
-  <View style={styles.container}>
-    <Title style={styles.title}>{title}</Title>
+class TopBar extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Title style={styles.title}>{this.props.title}</Title>
 
-    <View style={styles.timeAndDayContainer}>
-      <Title>4:00PM</Title>
-      <Heading3 style={styles.dayOfWeek}>Fri</Heading3>
-    </View>
-
-    <SecondaryButton style={styles.wakeUpAlarmButton} title="Wake-Up Alarm" iconSvgPath={icons.test} />
-
-    <SvgIcon
-      width={25}
-      height={25}
-      fill={colors.icon}
-      iconSvgPath={icons.test}
-      style={styles.weatherIcon}
-    />
-    <Title>12°</Title>
-  </View>
-)
+        <View style={styles.timeAndDayContainer}>
+          <Title>4:00 PM</Title>
+          <Heading3 style={styles.dayOfWeek}>Fri</Heading3>
+        </View>
+      </View>
+    )
+  }
+}
 
 TopBar.propTypes = {
   title: PropTypes.string.isRequired

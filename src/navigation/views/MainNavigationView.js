@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { View, Text, StatusBar } from 'react-native'
+import { PropTypes } from 'prop-types'
+import { addNavigationHelpers } from 'react-navigation'
+
 import styles from './styles'
-import { SideMenu } from '../../components'
+import { SideMenu, TopBar } from '../../components'
 
 class MainNavigationView extends Component {
   componentDidMount() {
@@ -9,13 +12,26 @@ class MainNavigationView extends Component {
   }
 
   render() {
+    // From https://reactnavigation.org/docs/navigators/custom
+    const { navigation, router } = this.props
+    const { routes, index } = navigation.state
+
+    const CurrentTab = router.getComponentForState(navigation.state)
+
+    // The state of the active child screen can be found at routes[index]
+    let childNavigation = { dispatch: navigation.dispatch, state: routes[index] }
+
+    childNavigation = addNavigationHelpers(childNavigation)
+
     return (
-      <View style={styles.container}>
+      <View style={styles.mainContainer}>
         <SideMenu />
-        <View style={{ flex: 1 }}>
-          <Text>
-            Test
-          </Text>
+        <View style={styles.subContainer}>
+          <TopBar />
+
+          <View style={{ flex: 1 }}>
+            <CurrentTab navigation={childNavigation} />
+          </View>
         </View>
       </View>
     )

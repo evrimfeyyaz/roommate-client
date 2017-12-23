@@ -5,7 +5,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 30
+    paddingHorizontal: 30,
+    paddingTop: 10
   },
   title: {
     flex: 1
