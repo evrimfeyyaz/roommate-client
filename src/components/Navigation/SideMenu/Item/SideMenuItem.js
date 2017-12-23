@@ -5,11 +5,7 @@ import PropTypes from 'prop-types'
 import styles from './styles'
 
 class SideMenuItem extends Component {
-  styleForSelectedIndicator() {
-    return this.props.isSelected ? styles.selectedIndicator : null
-  }
-
-  styleForTitle() {
+  titleStyle() {
     return this.props.isSelected ?
       [styles.title, styles.selectedTitle] :
       styles.title
@@ -21,15 +17,23 @@ class SideMenuItem extends Component {
     return isSelected ? selectedIcon : unselectedIcon
   }
 
+  renderSelectedIndicator() {
+    if (this.props.isSelected) {
+      return <View style={styles.selectedIndicator} />
+    }
+
+    return null
+  }
+
   render() {
     return (
       <TouchableWithoutFeedback onPress={() => this.props.onPress(this.props.index)}>
         <View style={styles.container}>
-          <View style={this.styleForSelectedIndicator()} />
+          {this.renderSelectedIndicator()}
 
           <Image source={this.iconUri()} />
 
-          <Text style={this.styleForTitle()}>{this.props.title}</Text>
+          <Text style={this.titleStyle()}>{this.props.title}</Text>
         </View>
       </TouchableWithoutFeedback>
     )

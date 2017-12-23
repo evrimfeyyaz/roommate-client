@@ -1,14 +1,30 @@
 import React, { Component } from 'react'
 import { View, StatusBar } from 'react-native'
 import { PropTypes } from 'prop-types'
-import { addNavigationHelpers } from 'react-navigation'
+import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 
 import styles from './styles'
 import { SideMenu, TopBar } from '../../components'
 
 class MainNavigationView extends Component {
+  constructor(props) {
+    super(props)
+
+    this.navigateTo = this.navigateTo.bind(this)
+  }
+
   componentDidMount() {
     StatusBar.setHidden(true)
+  }
+
+  navigateTo(index) {
+    const { dispatch, state } = this.props.navigation
+
+    const navigateAction = NavigationActions.navigate({
+      routeName: state.routes[index].routeName
+    })
+
+    dispatch(navigateAction)
   }
 
   render() {
@@ -25,7 +41,7 @@ class MainNavigationView extends Component {
 
     return (
       <View style={styles.mainContainer}>
-        <SideMenu />
+        <SideMenu currentRouteIndex={index} sideMenuItemTapped={this.navigateTo} />
         <View style={styles.subContainer}>
           <TopBar />
 

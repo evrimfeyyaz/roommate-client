@@ -4,23 +4,8 @@ import PropTypes from 'prop-types'
 
 import SideMenuItem from './Item/SideMenuItem'
 import styles from './styles'
-import icons from '../../../../assets/icons'
 
 class SideMenu extends Component {
-  constructor(props) {
-    super(props)
-
-    this.setActiveItem = this.setActiveItem.bind(this)
-  }
-
-  state = {
-    selectedItemIndex: null
-  }
-
-  setActiveItem(index) {
-    this.setState({ selectedItemIndex: index })
-  }
-
   renderItem(title, index, unselectedIcon, selectedIcon) {
     return (
       <SideMenuItem
@@ -28,8 +13,8 @@ class SideMenu extends Component {
         index={index}
         unselectedIcon={unselectedIcon}
         selectedIcon={selectedIcon}
-        onPress={this.setActiveItem}
-        isSelected={this.state.selectedItemIndex === index}
+        onPress={this.props.sideMenuItemTapped}
+        isSelected={this.props.currentRouteIndex === index}
       />
     )
   }
@@ -52,8 +37,9 @@ class SideMenu extends Component {
   }
 }
 
-SideMenu.propTypes = {}
-
-SideMenu.defaultProps = {}
+SideMenu.propTypes = {
+  currentRouteIndex: PropTypes.number.isRequired,
+  sideMenuItemTapped: PropTypes.func.isRequired
+}
 
 export default SideMenu
