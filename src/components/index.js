@@ -4,6 +4,7 @@ export { default as SecondaryButton } from './Buttons/SecondaryButton/SecondaryB
 export { default as ItemCard } from './Cards/ItemCard/ItemCard'
 export { default as Switch } from './Controls/Switch/Switch'
 export { default as SvgIcon } from './Miscellaneous/SvgIcon/SvgIcon'
+export { default as SideMenuItem } from './Navigation/SideMenu/Item/SideMenuItem'
 export { default as SideMenu } from './Navigation/SideMenu/SideMenu'
 export { default as TopBar } from './Navigation/TopBar/TopBar'
 export { default as Heading } from './Typography/Heading/Heading'

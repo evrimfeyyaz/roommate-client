@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { storiesOf } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
 
@@ -13,14 +12,11 @@ import {
   Heading,
   Heading2,
   Heading3,
-  ItemCard
-} from '../../src/components/common'
-import {
+  ItemCard,
   PrimaryButton,
   SecondaryButton,
   TopBar
 } from '../../src/components'
-
 import centerViewStyle from './CenterView/style'
 import icons from '../../assets/icons'
 
