@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 
 import styles from './styles'
-import { SideMenu, TopBar } from '../../components'
+import { SideMenu, TopBar } from '../../../components/index'
 
 class MainNavigationView extends Component {
   constructor(props) {

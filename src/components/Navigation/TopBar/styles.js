@@ -6,7 +6,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 25,
-    paddingTop: 10
+    paddingTop: 20
   },
   title: {
     flex: 1
