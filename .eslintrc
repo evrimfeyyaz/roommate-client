@@ -9,6 +9,7 @@
     "no-trailing-spaces": "off",
     "global-require": "off",
     "react/jsx-filename-extension": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "function-paren-newline": "off"
   }
 }

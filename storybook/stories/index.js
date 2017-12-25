@@ -19,6 +19,8 @@ import {
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
 import icons from '../../assets/icons'
+import HomeIcon from "../../assets/icons/HomeIcon"
+import FoodIcon from "../../assets/icons/FoodIcon"
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
@@ -79,4 +81,13 @@ storiesOf('ItemCard', module)
       description="Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant."
       price="$16"
     />
+  ))
+
+storiesOf('Icons', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('home', () => (
+    <HomeIcon height={50} width={50} fill="#fff" />
+  ))
+  .add('food', () => (
+    <FoodIcon height={50} width={50} fill="#fff" />
   ))
