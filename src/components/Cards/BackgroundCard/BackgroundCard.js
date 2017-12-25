@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import styles from './styles'
 
+// TODO: Find a better name. Maybe ContainerCard?
 const BackgroundCard = ({ children, style }) => (
   <View style={[styles.container, style]}>
     <LinearGradient

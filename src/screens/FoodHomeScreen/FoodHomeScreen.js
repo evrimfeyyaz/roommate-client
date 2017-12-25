@@ -12,7 +12,7 @@ class FoodHomeScreen extends Component {
     return (
       <View style={styles.container}>
         <Title>
-          Food Home Screen
+          Food Home Content
         </Title>
       </View>
     )

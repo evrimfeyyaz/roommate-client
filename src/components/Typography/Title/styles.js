@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     fontFamily: 'NunitoSans-Regular',
     fontSize: 22,
     lineHeight: 30,
-    color: '#fff'
+    color: '#fff',
+    backgroundColor: 'rgba(0, 0, 0, 0)'
   }
 })
 

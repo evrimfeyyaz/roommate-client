@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import { Title } from '../../components'
+import { ScrollView } from 'react-native'
+
 import styles from './styles'
+import FoodSectionNavigator from '../../navigation/navigators/FoodSectionNavigator'
 
 class FoodScreen extends Component {
   static navigationOptions = {
@@ -10,11 +11,9 @@ class FoodScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Title>
-          Food Screen
-        </Title>
-      </View>
+      <ScrollView style={styles.container}>
+        <FoodSectionNavigator />
+      </ScrollView>
     )
   }
 }
