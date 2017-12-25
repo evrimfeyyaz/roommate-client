@@ -85,8 +85,8 @@ storiesOf('ItemCard', module)
 storiesOf('Icons', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('home', () => (
-    <SvgIcon height={48} width={48} fill="#fff" shape={iconShapes.home} />
+    <SvgIcon height={48} width={48} fill="#fff" iconData={iconData.home} />
   ))
   .add('food', () => (
-    <SvgIcon height={48} width={48} fill="#fff" shape={iconShapes.food} />
+    <SvgIcon height={48} width={48} fill="#fff" iconData={iconData.food} />
   ))
