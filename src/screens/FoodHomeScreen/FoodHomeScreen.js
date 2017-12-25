@@ -5,7 +5,8 @@ import styles from './styles'
 
 class FoodHomeScreen extends Component {
   static navigationOptions = {
-    title: 'Food Home'
+    title: 'Food Home',
+    isMainTabScreen: true
   }
 
   render() {
