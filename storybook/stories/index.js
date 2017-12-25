@@ -20,6 +20,7 @@ import {
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
 import * as iconData from '../../assets/iconData'
+import BackgroundCard from "../../src/components/Cards/BackgroundCard/BackgroundCard"
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
@@ -71,9 +72,12 @@ storiesOf('Top bar', module)
     <TopBar title="Home" />
   ))
 
-storiesOf('ItemCard', module)
+storiesOf('Cards', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .add('regular', () => (
+  .add('background', () => (
+    <BackgroundCard style={{ width: 300, height: 300 }} />
+  ))
+  .add('item', () => (
     <ItemCard
       imageUri="https://static.pexels.com/photos/691077/pexels-photo-691077.jpeg"
       title="Mexican Omelet"
