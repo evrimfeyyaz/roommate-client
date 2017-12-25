@@ -4,31 +4,30 @@ import {
 } from 'react-native'
 
 import PropTypes from 'prop-types'
-import Svg, { Path } from 'react-native-svg'
+import Svg, { G } from 'react-native-svg'
 
-const SvgIcon = ({ iconSvgPath, style, height, width, fill }) => {
-  if (iconSvgPath === null) {
-    return null
-  }
+const SvgIcon = ({ iconData, style, height, width, fill }) => (
+  <Svg height={height} width={width} style={style} viewBox={iconData.viewBox}>
+    <G fill={fill}>
+      {iconData.shape}
+    </G>
+  </Svg>
+)
 
-  return (
-    <Svg height={height} width={width} viewBox="0 0 50 50" style={style}>
-      <Path d={iconSvgPath} fill={fill} />
-    </Svg>
-  )
-}
 
 SvgIcon.propTypes = {
-  iconSvgPath: PropTypes.string,
+  iconData: PropTypes.shape({
+    shape: PropTypes.node.isRequired,
+    viewBox: PropTypes.string.isRequired
+  }).isRequired,
   fill: PropTypes.string.isRequired,
   style: ViewPropTypes.style,
-  // TODO: Get the following two props directly from the styles prop.
+  // TODO: Get the following two props directly from the style prop.
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired
 }
 
 SvgIcon.defaultProps = {
-  iconSvgPath: null,
   style: null
 }
 

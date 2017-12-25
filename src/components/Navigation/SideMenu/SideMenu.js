@@ -4,15 +4,21 @@ import PropTypes from 'prop-types'
 
 import SideMenuItem from './Item/SideMenuItem'
 import styles from './styles'
+import * as iconData from '../../../../assets/iconData'
 
 class SideMenu extends Component {
-  renderItem(title, index, unselectedIcon, selectedIcon) {
+  constructor(props) {
+    super(props)
+  }
+
+  // TODO: Remove this, and add items using children in the screen.
+  // This shouldn't decide what items show on the menu.
+  renderItem(title, index, data) {
     return (
       <SideMenuItem
         title={title}
         index={index}
-        unselectedIcon={unselectedIcon}
-        selectedIcon={selectedIcon}
+        iconData={data}
         onPress={this.props.sideMenuItemTapped}
         isSelected={this.props.currentRouteIndex === index}
       />
@@ -22,16 +28,8 @@ class SideMenu extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.renderItem(
-          'Home', 0,
-          require('../../../../assets/images/home-icon.png'),
-          require('../../../../assets/images/home-icon-selected.png')
-        )}
-        {this.renderItem(
-          'Food', 1,
-          require('../../../../assets/images/food-icon.png'),
-          require('../../../../assets/images/food-icon-selected.png')
-        )}
+        {this.renderItem('Home', 0, iconData.home)}
+        {this.renderItem('Food', 1, iconData.food)}
       </View>
     )
   }

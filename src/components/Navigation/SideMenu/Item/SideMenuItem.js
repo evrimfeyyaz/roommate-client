@@ -3,6 +3,7 @@ import { View, Text, TouchableWithoutFeedback, Image } from 'react-native'
 import PropTypes from 'prop-types'
 
 import styles from './styles'
+import { SvgIcon } from "../../../index"
 
 class SideMenuItem extends Component {
   titleStyle() {
@@ -11,10 +12,8 @@ class SideMenuItem extends Component {
       styles.title
   }
 
-  iconUri() {
-    const { isSelected, unselectedIcon, selectedIcon } = this.props
-
-    return isSelected ? selectedIcon : unselectedIcon
+  fillColor() {
+    return this.props.isSelected ? '#CDB58E' : '#FFF'
   }
 
   renderSelectedIndicator() {
@@ -26,14 +25,16 @@ class SideMenuItem extends Component {
   }
 
   render() {
+    const { onPress, iconData, index, title } = this.props
+
     return (
-      <TouchableWithoutFeedback onPress={() => this.props.onPress(this.props.index)}>
+      <TouchableWithoutFeedback onPress={() => onPress(index)}>
         <View style={styles.container}>
           {this.renderSelectedIndicator()}
 
-          <Image source={this.iconUri()} />
+          <SvgIcon fill={this.fillColor()} height={24} width={24} iconData={iconData} />
 
-          <Text style={this.titleStyle()}>{this.props.title}</Text>
+          <Text style={this.titleStyle()}>{title}</Text>
         </View>
       </TouchableWithoutFeedback>
     )
@@ -42,16 +43,18 @@ class SideMenuItem extends Component {
 
 SideMenuItem.propTypes = {
   title: PropTypes.string.isRequired,
-  // Icons below are passed as `require(...)`. That's why they are "numbers."
-  unselectedIcon: PropTypes.number.isRequired,
-  selectedIcon: PropTypes.number.isRequired,
+  iconData: PropTypes.shape({
+    shape: PropTypes.node.isRequired,
+    viewBox: PropTypes.string.isRequired
+  }).isRequired,
   isSelected: PropTypes.bool,
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
   onPress: PropTypes.func
 }
 
 SideMenuItem.defaultProps = {
   isSelected: false,
+  index: null,
   onPress: null
 }
 

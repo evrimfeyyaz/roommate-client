@@ -15,12 +15,11 @@ import {
   ItemCard,
   PrimaryButton,
   SecondaryButton,
-  TopBar
+  TopBar,
+  SvgIcon
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
-import icons from '../../assets/icons'
-import HomeIcon from "../../assets/icons/HomeIcon"
-import FoodIcon from "../../assets/icons/FoodIcon"
+import * as iconData from '../../assets/iconData'
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
@@ -33,10 +32,10 @@ storiesOf('Switch', module)
 storiesOf('Menu', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('item', () => (
-    <SideMenuItem title="Home" id="home" iconSvgPath={icons.test} />
+    <SideMenuItem title="Home" id="home" iconData={iconData.home} />
   ))
   .add('item selected', () => (
-    <SideMenuItem title="Home" id="home" iconSvgPath={icons.test} isSelected />
+    <SideMenuItem title="Home" id="home" iconData={iconData.home} isSelected />
   ))
   .add('full menu', () => (
     <SideMenu />
@@ -86,8 +85,8 @@ storiesOf('ItemCard', module)
 storiesOf('Icons', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('home', () => (
-    <HomeIcon height={50} width={50} fill="#fff" />
+    <SvgIcon height={48} width={48} fill="#fff" shape={iconShapes.home} />
   ))
   .add('food', () => (
-    <FoodIcon height={50} width={50} fill="#fff" />
+    <SvgIcon height={48} width={48} fill="#fff" shape={iconShapes.food} />
   ))
