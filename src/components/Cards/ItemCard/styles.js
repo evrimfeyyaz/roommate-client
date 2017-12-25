@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +15,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     shadowOpacity: 0.3,
     elevation: 4,
-    overflow: 'hidden'
+    // Following is required because the FastImage component overflows on Android,
+    // and hiding the overflow on iOS also hides the shadow.
+    overflow: Platform.OS === 'ios' ? 'visible' : 'hidden'
   },
   title: {
     marginBottom: 3
