@@ -98,7 +98,7 @@ storiesOf('Icons', module)
 storiesOf('Tab bar', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('active item', () => (
-    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={() => {}} isActive />
+    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={action('tab-bar-item-tap')} isActive />
   ))
   .add('inactive item', () => (
     <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={() => {}} />
@@ -108,14 +108,14 @@ storiesOf('Tab bar', module)
       title: 'Room Service',
       index: 0,
       key: 'room-service',
-      onPress: () => {}
+      onPress: action('room-service-item-tap')
     }
 
     const restaurantsItem = {
       title: 'Restaurants',
       index: 1,
       key: 'restaurants',
-      onPress: () => {}
+      onPress: action('restaurants-item-tap')
     }
 
     const items = [roomServiceItem, restaurantsItem]

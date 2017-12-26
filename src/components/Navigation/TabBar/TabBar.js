@@ -21,11 +21,11 @@ class TabBar extends Component {
   renderActiveItem(item) {
     return (
       <View key="active-item">
-        {this.renderItem(item, true)}
-
         <View style={styles.activeItemIndicatorContainer}>
           <View style={styles.activeItemIndicator} />
         </View>
+
+        {this.renderItem(item, true)}
       </View>
     )
   }
@@ -45,9 +45,9 @@ class TabBar extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.renderItems()}
-
         <View style={styles.borderContainer} />
+
+        {this.renderItems()}
       </View>
     )
   }

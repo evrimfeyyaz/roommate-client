@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
-import { addNavigationHelpers } from 'react-navigation'
+import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 
 import styles from './styles'
 import { BackgroundCard, TabBar } from '../../../components'
@@ -16,6 +16,16 @@ class SubSectionsView extends Component {
       childNavigation,
       screenOptions
     }
+  }
+
+  navigateTo(index) {
+    const { dispatch, state } = this.props.navigation
+
+    const navigateAction = NavigationActions.navigate({
+      routeName: state.routes[index].routeName
+    })
+
+    dispatch(navigateAction)
   }
 
   getChildNavigation() {
@@ -62,9 +72,15 @@ class SubSectionsView extends Component {
     const activeIndex = this.props.navigation.state.index
 
     const items = routes.map((route, index) => {
-      const title = this.getScreenOptions(route).title
+      const { title } = this.getScreenOptions(route)
 
-      return { title, key: route.key, index, onPress: () => {}
+      return {
+        title,
+        key: route.key,
+        index,
+        onPress: () => {
+          this.navigateTo(index)
+        }
       }
     })
 
