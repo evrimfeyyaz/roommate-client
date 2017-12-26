@@ -1,8 +1,10 @@
-import { StackRouter } from 'react-navigation'
+import { StackRouter, TabRouter } from 'react-navigation'
 import FoodHomeScreen from '../../screens/FoodHomeScreen/FoodHomeScreen'
+import HomeScreen from "../../screens/HomeScreen/HomeScreen"
 
-const FoodRouter = StackRouter({
-  FoodHome: { screen: FoodHomeScreen }
+const FoodRouter = TabRouter({
+  FoodHome: { screen: FoodHomeScreen },
+  FoodHome2: { screen: HomeScreen }
 }, {
   initialRouteName: 'FoodHome'
 })

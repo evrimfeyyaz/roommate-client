@@ -16,7 +16,7 @@ import {
   PrimaryButton,
   SecondaryButton,
   TopBar,
-  SvgIcon
+  SvgIcon, TabBarItem, TabBar
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
 import * as iconData from '../../assets/iconData'
@@ -94,3 +94,30 @@ storiesOf('Icons', module)
   .add('food', () => (
     <SvgIcon height={48} width={48} fill="#fff" iconData={iconData.food} />
   ))
+
+storiesOf('Tab bar', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('item', () => (
+    <TabBarItem title="Restaurants" />
+  ))
+  .add('full', () => {
+    const roomServiceItem = {
+      title: 'Room Service',
+      index: 0,
+      key: 'room-service',
+      onPress: () => {}
+    }
+
+    const restaurantsItem = {
+      title: 'Restaurants',
+      index: 1,
+      key: 'restaurants',
+      onPress: () => {}
+    }
+
+    const items = [roomServiceItem, restaurantsItem]
+
+    return (
+      <TabBar items={items} activeIndex={0} />
+    )
+  })
