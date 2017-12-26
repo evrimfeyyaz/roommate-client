@@ -13,14 +13,13 @@ export default StyleSheet.create({
   activeItemIndicatorContainer: {
     position: 'absolute',
     bottom: 0,
-    left: 0,
-    right: 0,
+    left: 34,
+    right: 34,
     height: 3,
-    alignItems: 'center'
+    alignItems: 'stretch'
   },
   activeItemIndicator: {
     flex: 1,
-    width: '57%',
     backgroundColor: '#CDB58E'
   }
 })
