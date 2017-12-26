@@ -3,7 +3,15 @@ import { View } from 'react-native'
 import { PropTypes } from 'prop-types'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 
+import { NavigationBar } from '../../../components'
+
 class StackView extends Component {
+  constructor(props) {
+    super(props)
+
+    this.goBack = this.goBack.bind(this)
+  }
+
   renderActiveScreen() {
     const { navigation, router } = this.props
     const { routes, index } = navigation.state
@@ -16,8 +24,12 @@ class StackView extends Component {
     return <ActiveScreen navigation={childNavigation} />
   }
 
-  renderNavigationBar() {
+  goBack() {
+    this.props.navigation.goBack(null)
+  }
 
+  renderNavigationBar() {
+    return <NavigationBar title="Test" onBackButtonPress={this.goBack} />
   }
 
   render() {

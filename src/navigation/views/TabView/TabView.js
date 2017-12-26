@@ -9,8 +9,6 @@ class TabView extends Component {
   constructor(props) {
     super(props)
 
-    console.log('hello')
-
     const childNavigation = this.getChildNavigation()
     const screenOptions = this.getCurrentScreenOptions(childNavigation)
 

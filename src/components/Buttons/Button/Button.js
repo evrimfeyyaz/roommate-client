@@ -25,19 +25,29 @@ class Button extends Component {
     return <LinearGradient colors={this.props.gradientColors} style={styles.gradientContainer} />
   }
 
+  renderIcon() {
+    const { iconData } = this.props
+
+    if (iconData === null) {
+      return null
+    }
+
+    return (<SvgIcon
+      style={styles.icon}
+      height={15}
+      width={15}
+      fill={colors.icon}
+      iconData={iconData}
+    />)
+  }
+
   render() {
     return (
       <TouchableWithoutFeedback onPress={this.props.onPress}>
         <View style={[styles.container, this.props.style]}>
           {this.renderGradientBackground()}
 
-          <SvgIcon
-            style={styles.icon}
-            height={15}
-            width={15}
-            fill={colors.icon}
-            iconSvgPath={this.props.iconSvgPath}
-          />
+          {this.renderIcon()}
           <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text>
 
           <View style={[styles.borderContainer, this.props.borderStyle]} />
@@ -54,7 +64,10 @@ Button.propTypes = {
   style: ViewPropTypes.style,
   titleStyle: Text.propTypes.style,
   borderStyle: ViewPropTypes.style,
-  iconSvgPath: PropTypes.string
+  iconData: PropTypes.shape({
+    shape: PropTypes.node.isRequired,
+    viewBox: PropTypes.string.isRequired
+  })
 }
 
 Button.defaultProps = {
@@ -64,7 +77,7 @@ Button.defaultProps = {
   titleStyle: null,
   borderStyle: null,
   gradientColors: null,
-  iconSvgPath: null
+  iconData: null
 }
 
 export default Button
