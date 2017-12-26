@@ -16,9 +16,14 @@ class StackView extends Component {
     return <ActiveScreen navigation={childNavigation} />
   }
 
+  renderNavigationBar() {
+
+  }
+
   render() {
     return (
       <View>
+        {this.renderNavigationBar()}
         {this.renderActiveScreen()}
       </View>
     )

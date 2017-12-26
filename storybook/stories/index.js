@@ -16,11 +16,14 @@ import {
   PrimaryButton,
   SecondaryButton,
   TopBar,
-  SvgIcon, TabBarItem, TabBar
+  SvgIcon,
+  TabBarItem,
+  TabBar,
+  NavigationBar,
+  BackgroundCard
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
 import * as iconData from '../../assets/iconData'
-import BackgroundCard from "../../src/components/Cards/BackgroundCard/BackgroundCard"
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
@@ -94,6 +97,9 @@ storiesOf('Icons', module)
   .add('food', () => (
     <SvgIcon height={48} width={48} fill="#fff" iconData={iconData.food} />
   ))
+  .add('left arrow', () => (
+    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.leftArrow} />
+  ))
 
 storiesOf('Tab bar', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
@@ -124,3 +130,9 @@ storiesOf('Tab bar', module)
       <TabBar items={items} activeIndex={0} />
     )
   })
+
+storiesOf('Navigation bar', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('full', () => (
+    <NavigationBar onBackButtonPress={action('back-button-tap')} title="Room Service" />
+  ))

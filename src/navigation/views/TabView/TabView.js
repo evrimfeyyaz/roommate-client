@@ -63,8 +63,6 @@ class TabView extends Component {
   renderTabBar() {
     const { index: activeIndex, routes } = this.props.navigation.state
 
-    console.log(this.props)
-
     const items = routes.map((route, index) => {
       const { title } = this.getCurrentScreenOptions({ dispatch: this.props.navigation.dispatch, state: routes[index] })
 

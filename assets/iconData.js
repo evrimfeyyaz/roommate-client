@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 import React from 'react'
-import { G, Path } from 'react-native-svg'
+import { G, Path, Polygon } from 'react-native-svg'
 
 const home = {
   shape: (
@@ -29,4 +30,17 @@ const food = {
   viewBox: '0 0 27 29'
 }
 
-export { home, food }
+const leftArrow = {
+  shape: (
+    <Path
+      d="M6.68 0.29L0.71 6.29L6.68 12.29L7.29 11.68L1.91 6.28L7.29 0.89L6.68 0.29Z"
+    />
+  ),
+  viewBox: '-0.2857139999999987 -0.7142860000000155 10.571428999999995 16'
+}
+
+export {
+  home,
+  food,
+  leftArrow
+}
