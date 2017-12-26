@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 
-import styles from './styles'
 import { BackgroundCard, TabBar } from '../../../components'
 
-class SubSectionsView extends Component {
+class TabView extends Component {
   constructor(props) {
     super(props)
 
@@ -103,4 +102,4 @@ class SubSectionsView extends Component {
   }
 }
 
-export default SubSectionsView
+export default TabView
