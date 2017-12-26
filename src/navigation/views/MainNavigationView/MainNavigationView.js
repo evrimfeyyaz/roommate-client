@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { View, StatusBar } from 'react-native'
+import { View, StatusBar, Text } from 'react-native'
 import { PropTypes } from 'prop-types'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 
 import styles from './styles'
-import { SideMenu, TopBar } from '../../../components/index'
+import { SideMenu, TopBar, BackgroundCard } from '../../../components'
 
 class MainNavigationView extends Component {
   constructor(props) {
@@ -52,9 +52,9 @@ class MainNavigationView extends Component {
         <View style={styles.subContainer}>
           <TopBar title={currentTitle} />
 
-          <View style={{ flex: 1 }}>
+          <BackgroundCard style={styles.contentContainer}>
             <CurrentTab navigation={childNavigation} />
-          </View>
+          </BackgroundCard>
         </View>
       </View>
     )

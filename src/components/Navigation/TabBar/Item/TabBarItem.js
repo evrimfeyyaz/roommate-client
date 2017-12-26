@@ -12,7 +12,6 @@ class TabBarItem extends Component {
 
   render() {
     const { title, index, onPress } = this.props
-    console.log(onPress)
 
     return (
       <TouchableWithoutFeedback onPress={onPress} index={index}>

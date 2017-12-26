@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
+import { View } from 'react-native'
 import { PropTypes } from 'prop-types'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 
-import { BackgroundCard, TabBar } from '../../../components'
+import { TabBar } from '../../../components'
 
 class TabView extends Component {
   constructor(props) {
     super(props)
+
+    console.log('hello')
 
     const childNavigation = this.getChildNavigation()
     const screenOptions = this.getCurrentScreenOptions(childNavigation)
@@ -58,20 +61,12 @@ class TabView extends Component {
   }
 
   renderTabBar() {
-    // Each sub-section has one or more tabs. For example, the food section has
-    // two tabs, in-room dining and restaurants. When we're on the main page of
-    // one of these tabs, we should be able to switch between tabs. But after we
-    // pick a certain action, let's say placing an in-room service order, the tabs
-    // should be hidden, and we should see a back page.
-    //
-    // The following is used for that decision, if this is a main tab page, it
-    // will show the tab bar, if not it will show a stack navigation bar.
-    const { isMainTabScreen } = this.state.screenOptions
-    const { routes } = this.props.navigation.state
-    const activeIndex = this.props.navigation.state.index
+    const { index: activeIndex, routes } = this.props.navigation.state
+
+    console.log(this.props)
 
     const items = routes.map((route, index) => {
-      const { title } = this.getScreenOptions(route)
+      const { title } = this.getCurrentScreenOptions({ dispatch: this.props.navigation.dispatch, state: routes[index] })
 
       return {
         title,
@@ -83,10 +78,6 @@ class TabView extends Component {
       }
     })
 
-    if (!isMainTabScreen) {
-      return null
-    }
-
     return (
       <TabBar items={items} activeIndex={activeIndex} />
     )
@@ -94,10 +85,10 @@ class TabView extends Component {
 
   render() {
     return (
-      <BackgroundCard>
+      <View>
         {this.renderTabBar()}
         {this.renderActiveScreen()}
-      </BackgroundCard>
+      </View>
     )
   }
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { ScrollView } from 'react-native'
 
-import styles from './styles'
 import FoodSectionNavigator from '../../navigation/navigators/FoodSectionNavigator'
 
 class FoodScreen extends Component {
@@ -11,7 +10,7 @@ class FoodScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView>
         <FoodSectionNavigator />
       </ScrollView>
     )

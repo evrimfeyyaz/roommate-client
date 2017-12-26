@@ -2,14 +2,27 @@
   "extends": "airbnb",
   "parser": "babel-eslint",
   "rules": {
-    "semi": ["error", "never"],
-    "comma-dangle": ["error", "never"],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
     "eol-last": "off",
     "no-use-before-define": "off",
     "no-trailing-spaces": "off",
     "global-require": "off",
     "react/jsx-filename-extension": "off",
     "object-curly-newline": "off",
-    "function-paren-newline": "off"
+    "function-paren-newline": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreComments": true
+      }
+    ]
   }
 }

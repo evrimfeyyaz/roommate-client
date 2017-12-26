@@ -1,12 +1,20 @@
-import { StackRouter, TabRouter } from 'react-navigation'
+import { createNavigator, StackRouter, TabRouter } from 'react-navigation'
 import FoodHomeScreen from '../../screens/FoodHomeScreen/FoodHomeScreen'
 import HomeScreen from "../../screens/HomeScreen/HomeScreen"
+import TabView from "../views/TabView/TabView"
 
-const FoodRouter = TabRouter({
+const FoodSectionHomeRouter = TabRouter({
   FoodHome: { screen: FoodHomeScreen },
   FoodHome2: { screen: HomeScreen }
 }, {
   initialRouteName: 'FoodHome'
 })
+const FoodSectionHomeNavigator = createNavigator(FoodSectionHomeRouter)(TabView)
 
-export default FoodRouter
+const FoodSectionRouter = StackRouter({
+  FoodSectionHome: { screen: FoodSectionHomeNavigator }
+}, {
+  initialRouteName: 'FoodSectionHome'
+})
+
+export default FoodSectionRouter

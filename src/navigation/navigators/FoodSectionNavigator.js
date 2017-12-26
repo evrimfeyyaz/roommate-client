@@ -1,6 +1,6 @@
 import { createNavigationContainer, createNavigator } from 'react-navigation'
 
-import SubSectionsView from '../views/TabView/TabView'
-import FoodRouter from '../routers/FoodSectionRouter'
+import FoodSectionRouter from '../routers/FoodSectionRouter'
+import StackView from '../views/StackView/StackView'
 
-export default createNavigationContainer(createNavigator(FoodRouter)(SubSectionsView))
+export default createNavigationContainer(createNavigator(FoodSectionRouter)(StackView))
