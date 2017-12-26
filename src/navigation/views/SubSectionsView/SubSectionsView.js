@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
 import { PropTypes } from 'prop-types'
 import { addNavigationHelpers } from 'react-navigation'
 
 import styles from './styles'
-import { BackgroundCard, Title } from '../../../components'
+import { BackgroundCard, TabBar } from '../../../components'
 
 class SubSectionsView extends Component {
   constructor(props) {
@@ -60,20 +59,21 @@ class SubSectionsView extends Component {
     // will show the tab bar, if not it will show a stack navigation bar.
     const { isMainTabScreen } = this.state.screenOptions
     const { routes } = this.props.navigation.state
+    const activeIndex = this.props.navigation.state.index
+
+    const items = routes.map((route, index) => {
+      const title = this.getScreenOptions(route).title
+
+      return { title, key: route.key, index, onPress: () => {}
+      }
+    })
 
     if (!isMainTabScreen) {
       return null
     }
 
     return (
-      <View>
-        {routes.map((route, index) => {
-          const isActive = index === this.props.navigation.state.index
-          const options = this.getScreenOptions(route)
-
-          return <Title key={route.key}>{options.title}</Title>
-        })}
-      </View>
+      <TabBar items={items} activeIndex={activeIndex} />
     )
   }
 

@@ -6,13 +6,14 @@ import { TabBarItem } from '../../.'
 import styles from './styles'
 
 class TabBar extends Component {
-  renderItem(item) {
+  renderItem(item, isActive = false) {
     return (
       <TabBarItem
         key={item.key}
         index={item.index}
         title={item.title}
         onPress={item.onPress}
+        isActive={isActive}
       />
     )
   }
@@ -20,7 +21,7 @@ class TabBar extends Component {
   renderActiveItem(item) {
     return (
       <View key="active-item">
-        {this.renderItem(item)}
+        {this.renderItem(item, true)}
 
         <View style={styles.activeItemIndicatorContainer}>
           <View style={styles.activeItemIndicator} />
