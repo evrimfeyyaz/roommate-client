@@ -34,11 +34,13 @@ class StackView extends Component {
   }
 
   renderNavigationBar() {
-    if (this.getScreenOptionsForActiveScreen().hideNavigationBar) {
+    const screenOptions = this.getScreenOptionsForActiveScreen()
+
+    if (screenOptions.hideNavigationBar) {
       return null
     }
 
-    return <NavigationBar title="Test" onBackButtonPress={this.goBack} />
+    return <NavigationBar title={screenOptions.title} onBackButtonPress={this.goBack} />
   }
 
   renderActiveScreen() {
@@ -47,7 +49,7 @@ class StackView extends Component {
 
     const ActiveScreen = router.getComponentForRouteName(routes[index].routeName)
 
-    return <ActiveScreen navigation={this.getChildNavigation} />
+    return <ActiveScreen navigation={this.getChildNavigation()} />
   }
 
   render() {
