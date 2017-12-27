@@ -14,6 +14,7 @@ class TabBar extends Component {
         title={item.title}
         onPress={item.onPress}
         isActive={isActive}
+        small={this.props.small}
       />
     )
   }
@@ -42,10 +43,18 @@ class TabBar extends Component {
     })
   }
 
+  renderBorderContainer() {
+    if (this.props.small) {
+      return null
+    }
+
+    return <View style={styles.borderContainer} />
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.borderContainer} />
+        {this.renderBorderContainer()}
 
         {this.renderItems()}
       </View>
@@ -62,11 +71,13 @@ TabBar.propTypes = {
       onPress: PropTypes.func.isRequired
     })
   ).isRequired,
-  activeIndex: PropTypes.number
+  activeIndex: PropTypes.number,
+  small: PropTypes.bool
 }
 
 TabBar.defaultProps = {
-  activeIndex: 0
+  activeIndex: 0,
+  small: false
 }
 
 export default TabBar

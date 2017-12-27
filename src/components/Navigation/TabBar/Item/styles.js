@@ -5,6 +5,10 @@ export default StyleSheet.create({
     paddingHorizontal: 28,
     paddingVertical: 24
   },
+  containerSmall: {
+    paddingHorizontal: 28,
+    paddingVertical: 14
+  },
   inactiveHeading: {
     opacity: 0.6
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, TouchableWithoutFeedback } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { Heading } from '../../../.'
+import { Heading, Heading2 } from '../../../.'
 import styles from './styles'
 
 class TabBarItem extends Component {
@@ -10,13 +10,27 @@ class TabBarItem extends Component {
     return this.props.isActive ? null : styles.inactiveHeading
   }
 
+  containerStyle() {
+    return this.props.small ? styles.containerSmall : styles.container
+  }
+
+  renderTitle() {
+    const { title, small } = this.props
+
+    if (small) {
+      return <Heading2 style={this.headingStyle()}>{title}</Heading2>
+    }
+
+    return <Heading style={this.headingStyle()}>{title}</Heading>
+  }
+
   render() {
-    const { title, index, onPress } = this.props
+    const { index, onPress } = this.props
 
     return (
       <TouchableWithoutFeedback onPress={onPress} index={index}>
-        <View style={styles.container}>
-          <Heading style={this.headingStyle()}>{title}</Heading>
+        <View style={this.containerStyle()}>
+          {this.renderTitle()}
         </View>
       </TouchableWithoutFeedback>
     )
@@ -27,11 +41,13 @@ TabBarItem.propTypes = {
   title: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   onPress: PropTypes.func.isRequired,
-  isActive: PropTypes.bool
+  isActive: PropTypes.bool,
+  small: PropTypes.bool
 }
 
 TabBarItem.defaultProps = {
-  isActive: false
+  isActive: false,
+  small: false
 }
 
 export default TabBarItem

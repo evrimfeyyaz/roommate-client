@@ -109,6 +109,12 @@ storiesOf('Tab bar', module)
   .add('inactive item', () => (
     <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={() => {}} />
   ))
+  .add('small active item', () => (
+    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={action('tab-bar-item-tap')} isActive small />
+  ))
+  .add('small inactive item', () => (
+    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={() => {}} small />
+  ))
   .add('full', () => {
     const roomServiceItem = {
       title: 'Room Service',
@@ -128,6 +134,27 @@ storiesOf('Tab bar', module)
 
     return (
       <TabBar items={items} activeIndex={0} />
+    )
+  })
+  .add('small full', () => {
+    const roomServiceItem = {
+      title: 'Recommended',
+      index: 0,
+      key: 'recommended',
+      onPress: action('recommended-item-tap')
+    }
+
+    const restaurantsItem = {
+      title: 'Breakfast',
+      index: 1,
+      key: 'breakfast',
+      onPress: action('breakfast-item-tap')
+    }
+
+    const items = [roomServiceItem, restaurantsItem]
+
+    return (
+      <TabBar items={items} activeIndex={0} small />
     )
   })
 
