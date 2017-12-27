@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { PropTypes } from 'prop-types'
-import { addNavigationHelpers, NavigationActions } from 'react-navigation'
+import { addNavigationHelpers } from 'react-navigation'
 
 import { NavigationBar } from '../../../components'
 

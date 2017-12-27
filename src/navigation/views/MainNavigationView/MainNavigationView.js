@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StatusBar, Text } from 'react-native'
+import { View, StatusBar, ScrollView } from 'react-native'
 import { PropTypes } from 'prop-types'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 
@@ -38,7 +38,7 @@ class MainNavigationView extends Component {
     const { navigation, router } = this.props
     const { routes, index } = navigation.state
 
-    const CurrentTab = router.getComponentForState(navigation.state)
+    const ActiveTab = router.getComponentForRouteName(routes[index].routeName)
 
     // The state of the active child screen can be found at routes[index]
     let childNavigation = { dispatch: navigation.dispatch, state: routes[index] }
@@ -52,9 +52,11 @@ class MainNavigationView extends Component {
         <View style={styles.subContainer}>
           <TopBar title={currentTitle} />
 
-          <BackgroundCard style={styles.contentContainer}>
-            <CurrentTab navigation={childNavigation} />
-          </BackgroundCard>
+          <ScrollView contentContainerStyle={styles.scrollViewContentContainer}>
+            <BackgroundCard style={styles.contentContainer}>
+              <ActiveTab navigation={childNavigation} />
+            </BackgroundCard>
+          </ScrollView>
         </View>
       </View>
     )

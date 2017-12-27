@@ -5,10 +5,9 @@ import { NavigationActions } from 'react-navigation'
 import { Title, PrimaryButton } from '../../components'
 import styles from './styles'
 
-class FoodHomeScreen extends Component {
+class RoomServiceScreen extends Component {
   static navigationOptions = {
-    title: 'Food Home',
-    isMainTabScreen: true
+    title: 'Room Service'
   }
 
   go() {
@@ -21,12 +20,11 @@ class FoodHomeScreen extends Component {
     return (
       <View style={styles.container}>
         <Title>
-          Food Home Content
+          Room Service
         </Title>
-        <PrimaryButton title="Go to next in stack" onPress={this.go.bind(this)} />
       </View>
     )
   }
 }
 
-export default FoodHomeScreen
+export default RoomServiceScreen
