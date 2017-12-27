@@ -12,22 +12,33 @@ class StackView extends Component {
     this.goBack = this.goBack.bind(this)
   }
 
-  state = {
-    childNavigation: null
-  }
-
-  componentWillMount() {
-    this.setChildNavigation()
-  }
-
-  setChildNavigation() {
+  getChildNavigation() {
     const { navigation } = this.props
     const { routes, index } = navigation.state
 
     let childNavigation = { dispatch: navigation.dispatch, state: routes[index] }
     childNavigation = addNavigationHelpers(childNavigation)
 
-    this.setState({ childNavigation })
+    return childNavigation
+  }
+
+  getScreenOptionsForActiveScreen() {
+    const { navigation, router } = this.props
+    const { routes, index } = navigation.state
+
+    return router.getScreenOptions({ state: routes[index] })
+  }
+
+  goBack() {
+    this.props.navigation.goBack(null)
+  }
+
+  renderNavigationBar() {
+    if (this.getScreenOptionsForActiveScreen().hideNavigationBar) {
+      return null
+    }
+
+    return <NavigationBar title="Test" onBackButtonPress={this.goBack} />
   }
 
   renderActiveScreen() {
@@ -36,22 +47,7 @@ class StackView extends Component {
 
     const ActiveScreen = router.getComponentForRouteName(routes[index].routeName)
 
-    return <ActiveScreen navigation={this.state.childNavigation} />
-  }
-
-  goBack() {
-    this.props.navigation.goBack(null)
-  }
-
-  renderNavigationBar() {
-    const { childNavigation } = this.state
-
-    const screenOptions = this.props.router.getScreenOptions(childNavigation)
-    if (screenOptions.hideNavigationBar) {
-      return null
-    }
-
-    return <NavigationBar title="Test" onBackButtonPress={this.goBack} />
+    return <ActiveScreen navigation={this.getChildNavigation} />
   }
 
   render() {
