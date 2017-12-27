@@ -12,16 +12,31 @@ class StackView extends Component {
     this.goBack = this.goBack.bind(this)
   }
 
-  renderActiveScreen() {
-    const { navigation, router } = this.props
+  state = {
+    childNavigation: null
+  }
+
+  componentWillMount() {
+    this.setChildNavigation()
+  }
+
+  setChildNavigation() {
+    const { navigation } = this.props
     const { routes, index } = navigation.state
 
     let childNavigation = { dispatch: navigation.dispatch, state: routes[index] }
     childNavigation = addNavigationHelpers(childNavigation)
 
+    this.setState({ childNavigation })
+  }
+
+  renderActiveScreen() {
+    const { navigation, router } = this.props
+    const { routes, index } = navigation.state
+
     const ActiveScreen = router.getComponentForRouteName(routes[index].routeName)
 
-    return <ActiveScreen navigation={childNavigation} />
+    return <ActiveScreen navigation={this.state.childNavigation} />
   }
 
   goBack() {
@@ -29,6 +44,13 @@ class StackView extends Component {
   }
 
   renderNavigationBar() {
+    const { childNavigation } = this.state
+
+    const screenOptions = this.props.router.getScreenOptions(childNavigation)
+    if (screenOptions.hideNavigationBar) {
+      return null
+    }
+
     return <NavigationBar title="Test" onBackButtonPress={this.goBack} />
   }
 

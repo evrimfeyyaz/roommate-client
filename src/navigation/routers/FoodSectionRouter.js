@@ -12,7 +12,12 @@ const FoodSectionHomeRouter = TabRouter({
 const FoodSectionHomeNavigator = createNavigator(FoodSectionHomeRouter)(TabView)
 
 const FoodSectionRouter = StackRouter({
-  FoodSectionHome: { screen: FoodSectionHomeNavigator },
+  FoodSectionHome: {
+    screen: FoodSectionHomeNavigator,
+    navigationOptions: {
+      hideNavigationBar: true
+    }
+  },
   NextInStack: { screen: HomeScreen }
 }, {
   initialRouteName: 'FoodSectionHome'
