@@ -116,12 +116,13 @@ TabBar.propTypes = {
       title: PropTypes.string.isRequired
     })
   ).isRequired,
-  onTabChange: PropTypes.func.isRequired,
+  onTabChange: PropTypes.func,
   small: PropTypes.bool
 }
 
 TabBar.defaultProps = {
-  small: false
+  small: false,
+  onTabChange: null
 }
 
 export default TabBar

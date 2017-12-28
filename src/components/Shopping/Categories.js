@@ -7,6 +7,14 @@ import { graphql } from 'react-apollo'
 import { TabBar } from '../.'
 
 class Categories extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.data.loading && this.props.data.loading) {
+      const firstCategoryId = nextProps.data.roomServiceCategories[0].id
+
+      this.props.onCategoryChange(firstCategoryId)
+    }
+  }
+
   render() {
     const { data, onCategoryChange } = this.props
 

@@ -8,11 +8,35 @@ class RoomServiceScreen extends Component {
     title: 'Room Service'
   }
 
+  constructor(props) {
+    super(props)
+
+    this.onCategoryChange = this.onCategoryChange.bind(this)
+  }
+
+  state = {
+    currentCategoryId: null
+  }
+
+  onCategoryChange(id) {
+    this.setState({ currentCategoryId: id })
+  }
+
+  renderItemsInCategory() {
+    const { currentCategoryId } = this.state
+
+    if (currentCategoryId === null) {
+      return null
+    }
+
+    return <ItemsInCategory id={currentCategoryId} />
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Categories onCategoryChange={() => {}} />
-        {/*<ItemsInCategory id="962967c5-dcd2-4eff-b4a9-0bc17707c0f0" />*/}
+        <Categories onCategoryChange={this.onCategoryChange} />
+        {this.renderItemsInCategory()}
       </View>
     )
   }
@@ -21,8 +45,7 @@ class RoomServiceScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: 'center'
   }
 })
 
