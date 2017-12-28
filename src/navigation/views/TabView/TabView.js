@@ -16,16 +16,8 @@ class TabView extends Component {
       childNavigation,
       screenOptions
     }
-  }
 
-  navigateTo(index) {
-    const { dispatch, state } = this.props.navigation
-
-    const navigateAction = NavigationActions.navigate({
-      routeName: state.routes[index].routeName
-    })
-
-    dispatch(navigateAction)
+    this.navigateTo = this.navigateTo.bind(this)
   }
 
   getChildNavigation() {
@@ -50,6 +42,16 @@ class TabView extends Component {
     return this.props.router.getScreenOptions({ state: route })
   }
 
+  navigateTo(routeName) {
+    const { dispatch, state } = this.props.navigation
+
+    const navigateAction = NavigationActions.navigate({
+      routeName: routeName
+    })
+
+    dispatch(navigateAction)
+  }
+
   renderActiveScreen() {
     const { navigation, router } = this.props
 
@@ -66,13 +68,13 @@ class TabView extends Component {
 
       const tabItem = {
         title,
-        id: route.key
+        id: route.routeName
       }
 
       return tabItem
     })
 
-    return <TabBar data={subScreens} activeId={activeIndex} onTabChange={this.navigateTo} />
+    return <TabBar data={subScreens} onTabChange={this.navigateTo} />
   }
 
   render() {
