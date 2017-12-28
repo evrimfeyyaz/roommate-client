@@ -8,7 +8,7 @@ import { TabBar } from '../.'
 
 class Categories extends Component {
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.data.loading && this.props.data.loading) {
+    if (!nextProps.data.loading) {
       const firstCategoryId = nextProps.data.roomServiceCategories[0].id
 
       this.props.onCategoryChange(firstCategoryId)
