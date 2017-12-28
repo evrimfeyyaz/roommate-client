@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { TabBarItem } from '../../.'
-import styles from './styles'
 
 class TabBar extends Component {
   renderItem(item, isActive = false) {
@@ -61,6 +60,30 @@ class TabBar extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row'
+  },
+  borderContainer: {
+    ...StyleSheet.absoluteFillObject,
+    bottom: 1,
+    borderColor: 'rgba(151, 151, 151, 0.1)',
+    borderBottomWidth: 1
+  },
+  activeItemIndicatorContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 34,
+    right: 34,
+    height: 3,
+    alignItems: 'stretch'
+  },
+  activeItemIndicator: {
+    flex: 1,
+    backgroundColor: '#CDB58E'
+  }
+})
 
 TabBar.propTypes = {
   items: PropTypes.arrayOf(

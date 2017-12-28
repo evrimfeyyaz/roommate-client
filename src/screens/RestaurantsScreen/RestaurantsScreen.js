@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+
 import { Title } from '../../components'
-import styles from './styles'
 
 class RestaurantsScreen extends Component {
   static navigationOptions = {
@@ -18,5 +18,13 @@ class RestaurantsScreen extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})
 
 export default RestaurantsScreen

@@ -17,3 +17,6 @@ export { default as TopBar } from './Navigation/TopBar/TopBar'
 export { default as TabBar } from './Navigation/TabBar/TabBar'
 export { default as TabBarItem } from './Navigation/TabBar/Item/TabBarItem'
 export { default as NavigationBar } from './Navigation/NavigationBar/NavigationBar'
+
+// Shopping
+export { default as ItemsInCategory } from './Shopping/ItemsInCategory/ItemsInCategory'

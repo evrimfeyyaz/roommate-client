@@ -1,30 +1,29 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 
-import { Title, PrimaryButton } from '../../components'
-import styles from './styles'
+import { ItemsInCategory } from '../../components'
 
 class RoomServiceScreen extends Component {
   static navigationOptions = {
     title: 'Room Service'
   }
 
-  go() {
-    const navigateAction = NavigationActions.navigate({ routeName: 'NextInStack' })
-
-    this.props.navigation.dispatch(navigateAction)
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <Title>
-          Room Service
-        </Title>
+        <ItemsInCategory id="962967c5-dcd2-4eff-b4a9-0bc17707c0f0" />
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})
 
 export default RoomServiceScreen

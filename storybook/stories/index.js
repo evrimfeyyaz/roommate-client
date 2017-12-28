@@ -1,6 +1,10 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloProvider } from 'react-apollo'
 
 import CenterView from './CenterView'
 import Welcome from './Welcome'
@@ -20,10 +24,16 @@ import {
   TabBarItem,
   TabBar,
   NavigationBar,
-  BackgroundCard
+  BackgroundCard,
+  ItemsInCategory
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
 import * as iconData from '../../assets/iconData'
+
+const client = new ApolloClient({
+  link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
+  cache: new InMemoryCache()
+})
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
@@ -82,10 +92,13 @@ storiesOf('Cards', module)
   ))
   .add('item', () => (
     <ItemCard
-      imageUri="https://static.pexels.com/photos/691077/pexels-photo-691077.jpeg"
-      title="Mexican Omelet"
-      description="Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant."
-      price="$16"
+      item={{
+        id: 'some-item-id',
+        title: 'Mexican Omelet',
+        description: 'Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a ' +
+        'side of roasted potatoes, and your choice of toast or croissant.',
+        price: '16'
+      }}
     />
   ))
 
@@ -107,13 +120,26 @@ storiesOf('Tab bar', module)
     <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={action('tab-bar-item-tap')} isActive />
   ))
   .add('inactive item', () => (
-    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={() => {}} />
+    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={action('tab-bar-inactive-item-tap')} />
   ))
   .add('small active item', () => (
-    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={action('tab-bar-item-tap')} isActive small />
+    <TabBarItem
+      title="Restaurants"
+      index={0}
+      key="tab-bar-item"
+      onPress={action('tab-bar-small-item-tap')}
+      isActive
+      small
+    />
   ))
   .add('small inactive item', () => (
-    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={() => {}} small />
+    <TabBarItem
+      title="Restaurants"
+      index={0}
+      key="tab-bar-item"
+      onPress={action('tab-bar-small-inactive-item-tap')}
+      small
+    />
   ))
   .add('full', () => {
     const roomServiceItem = {
@@ -162,4 +188,14 @@ storiesOf('Navigation bar', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('full', () => (
     <NavigationBar onBackButtonPress={action('back-button-tap')} title="Room Service" />
+  ))
+
+storiesOf('Room service', module)
+  .addDecorator(getStory => (
+    <ApolloProvider client={client}>
+      <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>
+    </ApolloProvider>
+  ))
+  .add('items in category', () => (
+    <ItemsInCategory id="962967c5-dcd2-4eff-b4a9-0bc17707c0f0" />
   ))

@@ -2,7 +2,7 @@ import { createNavigator, StackRouter, TabRouter } from 'react-navigation'
 
 import RoomServiceScreen from '../../screens/RoomServiceScreen/RoomServiceScreen'
 import TabView from '../views/TabView/TabView'
-import RestaurantsScreen from '../../screens/RestaurantsScreen/Restaurants'
+import RestaurantsScreen from '../../screens/RestaurantsScreen/RestaurantsScreen'
 
 const FoodTabHomeRouter = TabRouter({
   RoomService: { screen: RoomServiceScreen },

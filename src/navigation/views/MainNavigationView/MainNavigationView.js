@@ -52,11 +52,9 @@ class MainNavigationView extends Component {
         <View style={styles.subContainer}>
           <TopBar title={currentTitle} />
 
-          <ScrollView contentContainerStyle={styles.scrollViewContentContainer}>
-            <BackgroundCard style={styles.contentContainer} backgroundOpacity={0.6}>
-              <ActiveTab navigation={childNavigation} />
-            </BackgroundCard>
-          </ScrollView>
+          <BackgroundCard style={styles.contentContainer} backgroundOpacity={0.6}>
+            <ActiveTab navigation={childNavigation} />
+          </BackgroundCard>
         </View>
       </View>
     )

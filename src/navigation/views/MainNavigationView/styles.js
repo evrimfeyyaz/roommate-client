@@ -9,9 +9,6 @@ export default StyleSheet.create({
   subContainer: {
     flex: 1
   },
-  scrollViewContentContainer: {
-    flexGrow: 1
-  },
   contentContainer: {
     flex: 1,
     marginHorizontal: 24,
