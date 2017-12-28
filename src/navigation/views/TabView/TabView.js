@@ -33,7 +33,7 @@ class TabView extends Component {
     const { navigation } = this.props
     const { routes, index } = navigation.state
 
-    // The state of the active child screen can be found at routes[index]
+    // The state of the active child screen can be found at routes[id]
     const childNavigation = { dispatch: navigation.dispatch, state: routes[index] }
 
     return addNavigationHelpers(childNavigation)
@@ -61,22 +61,18 @@ class TabView extends Component {
   renderTabBar() {
     const { index: activeIndex, routes } = this.props.navigation.state
 
-    const items = routes.map((route, index) => {
+    const subScreens = routes.map((route, index) => {
       const { title } = this.getCurrentScreenOptions({ dispatch: this.props.navigation.dispatch, state: routes[index] })
 
-      return {
+      const tabItem = {
         title,
-        key: route.key,
-        index,
-        onPress: () => {
-          this.navigateTo(index)
-        }
+        id: route.key
       }
+
+      return tabItem
     })
 
-    return (
-      <TabBar items={items} activeIndex={activeIndex} />
-    )
+    return <TabBar data={subScreens} activeId={activeIndex} onTabChange={this.navigateTo} />
   }
 
   render() {

@@ -117,15 +117,15 @@ storiesOf('Icons', module)
 storiesOf('Tab bar', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('active item', () => (
-    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={action('tab-bar-item-tap')} isActive />
+    <TabBarItem title="Restaurants" id="0" key="tab-bar-item" onPress={action('tab-bar-item-tap')} isActive />
   ))
   .add('inactive item', () => (
-    <TabBarItem title="Restaurants" index={0} key="tab-bar-item" onPress={action('tab-bar-inactive-item-tap')} />
+    <TabBarItem title="Restaurants" id="0" key="tab-bar-item" onPress={action('tab-bar-inactive-item-tap')} />
   ))
   .add('small active item', () => (
     <TabBarItem
       title="Restaurants"
-      index={0}
+      id="0"
       key="tab-bar-item"
       onPress={action('tab-bar-small-item-tap')}
       isActive
@@ -135,7 +135,7 @@ storiesOf('Tab bar', module)
   .add('small inactive item', () => (
     <TabBarItem
       title="Restaurants"
-      index={0}
+      id="0"
       key="tab-bar-item"
       onPress={action('tab-bar-small-inactive-item-tap')}
       small
@@ -144,35 +144,31 @@ storiesOf('Tab bar', module)
   .add('full', () => {
     const roomServiceItem = {
       title: 'Room Service',
-      index: 0,
-      key: 'room-service',
-      onPress: action('room-service-item-tap')
+      id: '0'
     }
 
     const restaurantsItem = {
       title: 'Restaurants',
-      index: 1,
-      key: 'restaurants',
-      onPress: action('restaurants-item-tap')
+      id: '1'
     }
 
     const items = [roomServiceItem, restaurantsItem]
 
     return (
-      <TabBar items={items} activeIndex={0} />
+      <TabBar data={items} onTabChange={action('tab-change')} />
     )
   })
   .add('small full', () => {
     const roomServiceItem = {
       title: 'Recommended',
-      index: 0,
+      id: '0',
       key: 'recommended',
       onPress: action('recommended-item-tap')
     }
 
     const restaurantsItem = {
       title: 'Breakfast',
-      index: 1,
+      id: '1',
       key: 'breakfast',
       onPress: action('breakfast-item-tap')
     }
@@ -180,7 +176,7 @@ storiesOf('Tab bar', module)
     const items = [roomServiceItem, restaurantsItem]
 
     return (
-      <TabBar items={items} activeIndex={0} small />
+      <TabBar data={items} onTabChange={action('tab-change')} small />
     )
   })
 
@@ -190,12 +186,13 @@ storiesOf('Navigation bar', module)
     <NavigationBar onBackButtonPress={action('back-button-tap')} title="Room Service" />
   ))
 
-storiesOf('Room service', module)
-  .addDecorator(getStory => (
-    <ApolloProvider client={client}>
-      <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>
-    </ApolloProvider>
-  ))
-  .add('items in category', () => (
-    <ItemsInCategory id="962967c5-dcd2-4eff-b4a9-0bc17707c0f0" />
-  ))
+// TODO: Mock the data instead of getting it from the local host.
+// storiesOf('Room service', module)
+//   .addDecorator(getStory => (
+//     <ApolloProvider client={client}>
+//       <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>
+//     </ApolloProvider>
+//   ))
+//   .add('items in category', () => (
+//     <ItemsInCategory id="962967c5-dcd2-4eff-b4a9-0bc17707c0f0" />
+//   ))

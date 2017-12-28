@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { View, TouchableWithoutFeedback } from 'react-native'
+import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { Heading, Heading2 } from '../../../.'
-import styles from './styles'
 
 class TabBarItem extends Component {
   headingStyle() {
@@ -25,10 +24,10 @@ class TabBarItem extends Component {
   }
 
   render() {
-    const { index, onPress } = this.props
+    const { id, onPress } = this.props
 
     return (
-      <TouchableWithoutFeedback onPress={onPress} index={index}>
+      <TouchableWithoutFeedback onPress={() => onPress(id)} id={id}>
         <View style={this.containerStyle()}>
           {this.renderTitle()}
         </View>
@@ -37,9 +36,23 @@ class TabBarItem extends Component {
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 28,
+    paddingVertical: 24
+  },
+  containerSmall: {
+    paddingHorizontal: 28,
+    paddingVertical: 14
+  },
+  inactiveHeading: {
+    opacity: 0.6
+  }
+})
+
 TabBarItem.propTypes = {
   title: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   isActive: PropTypes.bool,
   small: PropTypes.bool

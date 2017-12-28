@@ -58,7 +58,7 @@ ItemsInCategory.propTypes = {
   }).isRequired
 }
 
-const GetRoomServiceCategoryWithItems = gql`
+const getRoomServiceCategoryWithItems = gql`
   query getRoomServiceCategoryWithItems($id: ID!) {
     roomServiceCategory(id: $id) {
       id
@@ -72,6 +72,6 @@ const GetRoomServiceCategoryWithItems = gql`
   }
 `
 
-export default graphql(GetRoomServiceCategoryWithItems, {
+export default graphql(getRoomServiceCategoryWithItems, {
   options: ({ id }) => ({ variables: { id } })
 })(ItemsInCategory)

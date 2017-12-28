@@ -20,3 +20,4 @@ export { default as NavigationBar } from './Navigation/NavigationBar/NavigationB
 
 // Shopping
 export { default as ItemsInCategory } from './Shopping/ItemsInCategory/ItemsInCategory'
+export { default as Categories } from './Shopping/Categories'

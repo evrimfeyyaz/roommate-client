@@ -40,7 +40,7 @@ class MainNavigationView extends Component {
 
     const ActiveTab = router.getComponentForRouteName(routes[index].routeName)
 
-    // The state of the active child screen can be found at routes[index]
+    // The state of the active child screen can be found at routes[id]
     let childNavigation = { dispatch: navigation.dispatch, state: routes[index] }
     childNavigation = addNavigationHelpers(childNavigation)
 

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { NavigationActions } from 'react-navigation'
 
-import { ItemsInCategory } from '../../components'
+import { ItemsInCategory, Categories } from '../../components'
 
 class RoomServiceScreen extends Component {
   static navigationOptions = {
@@ -12,7 +11,8 @@ class RoomServiceScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ItemsInCategory id="962967c5-dcd2-4eff-b4a9-0bc17707c0f0" />
+        <Categories onCategoryChange={() => {}} />
+        {/*<ItemsInCategory id="962967c5-dcd2-4eff-b4a9-0bc17707c0f0" />*/}
       </View>
     )
   }

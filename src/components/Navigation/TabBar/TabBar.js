@@ -5,13 +5,33 @@ import PropTypes from 'prop-types'
 import { TabBarItem } from '../../.'
 
 class TabBar extends Component {
+  constructor(props) {
+    super(props)
+
+    this.onTabChange = this.onTabChange.bind(this)
+  }
+
+  state = {
+    activeId: this.props.data[0].id
+  }
+
+  onTabChange(id) {
+    this.setState({ activeId: id })
+
+    this.props.onTabChange(id)
+  }
+
+  containerStyle() {
+    return this.props.small ? styles.containerSmall : styles.container
+  }
+
   renderItem(item, isActive = false) {
     return (
       <TabBarItem
-        key={item.key}
-        index={item.index}
+        key={item.id}
+        id={item.id}
         title={item.title}
-        onPress={item.onPress}
+        onPress={this.onTabChange}
         isActive={isActive}
         small={this.props.small}
       />
@@ -20,7 +40,7 @@ class TabBar extends Component {
 
   renderActiveItem(item) {
     return (
-      <View key="active-item">
+      <View key="active-tab">
         <View style={styles.activeItemIndicatorContainer}>
           <View style={styles.activeItemIndicator} />
         </View>
@@ -31,10 +51,8 @@ class TabBar extends Component {
   }
 
   renderItems() {
-    const { items, activeIndex } = this.props
-
-    return items.map((item) => {
-      if (item.index === activeIndex) {
+    return this.props.data.map((item) => {
+      if (item.id === this.state.activeId) {
         return this.renderActiveItem(item)
       }
 
@@ -52,7 +70,7 @@ class TabBar extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={this.containerStyle()}>
         {this.renderBorderContainer()}
 
         {this.renderItems()}
@@ -63,7 +81,13 @@ class TabBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  containerSmall: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
   borderContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -86,20 +110,17 @@ const styles = StyleSheet.create({
 })
 
 TabBar.propTypes = {
-  items: PropTypes.arrayOf(
+  data: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      index: PropTypes.number.isRequired,
-      key: PropTypes.string.isRequired,
-      onPress: PropTypes.func.isRequired
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired
     })
   ).isRequired,
-  activeIndex: PropTypes.number,
+  onTabChange: PropTypes.func.isRequired,
   small: PropTypes.bool
 }
 
 TabBar.defaultProps = {
-  activeIndex: 0,
   small: false
 }
 
