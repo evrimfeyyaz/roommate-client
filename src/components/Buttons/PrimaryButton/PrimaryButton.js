@@ -1,10 +1,8 @@
 import React from 'react'
-import {
-  ViewPropTypes
-} from 'react-native'
+import { StyleSheet, ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
+
 import { Button } from '../../.'
-import styles from './styles'
 
 const PrimaryButton = ({ title, onPress, style }) => (
   <Button
@@ -14,6 +12,19 @@ const PrimaryButton = ({ title, onPress, style }) => (
     gradientColors={['#c1b296', '#998263']}
   />
 )
+
+const styles = StyleSheet.create({
+  container: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.3,
+    elevation: 4
+  }
+})
 
 PrimaryButton.propTypes = {
   title: PropTypes.string,

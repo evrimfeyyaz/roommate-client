@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
-import {
-  Text,
-  TouchableWithoutFeedback,
-  View,
-  ViewPropTypes
-} from 'react-native'
-
+import { StyleSheet, Text, TouchableWithoutFeedback, View, ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 import LinearGradient from 'react-native-linear-gradient'
 
-import {
-  SvgIcon
-} from '../../.'
+import { SvgIcon } from '../../.'
 import colors from '../../../config/colors'
-import styles from './styles'
 
 // TODO: Give this a better name or make it a HOC.
 class Button extends Component {
@@ -42,20 +33,48 @@ class Button extends Component {
   }
 
   render() {
+    const { onPress, style, titleStyle, title, borderStyle } = this.props
+
     return (
-      <TouchableWithoutFeedback onPress={this.props.onPress}>
-        <View style={[styles.container, this.props.style]}>
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View style={[styles.container, style]}>
           {this.renderGradientBackground()}
 
           {this.renderIcon()}
-          <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text>
+          <Text style={[styles.title, titleStyle]}>{title}</Text>
 
-          <View style={[styles.borderContainer, this.props.borderStyle]} />
+          <View style={[styles.borderContainer, borderStyle]} />
         </View>
       </TouchableWithoutFeedback>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 999,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  icon: {
+    marginRight: 10
+  },
+  title: {
+    textAlign: 'center',
+    color: '#fff',
+    backgroundColor: 'rgba(0, 0, 0, 0)'
+  },
+  gradientContainer: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 999
+  },
+  borderContainer: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 999
+  }
+})
 
 Button.propTypes = {
   title: PropTypes.string,

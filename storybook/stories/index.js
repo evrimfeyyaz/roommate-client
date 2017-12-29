@@ -25,7 +25,9 @@ import {
   TabBar,
   NavigationBar,
   BackgroundCard,
-  ItemsInCategory
+  ItemsInCategory,
+  ItemDetails,
+  Stepper
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
 import * as iconData from '../../assets/iconData'
@@ -113,6 +115,12 @@ storiesOf('Icons', module)
   .add('left arrow', () => (
     <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.leftArrow} />
   ))
+  .add('minus', () => (
+    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.minus} />
+  ))
+  .add('plus', () => (
+    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.plus} />
+  ))
 
 storiesOf('Tab bar', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
@@ -196,3 +204,28 @@ storiesOf('Navigation bar', module)
 //   .add('items in category', () => (
 //     <ItemsInCategory id="962967c5-dcd2-4eff-b4a9-0bc17707c0f0" />
 //   ))
+
+storiesOf('Shopping', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('item details', () => {
+    const item = {
+      id: 'sample-id',
+      title: 'Baked Dijon Salmon',
+      description: 'Fresh Norwegian salmon, lightly brushed with our herbed Dijon mustard sauce,' +
+      ' with choice of two sides.',
+      price: '32'
+    }
+
+    return (
+      <ItemDetails
+        item={item}
+        style={{ width: '80%', backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+      />
+    )
+  })
+
+storiesOf('Controls', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('stepper', () => {
+    return <Stepper minValue={1} />
+  })

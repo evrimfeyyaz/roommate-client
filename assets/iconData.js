@@ -39,8 +39,28 @@ const leftArrow = {
   viewBox: '-0.2857139999999987 -0.7142860000000155 10.571428999999995 16'
 }
 
+const minus = {
+  shape: (
+    <Path
+      d="M8.354.354H.6v1.292H17.4V.354H9.646z"
+    />
+  ),
+  viewBox: '0 0  18 2'
+}
+
+const plus = {
+  shape: (
+    <Path
+      d="M9.646.6H8.354v7.754H.6v1.292h7.754V17.4h1.292V9.646H17.4V8.354H9.646z"
+    />
+  ),
+  viewBox: '0 0 18 18'
+}
+
 export {
   home,
   food,
-  leftArrow
+  leftArrow,
+  minus,
+  plus
 }
