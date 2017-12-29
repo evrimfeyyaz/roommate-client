@@ -14,7 +14,7 @@ import MainNavigator from './src/navigation/navigators/MainNavigator'
 
 export default class App extends Component {
   client = new ApolloClient({
-    link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
+    link: new HttpLink({ uri: 'https://roommate-backend-staging.herokuapp.com/graphql' }),
     cache: new InMemoryCache()
   })
 
