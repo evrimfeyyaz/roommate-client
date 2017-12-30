@@ -6,17 +6,14 @@ import { Title, PrimaryButton, Stepper, Heading3, SvgIcon, CircularButton } from
 import * as iconData from '../../../assets/iconData'
 
 class ItemDetails extends Component {
-  state = {
-    cartItem: {
-      item: this.props.item,
-      quantity: 1
-    }
-  }
-
   constructor(props) {
     super(props)
 
     this.updateQuantity = this.updateQuantity.bind(this)
+  }
+
+  state = {
+    quantity: 1
   }
 
   updateQuantity(quantity) {
