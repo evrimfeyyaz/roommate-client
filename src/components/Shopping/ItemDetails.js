@@ -29,7 +29,14 @@ class ItemDetails extends Component {
 
     return (
       <View style={[styles.container, style]}>
-        <SvgIcon iconData={iconData.food} fill="#fff" height={90} width={90} style={styles.foodIcon} />
+        <SvgIcon
+          iconData={iconData.food}
+          fill="#fff"
+          height={90}
+          width={90}
+          style={styles.foodIcon}
+          opacity={0.3}
+        />
 
         <View style={styles.titleContainer}>
           <Title style={styles.title}>{title}</Title>
