@@ -7,8 +7,14 @@ import { graphql } from 'react-apollo'
 import { ItemCard } from '../../.'
 
 class ItemsInCategory extends Component {
+  constructor(props) {
+    super(props)
+
+    this.renderItem = this.renderItem.bind(this)
+  }
+
   renderItem({ item }) {
-    return <ItemCard item={item} style={styles.item} />
+    return <ItemCard item={item} style={styles.item} onPress={this.props.onItemPress} />
   }
 
   render() {
@@ -55,7 +61,12 @@ ItemsInCategory.propTypes = {
     variables: PropTypes.shape({
       id: PropTypes.string
     })
-  }).isRequired
+  }).isRequired,
+  onItemPress: PropTypes.func
+}
+
+ItemsInCategory.defaultProps = {
+  onItemPress: null
 }
 
 const getRoomServiceCategoryWithItems = gql`

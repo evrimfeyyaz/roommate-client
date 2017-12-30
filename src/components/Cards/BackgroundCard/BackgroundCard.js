@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { View, ViewPropTypes } from 'react-native'
+import { StyleSheet, View, ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 import LinearGradient from 'react-native-linear-gradient'
-
-import styles from './styles'
 
 // TODO: Find a better name. Maybe ContainerCard?
 class BackgroundCard extends Component {
@@ -25,6 +23,23 @@ class BackgroundCard extends Component {
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.3,
+    elevation: 4
+  },
+  gradientBackground: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 10
+  }
+})
 
 BackgroundCard.propTypes = {
   style: ViewPropTypes.style,

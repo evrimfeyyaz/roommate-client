@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, ViewPropTypes, Text } from 'react-native'
 import PropTypes from 'prop-types'
+import LinearGradient from 'react-native-linear-gradient'
 
 import { Title, PrimaryButton, Stepper, Heading3, SvgIcon, CircularButton } from '../.'
 import * as iconData from '../../../assets/iconData'
@@ -21,11 +22,20 @@ class ItemDetails extends Component {
   }
 
   render() {
+    if (!this.props.item) {
+      return null
+    }
+
     const { style, onCloseButtonPress } = this.props
     const { title, price, description } = this.props.item
 
     return (
       <View style={[styles.container, style]}>
+        <LinearGradient
+          colors={['#262E3A', '#232934']}
+          style={styles.backgroundGradient}
+        />
+
         <CircularButton
           iconData={iconData.cross}
           iconFill="#fff"
@@ -66,7 +76,20 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 38,
     paddingVertical: 30,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.3,
+    elevation: 4
+  },
+  backgroundGradient: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 10
   },
   closeButton: {
     position: 'absolute',
@@ -98,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     opacity: 0.7,
-    marginTop: 15
+    marginTop: 10
   },
   quantityHeading: {
     marginTop: 70
@@ -117,12 +140,13 @@ ItemDetails.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
     price: PropTypes.string
-  }).isRequired,
+  }),
   style: ViewPropTypes.style,
   onCloseButtonPress: PropTypes.func
 }
 
 ItemDetails.defaultProps = {
+  item: null,
   style: null,
   onCloseButtonPress: null
 }
