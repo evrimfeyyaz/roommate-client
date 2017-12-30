@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, ViewPropTypes, Text } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { Title, PrimaryButton, Stepper, Heading3, SvgIcon } from '../.'
+import { Title, PrimaryButton, Stepper, Heading3, SvgIcon, CircularButton } from '../.'
 import * as iconData from '../../../assets/iconData'
 
 class ItemDetails extends Component {
@@ -24,11 +24,18 @@ class ItemDetails extends Component {
   }
 
   render() {
-    const { style } = this.props
+    const { style, onCloseButtonPress } = this.props
     const { title, price, description } = this.props.item
 
     return (
       <View style={[styles.container, style]}>
+        <CircularButton
+          iconData={iconData.cross}
+          iconFill="#fff"
+          onPress={onCloseButtonPress}
+          style={styles.closeButton}
+        />
+
         <SvgIcon
           iconData={iconData.food}
           fill="#fff"
@@ -63,6 +70,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 38,
     paddingVertical: 30,
     alignItems: 'center'
+  },
+  closeButton: {
+    position: 'absolute',
+    right: 30,
+    top: 30
   },
   foodIcon: {
     marginTop: 68
@@ -109,11 +121,13 @@ ItemDetails.propTypes = {
     description: PropTypes.string,
     price: PropTypes.string
   }).isRequired,
-  style: ViewPropTypes.style
+  style: ViewPropTypes.style,
+  onCloseButtonPress: PropTypes.func
 }
 
 ItemDetails.defaultProps = {
-  style: null
+  style: null,
+  onCloseButtonPress: null
 }
 
 export default ItemDetails

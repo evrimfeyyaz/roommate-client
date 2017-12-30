@@ -57,10 +57,20 @@ const plus = {
   viewBox: '0 0 18 18'
 }
 
+const cross = {
+  shape: (
+    <Path
+      d="M14.48 2.6L9 8.09L3.52 2.6L2.6 3.52L8.09 9L2.6 14.48L3.52 15.4L9 9.91L14.48 15.4L15.4 14.48L9.91 9L15.4 3.52L14.48 2.6Z"
+    />
+  ),
+  viewBox: '0 0 16.8 16.8'
+}
+
 export {
   home,
   food,
   leftArrow,
   minus,
-  plus
+  plus,
+  cross
 }
