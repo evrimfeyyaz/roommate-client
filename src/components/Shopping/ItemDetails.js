@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { View, StyleSheet, ViewPropTypes, Text } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { Title, PrimaryButton, Stepper, Heading3 } from '../.'
+import { Title, PrimaryButton, Stepper, Heading3, SvgIcon } from '../.'
+import * as iconData from '../../../assets/iconData'
 
 class ItemDetails extends Component {
   state = {
@@ -28,6 +29,8 @@ class ItemDetails extends Component {
 
     return (
       <View style={[styles.container, style]}>
+        <SvgIcon iconData={iconData.food} fill="#fff" height={90} width={90} style={styles.foodIcon} />
+
         <View style={styles.titleContainer}>
           <Title style={styles.title}>{title}</Title>
           <Title style={styles.price}>{price}</Title>
@@ -54,11 +57,15 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     alignItems: 'center'
   },
+  foodIcon: {
+    marginTop: 68
+  },
   titleContainer: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 68
   },
   title: {
     fontSize: 32,
