@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, ViewPropTypes, Text } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { Title, PrimaryButton } from '../.'
+import { Title, PrimaryButton, Stepper, Heading3 } from '../.'
 
 class ItemDetails extends Component {
   state = {
@@ -10,6 +10,16 @@ class ItemDetails extends Component {
       item: this.props.item,
       quantity: 1
     }
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.updateQuantity = this.updateQuantity.bind(this)
+  }
+
+  updateQuantity(quantity) {
+    this.setState({ quantity })
   }
 
   render() {
@@ -23,6 +33,14 @@ class ItemDetails extends Component {
           <Title style={styles.price}>{price}</Title>
         </View>
         <Text style={styles.description}>{description}</Text>
+
+        <Heading3 style={styles.quantityHeading}>Quantity</Heading3>
+        <Stepper
+          minValue={1}
+          initialValue={this.state.quantity}
+          onValueChange={this.updateQuantity}
+          style={styles.quantityStepper}
+        />
 
         <PrimaryButton title="Add to Order" style={styles.addButton} />
       </View>
@@ -59,8 +77,14 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     marginTop: 15
   },
+  quantityHeading: {
+    marginTop: 70
+  },
+  quantityStepper: {
+    marginTop: 7
+  },
   addButton: {
-    marginTop: 15
+    marginTop: 30
   }
 })
 

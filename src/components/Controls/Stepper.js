@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { SvgIcon, Heading } from '../.'
@@ -25,12 +25,14 @@ class Stepper extends Component {
 
   incrementValue() {
     this.setState({ value: this.state.value + 1 }, () => {
+      this.props.onValueChange(this.state.value)
       this.updateDecrementState()
     })
   }
 
   decrementValue() {
     this.setState({ value: this.state.value - 1 }, () => {
+      this.props.onValueChange(this.state.value)
       this.updateDecrementState()
     })
   }
@@ -52,8 +54,10 @@ class Stepper extends Component {
   }
 
   render() {
+    const { style } = this.props
+
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         <TouchableOpacity
           style={styles.button}
           onPress={this.decrementValue}
@@ -90,12 +94,16 @@ const styles = StyleSheet.create({
 
 Stepper.propTypes = {
   initialValue: PropTypes.number,
-  minValue: PropTypes.number
+  minValue: PropTypes.number,
+  onValueChange: PropTypes.func,
+  style: ViewPropTypes.style
 }
 
 Stepper.defaultProps = {
   initialValue: 1,
-  minValue: null
+  minValue: null,
+  onValueChange: null,
+  style: null
 }
 
 export default Stepper
