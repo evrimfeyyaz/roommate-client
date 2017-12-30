@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, ViewPropTypes } from 'react-native'
+import { View, StyleSheet, ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { SvgIcon, Heading } from '../.'
+import { Heading, CircularButton } from '../.'
 import * as iconData from '../../../assets/iconData'
 
 // TODO: Extract the below button component into its own file.
@@ -58,19 +58,16 @@ class Stepper extends Component {
 
     return (
       <View style={[styles.container, style]}>
-        <TouchableOpacity
-          style={styles.button}
+        <CircularButton
+          iconData={iconData.minus}
+          iconFill={this.minusIconFillColor()}
           onPress={this.decrementValue}
           disabled={this.state.disableDecrementButton}
-        >
-          <SvgIcon iconData={iconData.minus} fill={this.minusIconFillColor()} width={18} height={18} />
-        </TouchableOpacity>
+        />
 
         <Heading style={styles.value}>{this.state.value}</Heading>
 
-        <TouchableOpacity style={styles.button} onPress={this.incrementValue}>
-          <SvgIcon iconData={iconData.plus} fill="#fff" width={18} height={18} />
-        </TouchableOpacity>
+        <CircularButton iconData={iconData.plus} iconFill="#fff" onPress={this.incrementValue}/>
       </View>
     )
   }
@@ -80,12 +77,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center'
-  },
-  button: {
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderWidth: 1,
-    borderRadius: 999,
-    padding: 10
   },
   value: {
     paddingHorizontal: 14

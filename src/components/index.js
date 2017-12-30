@@ -12,6 +12,7 @@ export { default as Title } from './Typography/Title/Title'
 
 // Controls
 export { default as Stepper } from './Controls/Stepper'
+export { default as CircularButton } from './Buttons/CircularButton'
 
 // Navigation
 export { default as SideMenuItem } from './Navigation/SideMenu/Item/SideMenuItem'
