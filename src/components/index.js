@@ -26,3 +26,4 @@ export { default as NavigationBar } from './Navigation/NavigationBar/NavigationB
 export { default as ItemsInCategory } from './Shopping/ItemsInCategory/ItemsInCategory'
 export { default as Categories } from './Shopping/Categories'
 export { default as ItemDetails } from './Shopping/ItemDetails'
+export { default as Cart } from './Shopping/Cart'

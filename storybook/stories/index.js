@@ -27,7 +27,8 @@ import {
   BackgroundCard,
   ItemsInCategory,
   ItemDetails,
-  Stepper
+  Stepper,
+  Cart
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
 import * as iconData from '../../assets/iconData'
@@ -221,6 +222,29 @@ storiesOf('Shopping', module)
         item={item}
         style={{ width: '80%', backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
       />
+    )
+  })
+  .add('cart', () => {
+    const item1 = {
+      id: 'sample-id-1',
+      title: 'Baked Dijon Salmon',
+      description: 'Fresh Norwegian salmon, lightly brushed with our herbed Dijon mustard sauce,' +
+      ' with choice of two sides.',
+      price: '32',
+      quantity: 1
+    }
+
+    const item2 = {
+      id: 'sample-id-2',
+      title: 'Tiramisu',
+      description: 'Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ' +
+      'ladyfingers, topped with Valrhona cocoa powder.',
+      price: '15',
+      quantity: 2
+    }
+
+    return (
+      <Cart items={[item1, item2]} />
     )
   })
 
