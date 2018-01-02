@@ -122,6 +122,9 @@ storiesOf('Icons', module)
   .add('plus', () => (
     <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.plus} />
   ))
+  .add('pen', () => (
+    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.pen} />
+  ))
 
 storiesOf('Tab bar', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
@@ -225,27 +228,29 @@ storiesOf('Shopping', module)
     )
   })
   .add('cart', () => {
-    const item1 = {
-      id: 'sample-id-1',
-      title: 'Baked Dijon Salmon',
-      description: 'Fresh Norwegian salmon, lightly brushed with our herbed Dijon mustard sauce,' +
-      ' with choice of two sides.',
-      price: '32',
+    const cartItem1 = {
+      item: {
+        id: 'sample-id-1',
+        title: 'Baked Dijon Salmon',
+        description: 'Fresh Norwegian salmon, lightly brushed with our herbed Dijon mustard sauce,' +
+        ' with choice of two sides.',
+        price: '32'
+      },
       quantity: 1
     }
 
-    const item2 = {
-      id: 'sample-id-2',
-      title: 'Tiramisu',
-      description: 'Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ' +
-      'ladyfingers, topped with Valrhona cocoa powder.',
-      price: '15',
+    const cartItem2 = {
+      item: {
+        id: 'sample-id-2',
+        title: 'Tiramisu',
+        description: 'Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ' +
+        'ladyfingers, topped with Valrhona cocoa powder.',
+        price: '15'
+      },
       quantity: 2
     }
 
-    return (
-      <Cart items={[item1, item2]} />
-    )
+    return <Cart cartItems={[cartItem1, cartItem2]} />
   })
 
 storiesOf('Controls', module)

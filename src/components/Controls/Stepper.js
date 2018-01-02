@@ -54,7 +54,8 @@ class Stepper extends Component {
   }
 
   render() {
-    const { style } = this.props
+    const { style, small } = this.props
+    const valueStyle = small ? styles.valueSmall : styles.value
 
     return (
       <View style={[styles.container, style]}>
@@ -63,11 +64,12 @@ class Stepper extends Component {
           iconFill={this.minusIconFillColor()}
           onPress={this.decrementValue}
           disabled={this.state.disableDecrementButton}
+          small={small}
         />
 
-        <Heading style={styles.value}>{this.state.value}</Heading>
+        <Heading style={valueStyle}>{this.state.value}</Heading>
 
-        <CircularButton iconData={iconData.plus} iconFill="#fff" onPress={this.incrementValue}/>
+        <CircularButton iconData={iconData.plus} iconFill="#fff" onPress={this.incrementValue} small />
       </View>
     )
   }
@@ -80,6 +82,11 @@ const styles = StyleSheet.create({
   },
   value: {
     paddingHorizontal: 14
+  },
+  valueSmall: {
+    fontSize: 11,
+    lineHeight: 15,
+    paddingHorizontal: 18
   }
 })
 
@@ -87,14 +94,16 @@ Stepper.propTypes = {
   initialValue: PropTypes.number,
   minValue: PropTypes.number,
   onValueChange: PropTypes.func,
-  style: ViewPropTypes.style
+  style: ViewPropTypes.style,
+  small: PropTypes.bool
 }
 
 Stepper.defaultProps = {
   initialValue: 1,
   minValue: null,
   onValueChange: null,
-  style: null
+  style: null,
+  small: false
 }
 
 export default Stepper
