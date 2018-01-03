@@ -69,7 +69,12 @@ class Stepper extends Component {
 
         <Heading style={valueStyle}>{this.state.value}</Heading>
 
-        <CircularButton iconData={iconData.plus} iconFill="#fff" onPress={this.incrementValue} small />
+        <CircularButton
+          iconData={iconData.plus}
+          iconFill="#fff"
+          onPress={this.incrementValue}
+          small={small}
+        />
       </View>
     )
   }
