@@ -1,10 +1,8 @@
 import React from 'react'
-import {
-  ViewPropTypes
-} from 'react-native'
+import { StyleSheet, ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
+
 import { Button } from '../../.'
-import styles from './styles'
 
 const SecondaryButton = ({ title, onPress, style, iconData }) => (
   <Button
@@ -15,6 +13,17 @@ const SecondaryButton = ({ title, onPress, style, iconData }) => (
     iconData={iconData}
   />
 )
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+  },
+  border: {
+    borderColor: '#fff',
+    borderWidth: 1,
+    opacity: 0.1
+  }
+})
 
 SecondaryButton.propTypes = {
   title: PropTypes.string,

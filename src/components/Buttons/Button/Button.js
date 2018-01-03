@@ -52,7 +52,7 @@ class Button extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 20,
     borderRadius: 999,
     flexDirection: 'row',
@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   title: {
+    fontFamily: 'NunitoSans-Regular',
+    fontSize: 12,
     textAlign: 'center',
     color: '#fff',
     backgroundColor: 'rgba(0, 0, 0, 0)'

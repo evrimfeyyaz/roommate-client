@@ -2,7 +2,15 @@ import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { BackgroundCard, Heading, Heading2, CircularButton, Stepper, PrimaryButton } from '../.'
+import {
+  BackgroundCard,
+  Heading,
+  Heading2,
+  CircularButton,
+  Stepper,
+  PrimaryButton,
+  SecondaryButton
+} from '../.'
 import * as iconData from '../../../assets/iconData'
 
 class Cart extends Component {
@@ -43,7 +51,7 @@ class Cart extends Component {
         <View style={styles.itemBottomRowContainer}>
           <Stepper initialValue={quantity} small />
 
-          <CircularButton iconFill="#848489" iconData={iconData.cross} small />
+          <CircularButton iconFill="#fff" iconData={iconData.cross} small />
         </View>
 
         <View style={styles.itemSeparator} />
@@ -62,6 +70,7 @@ class Cart extends Component {
       <BackgroundCard style={styles.container}>
         <View style={styles.headingContainer}>
           <Heading style={styles.heading}>Order</Heading>
+          <SecondaryButton title="Clear All" />
         </View>
 
         {this.renderCartItems()}
@@ -88,6 +97,9 @@ const styles = StyleSheet.create({
     lineHeight: 24
   },
   headingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 18
   },
   itemContainer: {
