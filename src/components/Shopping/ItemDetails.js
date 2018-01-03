@@ -3,7 +3,7 @@ import { View, StyleSheet, ViewPropTypes, Text } from 'react-native'
 import PropTypes from 'prop-types'
 import LinearGradient from 'react-native-linear-gradient'
 
-import { Title, PrimaryButton, Stepper, Heading3, SvgIcon, CircularButton } from '../.'
+import { Title, PrimaryButton, Stepper, Heading3, SvgIcon, CircularButton, BackgroundCard } from '../.'
 import * as iconData from '../../../assets/iconData'
 
 class ItemDetails extends Component {
@@ -30,12 +30,7 @@ class ItemDetails extends Component {
     const { title, price, description } = this.props.item
 
     return (
-      <View style={[styles.container, style]}>
-        <LinearGradient
-          colors={['#262E3A', '#232934']}
-          style={styles.backgroundGradient}
-        />
-
+      <BackgroundCard style={[styles.container, style]}>
         <CircularButton
           iconData={iconData.cross}
           iconFill="#fff"
@@ -67,7 +62,7 @@ class ItemDetails extends Component {
         />
 
         <PrimaryButton title="Add to Order" style={styles.addButton} />
-      </View>
+      </BackgroundCard>
     )
   }
 }
@@ -77,19 +72,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 38,
     paddingVertical: 30,
     alignItems: 'center',
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
-    shadowRadius: 3,
-    shadowOpacity: 0.3,
-    elevation: 4
-  },
-  backgroundGradient: {
-    ...StyleSheet.absoluteFillObject,
-    borderRadius: 10
   },
   closeButton: {
     position: 'absolute',
