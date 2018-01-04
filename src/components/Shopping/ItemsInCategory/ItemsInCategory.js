@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
+import { connect } from 'react-redux'
 
 import { ItemCard } from '../../.'
 
@@ -17,7 +18,12 @@ class ItemsInCategory extends Component {
     return <ItemCard item={item} style={styles.item} onPress={this.props.onItemPress} />
   }
 
+  renderCart() {
+    console.log(this.props.roomServiceCart)
+  }
+
   render() {
+    // TODO: Explain what the below code does better.
     if (this.props.data.networkStatus === 1) {
       return <ActivityIndicator />
     }
@@ -25,12 +31,15 @@ class ItemsInCategory extends Component {
     const { items } = this.props.data.roomServiceCategory
 
     return (
-      <FlatList
-        data={items}
-        renderItem={this.renderItem}
-        keyExtractor={item => item.id}
-        numColumns={4}
-      />
+      <View>
+        <FlatList
+          data={items}
+          renderItem={this.renderItem}
+          keyExtractor={item => item.id}
+          numColumns={3}
+        />
+        {this.renderCart()}
+      </View>
     )
   }
 }
@@ -62,13 +71,27 @@ ItemsInCategory.propTypes = {
       id: PropTypes.string
     })
   }).isRequired,
-  onItemPress: PropTypes.func
+  onItemPress: PropTypes.func,
+  roomServiceCart: PropTypes.shape({
+    cartItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        item: PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired,
+          description: PropTypes.string,
+          price: PropTypes.string
+        }),
+        quantity: PropTypes.number
+      })
+    )
+  }).isRequired
 }
 
 ItemsInCategory.defaultProps = {
   onItemPress: null
 }
 
+// TODO: Refactor the GraphQL and Redux functions out into a separate component.
 const getRoomServiceCategoryWithItems = gql`
   query getRoomServiceCategoryWithItems($id: ID!) {
     roomServiceCategory(id: $id) {
@@ -83,6 +106,12 @@ const getRoomServiceCategoryWithItems = gql`
   }
 `
 
+const mapStateToProps = state => ({
+  roomServiceCart: state.roomServiceCart
+})
+
+const connectedItemsInCategory = connect(mapStateToProps, null)(ItemsInCategory)
+
 export default graphql(getRoomServiceCategoryWithItems, {
   options: ({ id }) => ({ variables: { id } })
-})(ItemsInCategory)
+})(connectedItemsInCategory)
