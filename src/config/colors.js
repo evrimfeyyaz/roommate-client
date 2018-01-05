@@ -1,8 +1,11 @@
 const colors = {
-  secondaryButtonIcon: '#d2b994',
-  primaryButtonGradient: ['#c1b296', '#998263'],
   primaryButtonTitle: '#fff',
-  secondaryButtonTitle: '#fff'
+  primaryButtonGradient: ['#c1b296', '#998263'],
+
+  secondaryButtonTitle: '#fff',
+  secondaryButtonIcon: '#d2b994',
+
+  circularButtonIcon: '#fff'
 }
 
 export default colors

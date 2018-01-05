@@ -9,7 +9,7 @@ export { default as Title } from './Typography/Title/Title'
 
 // Controls
 export { default as Stepper } from './Controls/Stepper'
-export { default as CircularButton } from './Buttons/CircularButton'
+export { default as CircularButton } from './Controls/CircularButton'
 export { default as SecondaryButton } from './Controls/SecondaryButton'
 export { default as PrimaryButton } from './Controls/PrimaryButton'
 

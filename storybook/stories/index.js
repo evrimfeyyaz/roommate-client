@@ -28,10 +28,12 @@ import {
   ItemsInCategory,
   ItemDetails,
   Stepper,
-  Cart
+  Cart,
+  CircularButton
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
 import * as icons from '../../assets/iconData'
+import colors from '../../src/config/colors'
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
@@ -260,5 +262,28 @@ storiesOf('Controls', module)
       title="Wake-Up Alarm"
       onPress={action('secondary-button-press')}
       iconData={icons.alarmClock}
+    />
+  ))
+  .add('circular button', () => (
+    <CircularButton
+      onPress={action('circular-button-press')}
+      iconData={icons.plus}
+      iconFill={colors.circularButtonIcon}
+    />
+  ))
+  .add('circular button (small)', () => (
+    <CircularButton
+      onPress={action('circular-button-press')}
+      iconData={icons.plus}
+      iconFill={colors.circularButtonIcon}
+      small
+    />
+  ))
+  .add('circular button (disabled)', () => (
+    <CircularButton
+      onPress={action('circular-button-press')}
+      iconData={icons.plus}
+      iconFill={colors.circularButtonIcon}
+      disabled
     />
   ))
