@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react'
 import { TouchableOpacity, StyleSheet, ViewPropTypes } from 'react-native'
 
@@ -19,8 +20,14 @@ type Props = {
 }
 
 class CircularButton extends Component<Props> {
-  buttonStyle() {
-    return [styles.button, { padding: this.padding() }, this.props.style]
+  static defaultProps = {
+    disabled: false,
+    small: false,
+    style: null
+  }
+
+  containerStyle() {
+    return [styles.container, { padding: this.padding() }, this.props.style]
   }
 
   padding() {
@@ -52,7 +59,7 @@ class CircularButton extends Component<Props> {
 
     return (
       <TouchableOpacity
-        style={this.buttonStyle()}
+        style={this.containerStyle()}
         onPress={onPress}
         disabled={disabled}
         hitSlop={this.hitSlop()}
@@ -70,16 +77,10 @@ class CircularButton extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-  button: {
+  container: {
     borderColor: 'rgba(255, 255, 255, 0.1)',
     borderWidth: 1,
     borderRadius: 999
-  },
-  buttonRegular: {
-    padding: 10
-  },
-  buttonSmall: {
-    padding: 5
   }
 })
 

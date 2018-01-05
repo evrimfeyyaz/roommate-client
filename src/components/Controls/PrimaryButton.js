@@ -1,10 +1,13 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, Text, ViewPropTypes, TouchableOpacity, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import colors from '../../config/colors'
 import fonts from '../../config/fonts'
+
+const PADDING_VERTICAL = 8
+const FONT_SIZE = 12
 
 type Props = {
   title: string,
@@ -12,23 +15,42 @@ type Props = {
   style?: ViewPropTypes.style
 }
 
-const PrimaryButton = ({ title, onPress, style }: Props) => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={[styles.container, style]}>
-      <LinearGradient colors={colors.primaryButtonGradient} style={styles.gradientContainer} />
+class PrimaryButton extends Component<Props> {
+  static defaultProps = {
+    style: null
+  }
 
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  </TouchableOpacity>
-)
+  // TODO: Find a way to refactor out this function, other buttons also have this.
+  /**
+   * Calculates the required vertical hit slop to have a clickable area of at least 45 pixels high.
+   *
+   * @returns {{top: number, bottom: number, left: number, right: number}}
+   */
+  static hitSlop() {
+    let value = 45 - FONT_SIZE - (PADDING_VERTICAL * 2)
+    value = Math.max(0, value) // Avoid negative hit slop.
 
-PrimaryButton.defaultProps = {
-  style: null
+    return { top: value, bottom: value, left: 0, right: 0 }
+  }
+
+  render() {
+    const { title, onPress, style } = this.props
+
+    return (
+      <TouchableOpacity onPress={onPress} hitSlop={PrimaryButton.hitSlop()}>
+        <View style={[styles.container, style]}>
+          <LinearGradient colors={colors.primaryButtonGradient} style={styles.gradientContainer} />
+
+          <Text style={styles.title}>{title}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 8,
+    paddingVertical: PADDING_VERTICAL,
     paddingHorizontal: 20,
     borderRadius: 999,
     flexDirection: 'row',
@@ -44,7 +66,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.regular,
-    fontSize: 12,
+    fontSize: FONT_SIZE,
     textAlign: 'center',
     color: colors.primaryButtonTitle,
     backgroundColor: 'rgba(0, 0, 0, 0)'

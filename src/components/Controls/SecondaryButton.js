@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, ViewPropTypes, TouchableOpacity, View, Text } from 'react-native'
 
 import { SvgIcon } from '../index'
@@ -7,38 +7,58 @@ import type { IconData } from '../../../assets/iconData'
 import colors from '../../config/colors'
 import fonts from '../../config/fonts'
 
+const PADDING_VERTICAL = 8
+const FONT_SIZE = 12
+
 type Props = {
   title: string,
   onPress: Function,
-  style?: ViewPropTypes.style,
-  iconData: IconData
+  iconData: IconData,
+  style?: ViewPropTypes.style
 }
 
-// TODO: Refactor out the text component below, as it's shared with the primary button component as well.
-const SecondaryButton = ({ title, onPress, style, iconData }: Props) => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={[styles.container, style]}>
-      <SvgIcon
-        style={styles.icon}
-        height={15}
-        width={15}
-        fill={colors.secondaryButtonIcon}
-        iconData={iconData}
-      />
+class SecondaryButton extends Component<Props> {
+  static defaultProps = {
+    style: null
+  }
 
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  </TouchableOpacity>
-)
+  /**
+   * Calculates the required vertical hit slop to have a clickable area of at least 45 pixels high.
+   *
+   * @returns {{top: number, bottom: number, left: number, right: number}}
+   */
+  static hitSlop() {
+    let value = 45 - FONT_SIZE - (PADDING_VERTICAL * 2)
+    value = Math.max(0, value) // Avoid negative hit slop.
 
-SecondaryButton.defaultProps = {
-  style: null
+    return { top: value, bottom: value, left: 0, right: 0 }
+  }
+
+  render() {
+    const { title, onPress, style, iconData } = this.props
+
+    return (
+      <TouchableOpacity onPress={onPress} hitSlop={SecondaryButton.hitSlop()}>
+        <View style={[styles.container, style]}>
+          <SvgIcon
+            style={styles.icon}
+            height={15}
+            width={15}
+            fill={colors.secondaryButtonIcon}
+            iconData={iconData}
+          />
+
+          <Text style={styles.title}>{title}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
-    paddingVertical: 8,
+    paddingVertical: PADDING_VERTICAL,
     paddingHorizontal: 20,
     borderRadius: 999,
     flexDirection: 'row',
@@ -49,7 +69,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.regular,
-    fontSize: 12,
+    fontSize: FONT_SIZE,
     textAlign: 'center',
     color: colors.secondaryButtonTitle,
     backgroundColor: 'rgba(0, 0, 0, 0)'
