@@ -5,7 +5,9 @@ const colors = {
   secondaryButtonTitle: '#fff',
   secondaryButtonIcon: '#d2b994',
 
-  circularButtonIcon: '#fff'
+  circularButtonIcon: '#fff',
+
+  cardBackgroundGradient: ['#2F3846', '#232A36']
 }
 
 export default colors

@@ -24,7 +24,7 @@ import {
   TabBarItem,
   TabBar,
   NavigationBar,
-  BackgroundCard,
+  Card,
   ItemsInCategory,
   ItemDetails,
   Stepper,
@@ -82,10 +82,6 @@ storiesOf('Top bar', module)
   ))
 
 storiesOf('Cards', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .add('background', () => (
-    <BackgroundCard style={{ width: 300, height: 300 }} />
-  ))
   .add('item', () => (
     <ItemCard
       item={{
@@ -286,4 +282,10 @@ storiesOf('Controls', module)
       iconFill={colors.circularButtonIcon}
       disabled
     />
+  ))
+
+storiesOf('Miscellaneous', module)
+  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('background', () => (
+    <Card style={{ width: 300, height: 300 }} />
   ))

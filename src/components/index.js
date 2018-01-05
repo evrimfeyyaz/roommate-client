@@ -1,7 +1,6 @@
 export { default as ItemCard } from './Cards/ItemCard/ItemCard'
-export { default as BackgroundCard } from './Cards/BackgroundCard/BackgroundCard'
 export { default as Switch } from './controls/Switch/Switch'
-export { default as SvgIcon } from './Miscellaneous/SvgIcon/SvgIcon'
+export { default as SvgIcon } from './misc/SvgIcon/SvgIcon'
 export { default as Heading } from './Typography/Heading/Heading'
 export { default as Heading2 } from './Typography/Heading2/Heading2'
 export { default as Heading3 } from './Typography/Heading3/Heading3'
@@ -26,3 +25,6 @@ export { default as ItemsInCategory } from './Shopping/ItemsInCategory/ItemsInCa
 export { default as Categories } from './Shopping/Categories'
 export { default as ItemDetails } from './Shopping/ItemDetails'
 export { default as Cart } from './Shopping/Cart'
+
+// Misc
+export { default as Card } from './misc/Card'
