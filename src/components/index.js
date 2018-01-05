@@ -1,6 +1,3 @@
-export { default as Button } from './Buttons/Button/Button'
-export { default as PrimaryButton } from './Buttons/PrimaryButton/PrimaryButton'
-export { default as SecondaryButton } from './Buttons/SecondaryButton/SecondaryButton'
 export { default as ItemCard } from './Cards/ItemCard/ItemCard'
 export { default as BackgroundCard } from './Cards/BackgroundCard/BackgroundCard'
 export { default as Switch } from './Controls/Switch/Switch'
@@ -13,6 +10,8 @@ export { default as Title } from './Typography/Title/Title'
 // Controls
 export { default as Stepper } from './Controls/Stepper'
 export { default as CircularButton } from './Buttons/CircularButton'
+export { default as SecondaryButton } from './Controls/SecondaryButton'
+export { default as PrimaryButton } from './Controls/PrimaryButton'
 
 // Navigation
 export { default as SideMenuItem } from './Navigation/SideMenu/Item/SideMenuItem'

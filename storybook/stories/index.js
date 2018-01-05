@@ -31,7 +31,7 @@ import {
   Cart
 } from '../../src/components'
 import centerViewStyle from './CenterView/style'
-import * as iconData from '../../assets/iconData'
+import * as icons from '../../assets/iconData'
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
@@ -49,22 +49,13 @@ storiesOf('Switch', module)
 storiesOf('Menu', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('item', () => (
-    <SideMenuItem title="Home" id="home" iconData={iconData.home} />
+    <SideMenuItem title="Home" id="home" iconData={icons.home} />
   ))
   .add('item selected', () => (
-    <SideMenuItem title="Home" id="home" iconData={iconData.home} isSelected />
+    <SideMenuItem title="Home" id="home" iconData={icons.home} isSelected />
   ))
   .add('full menu', () => (
     <SideMenu />
-  ))
-
-storiesOf('Button', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .add('primary', () => (
-    <PrimaryButton title="Book a Table" onPress={action('primary-button-press')} />
-  ))
-  .add('secondary', () => (
-    <SecondaryButton title="Wake-Up Alarm" onPress={action('secondary-button-press')} />
   ))
 
 storiesOf('Typography', module)
@@ -108,22 +99,22 @@ storiesOf('Cards', module)
 storiesOf('Icons', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('home', () => (
-    <SvgIcon height={48} width={48} fill="#fff" iconData={iconData.home} />
+    <SvgIcon height={48} width={48} fill="#fff" iconData={icons.home} />
   ))
   .add('food', () => (
-    <SvgIcon height={48} width={48} fill="#fff" iconData={iconData.food} />
+    <SvgIcon height={48} width={48} fill="#fff" iconData={icons.food} />
   ))
   .add('left arrow', () => (
-    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.leftArrow} />
+    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={icons.leftArrow} />
   ))
   .add('minus', () => (
-    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.minus} />
+    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={icons.minus} />
   ))
   .add('plus', () => (
-    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.plus} />
+    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={icons.plus} />
   ))
   .add('pen', () => (
-    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={iconData.pen} />
+    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={icons.pen} />
   ))
 
 storiesOf('Tab bar', module)
@@ -258,3 +249,16 @@ storiesOf('Controls', module)
   .add('stepper', () => {
     return <Stepper minValue={1} />
   })
+  .add('primary button', () => (
+    <PrimaryButton
+      title="Book a Table"
+      onPress={action('primary-button-press')}
+    />
+  ))
+  .add('secondary button', () => (
+    <SecondaryButton
+      title="Wake-Up Alarm"
+      onPress={action('secondary-button-press')}
+      iconData={icons.alarmClock}
+    />
+  ))
