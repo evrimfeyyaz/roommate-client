@@ -1,4 +1,3 @@
-export { default as ItemCard } from './Cards/ItemCard/ItemCard'
 export { default as Switch } from './controls/Switch/Switch'
 export { default as SvgIcon } from './misc/SvgIcon/SvgIcon'
 export { default as Heading } from './Typography/Heading/Heading'
@@ -21,6 +20,7 @@ export { default as TabBarItem } from './Navigation/TabBar/Item/TabBarItem'
 export { default as NavigationBar } from './Navigation/NavigationBar/NavigationBar'
 
 // Shopping
+export { default as ItemCard } from './Shopping/ItemCard'
 export { default as ItemsInCategory } from './Shopping/ItemsInCategory/ItemsInCategory'
 export { default as Categories } from './Shopping/Categories'
 export { default as ItemDetails } from './Shopping/ItemDetails'

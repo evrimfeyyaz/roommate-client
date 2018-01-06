@@ -1,19 +1,38 @@
+// @flow
 import React from 'react'
 import { ViewPropTypes, TouchableWithoutFeedback, Platform, StyleSheet } from 'react-native'
-import PropTypes from 'prop-types'
 import FastImage from 'react-native-fast-image'
 
-import { Heading2, Heading3, BackgroundCard } from '../../.'
+import { Heading2, Heading3, Card } from '../index'
 
-const ItemCard = ({ item, style, onPress }) => (
+// TODO: Take this out to a separate file when you find a place that makes sense.
+type ShoppingItem = {
+  id: string,
+  title: string,
+  description?: string,
+  price?: string
+}
+
+type Props = {
+  item: ShoppingItem,
+  onPress: Function,
+  style?: ViewPropTypes.style,
+}
+
+// TODO: Add back the FastImage component.
+const ItemCard = ({ item, style, onPress }: Props) => (
   <TouchableWithoutFeedback onPress={() => onPress(item)}>
-    <BackgroundCard style={[styles.container, style]}>
+    <Card style={[styles.container, style]}>
       <Heading2 style={styles.title}>{item.title}</Heading2>
       <Heading3 style={styles.description} numberOfLines={2}>{item.description}</Heading3>
       <Heading2 style={styles.price}>{item.price}</Heading2>
-    </BackgroundCard>
+    </Card>
   </TouchableWithoutFeedback>
 )
+
+ItemCard.defaultProps = {
+  style: null
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -22,14 +41,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     paddingTop: 135,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 10
-    },
-    shadowRadius: 14,
-    shadowOpacity: 0.2,
-    elevation: 18,
     // Following is required because the FastImage component overflows on Android,
     // and hiding the overflow on iOS also hides the shadow.
     // FIXME: This should be fixed in a newer version of RN, check this again after updating.
@@ -54,21 +65,5 @@ const styles = StyleSheet.create({
     right: 0
   }
 })
-
-ItemCard.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    price: PropTypes.string
-  }).isRequired,
-  style: ViewPropTypes.style,
-  onPress: PropTypes.func
-}
-
-ItemCard.defaultProps = {
-  style: null,
-  onPress: null
-}
 
 export default ItemCard

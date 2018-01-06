@@ -81,19 +81,6 @@ storiesOf('Top bar', module)
     <TopBar title="Home" />
   ))
 
-storiesOf('Cards', module)
-  .add('item', () => (
-    <ItemCard
-      item={{
-        id: 'some-item-id',
-        title: 'Mexican Omelet',
-        description: 'Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a ' +
-        'side of roasted potatoes, and your choice of toast or croissant.',
-        price: '16'
-      }}
-    />
-  ))
-
 storiesOf('Icons', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('home', () => (
@@ -200,6 +187,17 @@ storiesOf('Navigation bar', module)
 
 storiesOf('Shopping', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .add('item card', () => (
+    <ItemCard
+      item={{
+        id: 'some-item-id',
+        title: 'Mexican Omelet',
+        description: 'Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a ' +
+        'side of roasted potatoes, and your choice of toast or croissant.',
+        price: '16'
+      }}
+    />
+  ))
   .add('item details', () => {
     const item = {
       id: 'sample-id',
