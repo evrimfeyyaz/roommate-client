@@ -43,7 +43,7 @@ class Switch extends Component<Props> {
       200,
       LayoutAnimation.Types.easeOut,
       LayoutAnimation.Properties.scaleXY
-    ), null)
+    ))
   }
 
   thumbLocationStyle() {
