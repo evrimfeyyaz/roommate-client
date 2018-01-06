@@ -45,19 +45,6 @@ const client = new ApolloClient({
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
-storiesOf('Switch', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .addDecorator(withKnobs)
-  .add('regular', () => (
-    <Switch
-      onTitle="On"
-      offTitle="Off"
-      style={{ width: 180 }}
-      onPress={action('switch-tap')}
-      value={boolean('Value', true)}
-    />
-  ))
-
 storiesOf('Menu', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('item', () => (
@@ -107,9 +94,6 @@ storiesOf('Icons', module)
   ))
   .add('plus', () => (
     <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={icons.plus} />
-  ))
-  .add('pen', () => (
-    <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={icons.pen} />
   ))
 
 storiesOf('Tab bar', module)
@@ -252,9 +236,10 @@ storiesOf('Shopping', module)
 
 storiesOf('Controls', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .add('stepper', () => {
-    return <Stepper minValue={1} />
-  })
+  .addDecorator(withKnobs)
+  .add('stepper', () => (
+    <Stepper minValue={1} />
+  ))
   .add('primary button', () => (
     <PrimaryButton
       title="Book a Table"
@@ -289,6 +274,15 @@ storiesOf('Controls', module)
       iconData={icons.plus}
       iconFill={colors.circularButtonIcon}
       disabled
+    />
+  ))
+  .add('regular', () => (
+    <Switch
+      onTitle="On"
+      offTitle="Off"
+      style={{ width: 180 }}
+      onPress={action('switch-tap')}
+      value={boolean('Value', true)}
     />
   ))
 

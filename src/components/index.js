@@ -1,8 +1,8 @@
-export { default as SvgIcon } from './misc/SvgIcon/SvgIcon'
+// Typography
 export { default as Heading } from './typography/Heading'
 export { default as Heading2 } from './typography/Heading2'
 export { default as Heading3 } from './typography/Heading3'
-export { default as Title } from './Typography/Title'
+export { default as Title } from './typography/Title'
 
 // Controls
 export { default as Switch } from './controls/Switch'
@@ -28,3 +28,4 @@ export { default as Cart } from './Shopping/Cart'
 
 // Misc
 export { default as Card } from './misc/Card'
+export { default as SvgIcon } from './misc/SvgIcon'
