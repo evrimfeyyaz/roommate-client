@@ -1,43 +1,43 @@
+// @flow
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import SideMenuItem from './SideMenuItem'
-import * as icons from '../../../assets/iconData'
 import colors from '../../config/colors'
 import type { IconData } from '../../../assets/iconData'
 
-type SideMenuRoute = {
+export type SideMenuRoute = {
   title: string,
-  index: number,
+  routeKey: string,
   iconData: IconData
 }
 
 type Props = {
   routes: SideMenuRoute[],
-  currentRouteIndex: number,
+  activeRouteKey: string,
   sideMenuItemTapped: Function
 }
 
 class SideMenu extends Component<Props> {
-  // TODO: Remove this, and add items using children in the screen.
-  // This shouldn't decide what items show on the menu.
-  renderItems(title, index, data) {
-    return (
+  renderItems() {
+    const { routes, sideMenuItemTapped, activeRouteKey } = this.props
+
+    return routes.map(route => (
       <SideMenuItem
-        title={title}
-        index={index}
-        iconData={data}
-        onPress={this.props.sideMenuItemTapped}
-        isSelected={this.props.currentRouteIndex === index}
+        title={route.title}
+        routeKey={route.routeKey}
+        key={route.routeKey}
+        iconData={route.iconData}
+        onPress={sideMenuItemTapped}
+        selected={activeRouteKey === route.routeKey}
       />
-    )
+    ))
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.renderItem('Home', 0, icons.home)}
-        {this.renderItem('Food', 1, icons.food)}
+        {this.renderItems()}
       </View>
     )
   }

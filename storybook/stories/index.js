@@ -5,7 +5,7 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 
 import CenterView from './CenterView'
 import Welcome from './Welcome'
@@ -35,6 +35,7 @@ import {
 import centerViewStyle from './CenterView/style'
 import * as icons from '../../assets/iconData'
 import colors from '../../src/config/colors'
+import type { SideMenuRoute } from "../../src/components/Navigation/SideMenu"
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
@@ -152,12 +153,34 @@ storiesOf('Tab bar', module)
 
 storiesOf('Navigation', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .addDecorator(withKnobs)
   .add('navigation bar', () => (
     <NavigationBar onBackButtonPress={action('back-button-tap')} title="Room Service" />
   ))
-  .add('side menu', () => (
-    <SideMenu />
-  ))
+  .add('side menu', () => {
+    const routes: SideMenuRoute[] = [
+      {
+        title: 'Home',
+        routeKey: 'home-route',
+        iconData: icons.home
+      },
+      {
+        title: 'Food',
+        routeKey: 'food-route',
+        iconData: icons.food
+      }
+    ]
+
+    const routeKeys = routes.map(route => route.routeKey)
+
+    return (
+      <SideMenu
+        routes={routes}
+        activeRouteKey={select('Active Route', routeKeys, routeKeys[0])}
+        sideMenuItemTapped={action('side-menu-item-tap')}
+      />
+    )
+  })
 
 // TODO: Mock the data instead of getting it from the local host.
 // storiesOf('Room service', module)

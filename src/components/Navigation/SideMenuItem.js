@@ -11,10 +11,10 @@ type Props = {
   title: string,
   iconData: IconData,
   /**
-   * Index of the route within the side menu.
+   * Route key of the route in react-navigation.
    */
-  index: number,
-  onPress: Function,
+  routeKey: string,
+  onPress: (string) => void,
   selected?: boolean,
 }
 
@@ -44,10 +44,10 @@ class SideMenuItem extends Component<Props> {
   }
 
   render() {
-    const { onPress, iconData, index, title } = this.props
+    const { onPress, iconData, routeKey, title } = this.props
 
     return (
-      <TouchableWithoutFeedback onPress={() => onPress(index)}>
+      <TouchableWithoutFeedback onPress={() => onPress(routeKey)} key={routeKey}>
         <View style={styles.container}>
           {this.renderSelectedIndicator()}
 
