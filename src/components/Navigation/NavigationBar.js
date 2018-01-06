@@ -1,15 +1,22 @@
+// @flow
 import React, { Component } from 'react'
-import { View, TouchableWithoutFeedback } from 'react-native'
-import PropTypes from 'prop-types'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
 
-import { SvgIcon, Heading } from '../../.'
-import { leftArrow } from '../../../../assets/iconData'
-import styles from './styles'
+import { SvgIcon, Heading } from '../index'
+import { leftArrow } from '../../../assets/iconData'
 
-class NavigationBar extends Component {
+type Props = {
+  onBackButtonPress: Function,
+  title: string
+}
+
+/**
+ * This is the navigation bar that is used for stack navigation.
+ */
+class NavigationBar extends Component<Props> {
   renderBackButton() {
     return (
-      <TouchableWithoutFeedback
+      <TouchableOpacity
         onPress={this.props.onBackButtonPress}
         hitSlop={{ top: 45, left: 45, bottom: 45, right: 45 }}
       >
@@ -25,7 +32,7 @@ class NavigationBar extends Component {
             style={styles.backArrow}
           />
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     )
   }
 
@@ -39,9 +46,21 @@ class NavigationBar extends Component {
   }
 }
 
-NavigationBar.propTypes = {
-  onBackButtonPress: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
-}
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 28,
+    paddingVertical: 24,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  backButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 30
+  },
+  backArrow: {
+    marginTop: 2
+  }
+})
 
 export default NavigationBar

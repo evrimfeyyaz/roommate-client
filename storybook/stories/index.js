@@ -162,9 +162,9 @@ storiesOf('Tab bar', module)
     )
   })
 
-storiesOf('Navigation bar', module)
+storiesOf('Navigation', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .add('full', () => (
+  .add('navigation bar', () => (
     <NavigationBar onBackButtonPress={action('back-button-tap')} title="Room Service" />
   ))
 

@@ -17,7 +17,7 @@ export { default as SideMenu } from './Navigation/SideMenu/SideMenu'
 export { default as TopBar } from './Navigation/TopBar/TopBar'
 export { default as TabBar } from './Navigation/TabBar/TabBar'
 export { default as TabBarItem } from './Navigation/TabBar/Item/TabBarItem'
-export { default as NavigationBar } from './Navigation/NavigationBar/NavigationBar'
+export { default as NavigationBar } from './Navigation/NavigationBar'
 
 // Shopping
 export { default as ItemCard } from './Shopping/ItemCard'
