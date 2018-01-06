@@ -15,7 +15,13 @@ const colors = {
 
   heading2Color: '#fff',
 
-  heading3Color: 'rgba(255, 255, 255, 0.6)'
+  heading3Color: 'rgba(255, 255, 255, 0.6)',
+
+  sideMenuBackground: 'rgba(13, 17, 23, .28)',
+
+  sideMenuItemSelected: '#CDB58E',
+  sideMenuItemUnselected: '#fff',
+  sideMenuUnselectedItemTitle: 'rgba(255, 255, 255, 0.3)'
 }
 
 export default colors

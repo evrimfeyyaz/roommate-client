@@ -12,8 +12,8 @@ export { default as SecondaryButton } from './controls/SecondaryButton'
 export { default as PrimaryButton } from './controls/PrimaryButton'
 
 // Navigation
-export { default as SideMenuItem } from './Navigation/SideMenu/Item/SideMenuItem'
-export { default as SideMenu } from './Navigation/SideMenu/SideMenu'
+export { default as SideMenuItem } from './Navigation/SideMenuItem'
+export { default as SideMenu } from './Navigation/SideMenu'
 export { default as TopBar } from './Navigation/TopBar/TopBar'
 export { default as TabBar } from './Navigation/TabBar/TabBar'
 export { default as TabBarItem } from './Navigation/TabBar/Item/TabBarItem'

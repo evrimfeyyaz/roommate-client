@@ -45,18 +45,6 @@ const client = new ApolloClient({
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
-storiesOf('Menu', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .add('item', () => (
-    <SideMenuItem title="Home" id="home" iconData={icons.home} />
-  ))
-  .add('item selected', () => (
-    <SideMenuItem title="Home" id="home" iconData={icons.home} isSelected />
-  ))
-  .add('full menu', () => (
-    <SideMenu />
-  ))
-
 storiesOf('Typography', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('title', () => (
@@ -166,6 +154,9 @@ storiesOf('Navigation', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('navigation bar', () => (
     <NavigationBar onBackButtonPress={action('back-button-tap')} title="Room Service" />
+  ))
+  .add('side menu', () => (
+    <SideMenu />
   ))
 
 // TODO: Mock the data instead of getting it from the local host.
