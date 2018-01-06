@@ -14,6 +14,7 @@ type Props = {
  * This is the navigation bar that is used for stack navigation.
  */
 class NavigationBar extends Component<Props> {
+  // TODO: Refactor this out if it makes sense at one point.
   renderBackButton() {
     return (
       <TouchableOpacity
