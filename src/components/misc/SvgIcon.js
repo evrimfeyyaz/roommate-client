@@ -17,7 +17,7 @@ type Props = {
 }
 
 const SvgIcon = ({ height, width, style, fill, stroke, strokeWidth, opacity, iconData }: Props) => (
-  <Svg height={height} width={width} style={style} opacity={opacity}>
+  <Svg height={height} width={width} style={style} opacity={opacity} viewBox={iconData.viewBox}>
     <G fill={fill} stroke={stroke} strokeWidth={strokeWidth}>
       {iconData.shape}
     </G>
