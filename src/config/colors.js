@@ -7,7 +7,9 @@ const colors = {
 
   circularButtonIcon: '#fff',
 
-  cardBackgroundGradient: ['#2F3846', '#232A36']
+  cardBackgroundGradient: ['#2F3846', '#232A36'],
+
+  titleColor: '#fff'
 }
 
 export default colors
