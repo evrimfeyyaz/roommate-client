@@ -61,12 +61,6 @@ storiesOf('Typography', module)
     <Heading3>Heading 3</Heading3>
   ))
 
-storiesOf('Top bar', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .add('regular', () => (
-    <TopBar title="Home" />
-  ))
-
 storiesOf('Icons', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('home', () => (
@@ -181,6 +175,9 @@ storiesOf('Navigation', module)
       />
     )
   })
+  .add('top bar', () => (
+    <TopBar title="Home" />
+  ))
 
 // TODO: Mock the data instead of getting it from the local host.
 // storiesOf('Room service', module)
