@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { StyleSheet, Text } from 'react-native'
 
@@ -9,22 +8,22 @@ type Props = {
   style?: Text.propTypes.style
 }
 
-const Heading3 = (props: Props) => (
-  <Text {...props} style={[styles.heading3, props.style]} />
+const Heading = (props: Props) => (
+  <Text {...props} style={[styles.heading, props.style]} />
 )
 
-Heading3.defaultProps = {
+Heading.defaultProps = {
   style: null
 }
 
 const styles = StyleSheet.create({
-  heading3: {
+  heading: {
     fontFamily: fonts.regular,
-    fontSize: 12,
-    lineHeight: 17,
-    color: colors.heading3Color,
+    fontSize: 20,
+    lineHeight: 27,
+    color: colors.headingColor,
     backgroundColor: 'rgba(0, 0, 0, 0)'
   }
 })
 
-export default Heading3
+export default Heading

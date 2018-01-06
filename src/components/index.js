@@ -1,5 +1,5 @@
 export { default as SvgIcon } from './misc/SvgIcon/SvgIcon'
-export { default as Heading } from './Typography/Heading/Heading'
+export { default as Heading } from './typography/Heading'
 export { default as Heading2 } from './Typography/Heading2/Heading2'
 export { default as Heading3 } from './typography/Heading3'
 export { default as Title } from './Typography/Title'
