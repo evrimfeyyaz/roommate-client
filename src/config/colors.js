@@ -9,7 +9,9 @@ const colors = {
 
   cardBackgroundGradient: ['#2F3846', '#232A36'],
 
-  titleColor: '#fff'
+  titleColor: '#fff',
+
+  heading3Color: 'rgba(255, 255, 255, 0.6)'
 }
 
 export default colors
