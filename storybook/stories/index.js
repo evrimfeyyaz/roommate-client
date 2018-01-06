@@ -5,6 +5,7 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
+import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 
 import CenterView from './CenterView'
 import Welcome from './Welcome'
@@ -40,12 +41,21 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
+// TODO: Add below decorators as global decorators.
+
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
 
 storiesOf('Switch', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
+  .addDecorator(withKnobs)
   .add('regular', () => (
-    <Switch backgroundColors={['#c1b296', '#998263']} />
+    <Switch
+      onTitle="On"
+      offTitle="Off"
+      style={{ width: 180 }}
+      onPress={action('switch-tap')}
+      value={boolean('Value', true)}
+    />
   ))
 
 storiesOf('Menu', module)

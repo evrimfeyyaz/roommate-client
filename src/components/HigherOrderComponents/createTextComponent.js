@@ -6,10 +6,8 @@ import {
 import PropTypes from 'prop-types'
 
 function createTextComponent(defaultStyle) {
-  const TextComponent = ({ children, style, numberOfLines }) => (
-    <Text style={[defaultStyle, style]} numberOfLines={numberOfLines}>
-      {children}
-    </Text>
+  const TextComponent = (props) => (
+    <Text {...props} style={[defaultStyle, props.style]} />
   )
 
   TextComponent.propTypes = {
