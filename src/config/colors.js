@@ -13,6 +13,8 @@ const colors = {
 
   headingColor: '#fff',
 
+  heading2Color: '#fff',
+
   heading3Color: 'rgba(255, 255, 255, 0.6)'
 }
 
