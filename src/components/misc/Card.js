@@ -10,25 +10,19 @@ type Props = {
   style?: ViewPropTypes.style,
 }
 
-class Card extends React.Component<Props> {
-  static defaultProps = {
-    style: null,
-    children: null
-  }
+const Card = ({ children, style }: Props) => (
+  <View style={[styles.container, style]}>
+    <LinearGradient
+      colors={colors.cardBackgroundGradient}
+      style={styles.gradientBackground}
+    />
+    {children}
+  </View>
+)
 
-  render() {
-    const { children, style } = this.props
-
-    return (
-      <View style={[styles.container, style]}>
-        <LinearGradient
-          colors={colors.cardBackgroundGradient}
-          style={styles.gradientBackground}
-        />
-        {children}
-      </View>
-    )
-  }
+Card.defaultProps = {
+  style: null,
+  children: null
 }
 
 const styles = StyleSheet.create({
