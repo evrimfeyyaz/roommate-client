@@ -1,5 +1,5 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react-native'
+import { storiesOf, addDecorator } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
@@ -8,10 +8,8 @@ import { ApolloProvider } from 'react-apollo'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 
 import CenterView from './CenterView'
-import Welcome from './Welcome'
 import {
   Switch,
-  SideMenuItem,
   SideMenu,
   Title,
   Heading,
@@ -22,7 +20,6 @@ import {
   SecondaryButton,
   TopBar,
   SvgIcon,
-  TabBarItem,
   TabBar,
   NavigationBar,
   Card,
@@ -32,16 +29,16 @@ import {
   Cart,
   CircularButton
 } from '../../src/components'
-import centerViewStyle from './CenterView/style'
 import * as icons from '../../assets/iconData'
 import colors from '../../src/config/colors'
-import type { SideMenuRoute } from "../../src/components/Navigation/SideMenu"
+import type { SideMenuRoute } from '../../src/components/navigation/SideMenu'
 
-const client = new ApolloClient({
-  link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
-  cache: new InMemoryCache()
-})
 
+/**
+ * SAMPLE DATA
+ */
+
+// TabBar
 const tabData = [{
   title: 'Room Service',
   id: '0'
@@ -49,15 +46,44 @@ const tabData = [{
   title: 'Restaurants',
   id: '1'
 }]
-
 const tabIds = tabData.map(tab => tab.id)
 
-// TODO: Add below decorators as global decorators.
+// SideMenu
+const routes: SideMenuRoute[] = [
+  {
+    title: 'Home',
+    routeKey: 'home-route',
+    iconData: icons.home
+  },
+  {
+    title: 'Food',
+    routeKey: 'food-route',
+    iconData: icons.food
+  }
+]
+const routeKeys = routes.map(route => route.routeKey)
 
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
+/**
+ * APOLLO
+ */
+
+const client = new ApolloClient({
+  link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
+  cache: new InMemoryCache()
+})
+
+/**
+ * GLOBAL DECORATORS
+ */
+
+addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+addDecorator(withKnobs)
+
+/**
+ * STORIES
+ */
 
 storiesOf('Typography', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('title', () => (
     <Title>Page Title</Title>
   ))
@@ -72,7 +98,6 @@ storiesOf('Typography', module)
   ))
 
 storiesOf('Icons', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('home', () => (
     <SvgIcon height={48} width={48} fill="#fff" iconData={icons.home} />
   ))
@@ -90,35 +115,16 @@ storiesOf('Icons', module)
   ))
 
 storiesOf('Navigation', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .addDecorator(withKnobs)
   .add('navigation bar', () => (
     <NavigationBar onBackButtonPress={action('back-button-tap')} title="Room Service" />
   ))
-  .add('side menu', () => {
-    const routes: SideMenuRoute[] = [
-      {
-        title: 'Home',
-        routeKey: 'home-route',
-        iconData: icons.home
-      },
-      {
-        title: 'Food',
-        routeKey: 'food-route',
-        iconData: icons.food
-      }
-    ]
-
-    const routeKeys = routes.map(route => route.routeKey)
-
-    return (
-      <SideMenu
-        routes={routes}
-        activeRouteKey={select('Active Route', routeKeys, routeKeys[0])}
-        sideMenuItemTapped={action('side-menu-item-tap')}
-      />
-    )
-  })
+  .add('side menu', () => (
+    <SideMenu
+      routes={routes}
+      activeRouteKey={select('Active Route', routeKeys, routeKeys[0])}
+      sideMenuItemTapped={action('side-menu-item-tap')}
+    />
+  ))
   .add('top bar', () => (
     <TopBar title="Home" />
   ))
@@ -150,7 +156,6 @@ storiesOf('Navigation', module)
 //   ))
 
 storiesOf('Shopping', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('item card', () => (
     <ItemCard
       item={{
@@ -205,8 +210,6 @@ storiesOf('Shopping', module)
   })
 
 storiesOf('Controls', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .addDecorator(withKnobs)
   .add('stepper', () => (
     <Stepper minValue={1} />
   ))
@@ -257,7 +260,6 @@ storiesOf('Controls', module)
   ))
 
 storiesOf('Miscellaneous', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .add('background', () => (
     <Card style={{ width: 300, height: 300 }} />
   ))
