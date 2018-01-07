@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 
@@ -11,8 +12,8 @@ export type TabData = {
 
 type Props = {
   data: TabData[],
-  activeTabId?: TabData.id,
-  onTabPress: (TabData.id) => void,
+  activeTabId?: string,
+  onTabPress: (tabId: string) => void,
   /**
    * Toggles the alternative "small" style.
    *
@@ -31,7 +32,7 @@ class TabBar extends Component<Props> {
     return this.props.small ? styles.containerSmall : styles.container
   }
 
-  renderTab(tabData: TabData, active = false) {
+  renderTab(tabData: TabData, active: boolean = false) {
     const { small, onTabPress } = this.props
 
     return (
