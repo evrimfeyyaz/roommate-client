@@ -42,6 +42,16 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
+const tabData = [{
+  title: 'Room Service',
+  id: '0'
+}, {
+  title: 'Restaurants',
+  id: '1'
+}]
+
+const tabIds = tabData.map(tab => tab.id)
+
 // TODO: Add below decorators as global decorators.
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome />)
@@ -79,72 +89,6 @@ storiesOf('Icons', module)
     <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={icons.plus} />
   ))
 
-storiesOf('Tab bar', module)
-  .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
-  .add('active item', () => (
-    <TabBarItem title="Restaurants" id="0" key="tab-bar-item" onPress={action('tab-bar-item-tap')} isActive />
-  ))
-  .add('inactive item', () => (
-    <TabBarItem title="Restaurants" id="0" key="tab-bar-item" onPress={action('tab-bar-inactive-item-tap')} />
-  ))
-  .add('small active item', () => (
-    <TabBarItem
-      title="Restaurants"
-      id="0"
-      key="tab-bar-item"
-      onPress={action('tab-bar-small-item-tap')}
-      isActive
-      small
-    />
-  ))
-  .add('small inactive item', () => (
-    <TabBarItem
-      title="Restaurants"
-      id="0"
-      key="tab-bar-item"
-      onPress={action('tab-bar-small-inactive-item-tap')}
-      small
-    />
-  ))
-  .add('full', () => {
-    const roomServiceItem = {
-      title: 'Room Service',
-      id: '0'
-    }
-
-    const restaurantsItem = {
-      title: 'Restaurants',
-      id: '1'
-    }
-
-    const items = [roomServiceItem, restaurantsItem]
-
-    return (
-      <TabBar data={items} onTabChange={action('tab-change')} />
-    )
-  })
-  .add('small full', () => {
-    const roomServiceItem = {
-      title: 'Recommended',
-      id: '0',
-      key: 'recommended',
-      onPress: action('recommended-item-tap')
-    }
-
-    const restaurantsItem = {
-      title: 'Breakfast',
-      id: '1',
-      key: 'breakfast',
-      onPress: action('breakfast-item-tap')
-    }
-
-    const items = [roomServiceItem, restaurantsItem]
-
-    return (
-      <TabBar data={items} onTabChange={action('tab-change')} small />
-    )
-  })
-
 storiesOf('Navigation', module)
   .addDecorator(getStory => <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>)
   .addDecorator(withKnobs)
@@ -177,6 +121,21 @@ storiesOf('Navigation', module)
   })
   .add('top bar', () => (
     <TopBar title="Home" />
+  ))
+  .add('tab bar', () => (
+    <TabBar
+      data={tabData}
+      onTabPress={action('tab-press')}
+      activeTabId={select('Active Tab', tabIds, tabIds[0])}
+    />
+  ))
+  .add('tab bar (small)', () => (
+    <TabBar
+      data={tabData}
+      onTabPress={action('tab-press')}
+      activeTabId={select('Active Tab', tabIds, tabIds[0])}
+      small
+    />
   ))
 
 // TODO: Mock the data instead of getting it from the local host.

@@ -1,65 +1,77 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
-import PropTypes from 'prop-types'
 
-import { TabBarItem } from '../../.'
+import { TabBarItem } from '../.'
+import colors from '../../config/colors'
 
-class TabBar extends Component {
-  constructor(props) {
-    super(props)
+export type TabData = {
+  id: string,
+  title: string
+}
 
-    this.onTabChange = this.onTabChange.bind(this)
-  }
+type Props = {
+  data: TabData[],
+  activeTabId?: TabData.id,
+  onTabPress: (TabData.id) => void,
+  /**
+   * Toggles the alternative "small" style.
+   *
+   * Defaults to `false`.
+   */
+  small?: boolean
+}
 
-  state = {
-    activeId: this.props.data[0].id
-  }
-
-  onTabChange(id) {
-    this.setState({ activeId: id })
-
-    this.props.onTabChange(id)
+class TabBar extends Component<Props> {
+  static defaultProps = {
+    activeTabId: null,
+    small: false
   }
 
   containerStyle() {
     return this.props.small ? styles.containerSmall : styles.container
   }
 
-  renderItem(item, isActive = false) {
+  renderTab(tabData: TabData, active = false) {
+    const { small, onTabPress } = this.props
+
     return (
       <TabBarItem
-        key={item.id}
-        id={item.id}
-        title={item.title}
-        onPress={this.onTabChange}
-        isActive={isActive}
-        small={this.props.small}
+        key={tabData.id}
+        data={tabData}
+        onPress={onTabPress}
+        active={active}
+        small={small}
       />
     )
   }
 
-  renderActiveItem(item) {
+  renderActiveTab(tabData: TabData) {
+    const activeTabKey = `${tabData.id}-active`
+
     return (
-      <View key="active-tab">
+      <View key={activeTabKey}>
         <View style={styles.activeItemIndicatorContainer}>
           <View style={styles.activeItemIndicator} />
         </View>
 
-        {this.renderItem(item, true)}
+        {this.renderTab(tabData, true)}
       </View>
     )
   }
 
-  renderItems() {
-    return this.props.data.map((item) => {
-      if (item.id === this.state.activeId) {
-        return this.renderActiveItem(item)
+  renderTabs() {
+    const { data, activeTabId } = this.props
+
+    return data.map((tabData) => {
+      if (tabData.id === activeTabId) {
+        return this.renderActiveTab(tabData)
       }
 
-      return this.renderItem(item)
+      return this.renderTab(tabData)
     })
   }
 
+  // TODO: Try using `borderBottomWidth`.
   renderBorderContainer() {
     if (this.props.small) {
       return null
@@ -73,7 +85,7 @@ class TabBar extends Component {
       <View style={this.containerStyle()}>
         {this.renderBorderContainer()}
 
-        {this.renderItems()}
+        {this.renderTabs()}
       </View>
     )
   }
@@ -92,7 +104,7 @@ const styles = StyleSheet.create({
   borderContainer: {
     ...StyleSheet.absoluteFillObject,
     bottom: 1,
-    borderColor: 'rgba(151, 151, 151, 0.1)',
+    borderColor: colors.tabBarBorder,
     borderBottomWidth: 1
   },
   activeItemIndicatorContainer: {
@@ -105,24 +117,8 @@ const styles = StyleSheet.create({
   },
   activeItemIndicator: {
     flex: 1,
-    backgroundColor: '#CDB58E'
+    backgroundColor: colors.tabBarActiveItemIndicator
   }
 })
-
-TabBar.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired
-    })
-  ).isRequired,
-  onTabChange: PropTypes.func,
-  small: PropTypes.bool
-}
-
-TabBar.defaultProps = {
-  small: false,
-  onTabChange: null
-}
 
 export default TabBar

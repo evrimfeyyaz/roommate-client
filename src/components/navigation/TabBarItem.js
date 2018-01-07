@@ -1,12 +1,40 @@
 import React, { Component } from 'react'
 import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native'
-import PropTypes from 'prop-types'
 
-import { Heading, Heading2 } from '../../../.'
+import { Heading, Heading2 } from '../index'
+import { TabData } from './TabBar'
 
-class TabBarItem extends Component {
+type Props = {
+  data: TabData,
+  onPress: (TabData.id) => void,
+  /**
+   * Toggles the "active" style.
+   *
+   * Defaults to `false`.
+   */
+  active?: boolean,
+  /**
+   * Toggles the alternative "small" style.
+   *
+   * Defaults to `false`.
+   */
+  small?: boolean
+}
+
+class TabBarItem extends Component<Props> {
+  static defaultProps = {
+    active: false,
+    small: false
+  }
+
+  onPress = () => {
+    const { data, onPress } = this.props
+
+    onPress(data.id)
+  }
+
   headingStyle() {
-    return this.props.isActive ? null : styles.inactiveHeading
+    return this.props.active ? null : styles.inactiveHeading
   }
 
   containerStyle() {
@@ -14,8 +42,10 @@ class TabBarItem extends Component {
   }
 
   renderTitle() {
-    const { title, small } = this.props
+    const { title } = this.props.data
+    const { small } = this.props
 
+    // TODO: Find a better way to deal with typography components.
     if (small) {
       return <Heading2 style={this.headingStyle()}>{title}</Heading2>
     }
@@ -24,10 +54,8 @@ class TabBarItem extends Component {
   }
 
   render() {
-    const { id, onPress } = this.props
-
     return (
-      <TouchableWithoutFeedback onPress={() => onPress(id)} id={id}>
+      <TouchableWithoutFeedback onPress={this.onPress}>
         <View style={this.containerStyle()}>
           {this.renderTitle()}
         </View>
@@ -49,18 +77,5 @@ const styles = StyleSheet.create({
     opacity: 0.6
   }
 })
-
-TabBarItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
-  isActive: PropTypes.bool,
-  small: PropTypes.bool
-}
-
-TabBarItem.defaultProps = {
-  isActive: false,
-  small: false
-}
 
 export default TabBarItem

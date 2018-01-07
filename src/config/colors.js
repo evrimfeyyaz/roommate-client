@@ -21,7 +21,10 @@ const colors = {
 
   sideMenuItemSelected: '#CDB58E',
   sideMenuItemUnselected: '#fff',
-  sideMenuUnselectedItemTitle: 'rgba(255, 255, 255, 0.3)'
+  sideMenuUnselectedItemTitle: 'rgba(255, 255, 255, 0.3)',
+
+  tabBarActiveItemIndicator: '#CDB58E',
+  tabBarBorder: 'rgba(151, 151, 151, 0.1)'
 }
 
 export default colors
