@@ -12,12 +12,12 @@ export { default as SecondaryButton } from './controls/SecondaryButton'
 export { default as PrimaryButton } from './controls/PrimaryButton'
 
 // Navigation
-export { default as SideMenuItem } from './Navigation/SideMenuItem'
-export { default as SideMenu } from './Navigation/SideMenu'
-export { default as TopBar } from './Navigation/TopBar'
-export { default as TabBar } from './Navigation/TabBar'
-export { default as TabBarItem } from './Navigation/TabBarItem'
-export { default as NavigationBar } from './Navigation/NavigationBar'
+export { default as SideMenuItem } from './navigation/SideMenuItem'
+export { default as SideMenu } from './navigation/SideMenu'
+export { default as TopBar } from './navigation/TopBar'
+export { default as TabBar } from './navigation/TabBar'
+export { default as TabBarItem } from './navigation/TabBarItem'
+export { default as NavigationBar } from './navigation/NavigationBar'
 
 // Shopping
 export { default as ItemCard } from './Shopping/ItemCard'

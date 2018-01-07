@@ -71,7 +71,9 @@ class TabBar extends Component<Props> {
     })
   }
 
-  // TODO: Try using `borderBottomWidth`.
+  // We are using this instead of `borderBottomWidth`, because in the design,
+  // "selected item indicator" overflows the container, and Android can't deal
+  // with that.
   renderBorderContainer() {
     if (this.props.small) {
       return null
