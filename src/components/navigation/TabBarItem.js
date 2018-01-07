@@ -1,12 +1,13 @@
+// @flow
 import React, { Component } from 'react'
 import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 
 import { Heading, Heading2 } from '../index'
-import { TabData } from './TabBar'
+import type { TabData } from './TabBar'
 
 type Props = {
   data: TabData,
-  onPress: (TabData.id) => void,
+  onPress: (string) => void,
   /**
    * Toggles the "active" style.
    *
