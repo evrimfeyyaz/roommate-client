@@ -1,78 +1,89 @@
+// @flow
 import React, { Component } from 'react'
 import { View, StyleSheet, ViewPropTypes } from 'react-native'
-import PropTypes from 'prop-types'
 
 import { Heading, CircularButton } from '../.'
 import * as iconData from '../../../assets/iconData'
+import colors from '../../config/colors'
 
-// TODO: Extract the below button component into its own file.
-class Stepper extends Component {
-  constructor(props) {
-    super(props)
+type Props = {
+  /**
+   * Current value of the stepper.
+   */
+  value: number,
+  /**
+   * Fired when the user presses either the increment or the decrement
+   * button.
+   *
+   * Takes two arguments:
+   * - currentValue: Equals to the `value` prop.
+   * - newValue: New value that the stepper should have after button press.
+   */
+  onButtonPress: (currentValue: number, newValue: number) => void,
+  /**
+   * Minimum value this stepper accepts. When the value is below
+   * this number, the decrement button is disabled.
+   *
+   * Default is `null`, meaning no minimum value.
+   */
+  minValue?: ?number,
+  style?: ViewPropTypes.style,
+  /**
+   * Toggles the alternative "small" style.
+   *
+   * Default is `false`.
+   */
+  small?: boolean
+}
 
-    this.incrementValue = this.incrementValue.bind(this)
-    this.decrementValue = this.decrementValue.bind(this)
+class Stepper extends Component<Props> {
+  static defaultProps = {
+    minValue: null,
+    style: null,
+    small: false
   }
 
-  state = {
-    value: this.props.initialValue,
-    disableDecrementButton: false
+  incrementPressed = () => {
+    const { onButtonPress, value } = this.props
+
+    onButtonPress(value, value + 1)
   }
 
-  componentWillMount() {
-    this.updateDecrementState()
+  decrementPressed = () => {
+    const { onButtonPress, value } = this.props
+
+    onButtonPress(value, value - 1)
   }
 
-  incrementValue() {
-    this.setState({ value: this.state.value + 1 }, () => {
-      this.props.onValueChange(this.state.value)
-      this.updateDecrementState()
-    })
+  shouldDisableDecrementButton = () => {
+    const { value, minValue } = this.props
+
+    return typeof minValue === 'number' && value <= minValue
   }
 
-  decrementValue() {
-    this.setState({ value: this.state.value - 1 }, () => {
-      this.props.onValueChange(this.state.value)
-      this.updateDecrementState()
-    })
-  }
-
-  updateDecrementState() {
-    const { minValue } = this.props
-    const { value } = this.state
-
-    let disableDecrementButton = false
-    if (minValue && value === minValue) {
-      disableDecrementButton = true
-    }
-
-    this.setState({ disableDecrementButton })
-  }
-
-  minusIconFillColor() {
-    return this.state.disableDecrementButton ? 'rgba(255, 255, 255, 0.1)' : '#fff'
+  valueStyle() {
+    return this.props.small ? styles.valueSmall : styles.value
   }
 
   render() {
-    const { style, small } = this.props
-    const valueStyle = small ? styles.valueSmall : styles.value
+    const { style, small, value } = this.props
 
     return (
       <View style={[styles.container, style]}>
         <CircularButton
           iconData={iconData.minus}
-          iconFill={this.minusIconFillColor()}
-          onPress={this.decrementValue}
-          disabled={this.state.disableDecrementButton}
+          iconFill={colors.circularButtonIcon}
+          onPress={this.decrementPressed}
+          disabled={this.shouldDisableDecrementButton()}
           small={small}
         />
 
-        <Heading style={valueStyle}>{this.state.value}</Heading>
+        <Heading style={this.valueStyle()}>{value}</Heading>
 
         <CircularButton
           iconData={iconData.plus}
-          iconFill="#fff"
-          onPress={this.incrementValue}
+          iconFill={colors.circularButtonIcon}
+          onPress={this.incrementPressed}
           small={small}
         />
       </View>
@@ -94,21 +105,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18
   }
 })
-
-Stepper.propTypes = {
-  initialValue: PropTypes.number,
-  minValue: PropTypes.number,
-  onValueChange: PropTypes.func,
-  style: ViewPropTypes.style,
-  small: PropTypes.bool
-}
-
-Stepper.defaultProps = {
-  initialValue: 1,
-  minValue: null,
-  onValueChange: null,
-  style: null,
-  small: false
-}
 
 export default Stepper

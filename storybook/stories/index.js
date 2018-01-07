@@ -5,7 +5,7 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, number } from '@storybook/addon-knobs/react'
 
 import CenterView from './CenterView'
 import {
@@ -211,7 +211,7 @@ storiesOf('Shopping', module)
 
 storiesOf('Controls', module)
   .add('stepper', () => (
-    <Stepper minValue={1} />
+    <Stepper minValue={1} value={number('Stepper value', 1)} onButtonPress={action('stepper-button-press')} />
   ))
   .add('primary button', () => (
     <PrimaryButton
