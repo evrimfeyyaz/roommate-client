@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     // This is a bit of a hacky solution to keep the titles elevated above
-    // the thumb. I'm not sure if it would properly work on all devices and
-    // Android versions. --evrimfeyyaz
+    // the thumb without adding a drop shadow. I'm not sure if it would
+    // properly work on all devices and Android versions. --evrimfeyyaz
     elevation: 999
   },
   title: {
