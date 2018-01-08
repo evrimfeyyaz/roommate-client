@@ -83,7 +83,7 @@ class ItemDetails extends Component<Props, State> {
           style={styles.quantityStepper}
         />
 
-        <PrimaryButton title="Add to Order" style={styles.addButton} onPress={this.onAddButtonPress} />
+        <PrimaryButton title="Add to Order" onPress={this.onAddButtonPress} />
       </Card>
     )
   }
@@ -126,10 +126,8 @@ const styles = StyleSheet.create({
     marginTop: 70
   },
   quantityStepper: {
-    marginTop: 7
-  },
-  addButton: {
-    marginTop: 30
+    marginTop: 7,
+    marginBottom: 30
   }
 })
 
