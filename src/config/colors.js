@@ -17,6 +17,8 @@ const colors = {
 
   heading3Color: 'rgba(255, 255, 255, 0.6)',
 
+  bodyColor: 'rgba(255, 255, 255, 0.7)',
+
   sideMenuBackground: 'rgba(13, 17, 23, .28)',
 
   sideMenuItemSelected: '#CDB58E',
@@ -26,7 +28,9 @@ const colors = {
   tabBarActiveItemIndicator: '#CDB58E',
   tabBarBorder: 'rgba(151, 151, 151, 0.1)',
 
-  cartItemSeparator: 'rgba(151, 151, 151, 0.1)'
+  cartItemSeparator: 'rgba(151, 151, 151, 0.1)',
+
+  primaryIconColor: '#fff'
 }
 
 export default colors

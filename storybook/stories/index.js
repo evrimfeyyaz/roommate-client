@@ -173,17 +173,6 @@ storiesOf('Navigation', module)
     />
   ))
 
-// TODO: Mock the data instead of getting it from the local host.
-// storiesOf('Room service', module)
-//   .addDecorator(getStory => (
-//     <ApolloProvider client={client}>
-//       <CenterView style={centerViewStyle.dark}>{getStory()}</CenterView>
-//     </ApolloProvider>
-//   ))
-//   .add('items in category', () => (
-//     <ItemsInCategory id="962967c5-dcd2-4eff-b4a9-0bc17707c0f0" />
-//   ))
-
 storiesOf('Shopping', module)
   .add('item card', () => (
     <ItemCard item={shoppingItem1} />
@@ -191,7 +180,9 @@ storiesOf('Shopping', module)
   .add('item details', () => (
     <ItemDetails
       item={shoppingItem1}
-      style={{ width: '80%', backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+      style={{ width: '80%' }}
+      onCloseButtonPress={action('item-details-close-button-press')}
+      onAddButtonPress={action('item-details-add-button-press')}
     />
   ))
   .add('cart', () => (

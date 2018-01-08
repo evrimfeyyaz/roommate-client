@@ -1,46 +1,69 @@
+// @flow
 import React, { Component } from 'react'
-import { View, StyleSheet, ViewPropTypes, Text } from 'react-native'
-import PropTypes from 'prop-types'
-import LinearGradient from 'react-native-linear-gradient'
+import { View, StyleSheet, ViewPropTypes } from 'react-native'
 
-import { Title, PrimaryButton, Stepper, Heading3, SvgIcon, CircularButton, BackgroundCard } from '../.'
-import * as iconData from '../../../assets/iconData'
+import { Title, PrimaryButton, Stepper, Heading3, Body, SvgIcon, CircularButton, Card } from '../.'
+import * as icons from '../../../assets/iconData'
+import type { ShoppingCartItem, ShoppingItem } from '../../types/shopping'
+import colors from '../../config/colors'
 
-class ItemDetails extends Component {
-  constructor(props) {
+type Props = {
+  item: ShoppingItem,
+  style?: ?ViewPropTypes.style,
+  onCloseButtonPress: () => void,
+  onAddButtonPress: (ShoppingCartItem) => void
+}
+
+type State = {
+  cartItem: ShoppingCartItem
+}
+
+class ItemDetails extends Component<Props, State> {
+  static defaultProps = {
+    style: null
+  }
+
+  constructor(props: Props) {
     super(props)
 
-    this.updateQuantity = this.updateQuantity.bind(this)
+    this.state = {
+      cartItem: {
+        item: this.props.item,
+        quantity: 1
+      }
+    }
   }
 
-  state = {
-    quantity: 1
+  onQuantityStepperPress = (_: number, quantity: number) => {
+    this.setState({
+      cartItem: { quantity }
+    })
   }
 
-  updateQuantity(quantity) {
-    this.setState({ quantity })
+  onAddButtonPress = () => {
+    this.props.onAddButtonPress(this.state.cartItem)
   }
 
   render() {
-    if (!this.props.item) {
-      return null
-    }
-
-    const { style, onCloseButtonPress } = this.props
-    const { title, price, description } = this.props.item
+    const {
+      style,
+      onCloseButtonPress,
+      item: { title, price, description }
+    } = this.props
+    const { cartItem: { quantity } } = this.state
 
     return (
-      <BackgroundCard style={[styles.container, style]}>
+      <Card style={[styles.container, style]}>
         <CircularButton
-          iconData={iconData.cross}
-          iconFill="#fff"
+          iconData={icons.cross}
+          iconFill={colors.circularButtonIcon}
           onPress={onCloseButtonPress}
           style={styles.closeButton}
         />
 
         <SvgIcon
-          iconData={iconData.food}
-          fill="#fff"
+          iconData={icons.food}
+          fill={colors.primaryIconColor}
           height={90}
           width={90}
           style={styles.foodIcon}
@@ -51,18 +74,18 @@ class ItemDetails extends Component {
           <Title style={styles.title}>{title}</Title>
           <Title style={styles.price}>{price}</Title>
         </View>
-        <Text style={styles.description}>{description}</Text>
+        <Body style={styles.description}>{description}</Body>
 
         <Heading3 style={styles.quantityHeading}>Quantity</Heading3>
         <Stepper
+          value={quantity}
           minValue={1}
-          initialValue={this.state.quantity}
-          onValueChange={this.updateQuantity}
+          onButtonPress={this.onQuantityStepperPress}
           style={styles.quantityStepper}
         />
 
-        <PrimaryButton title="Add to Order" style={styles.addButton} />
-      </BackgroundCard>
+        <PrimaryButton title="Add to Order" style={styles.addButton} onPress={this.onAddButtonPress} />
+      </Card>
     )
   }
 }
@@ -71,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 38,
     paddingVertical: 30,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   closeButton: {
     position: 'absolute',
@@ -98,11 +121,6 @@ const styles = StyleSheet.create({
   },
   description: {
     width: '100%',
-    fontFamily: 'NunitoSans-Regular',
-    color: '#fff',
-    fontSize: 14,
-    lineHeight: 20,
-    opacity: 0.7,
     marginTop: 10
   },
   quantityHeading: {
@@ -115,22 +133,5 @@ const styles = StyleSheet.create({
     marginTop: 30
   }
 })
-
-ItemDetails.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    price: PropTypes.string
-  }),
-  style: ViewPropTypes.style,
-  onCloseButtonPress: PropTypes.func
-}
-
-ItemDetails.defaultProps = {
-  item: null,
-  style: null,
-  onCloseButtonPress: null
-}
 
 export default ItemDetails
