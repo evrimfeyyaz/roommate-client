@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import { ViewPropTypes, TouchableWithoutFeedback, Platform, StyleSheet } from 'react-native'
+import { ViewPropTypes, TouchableOpacity, Platform, StyleSheet } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import { Heading2, Heading3, Card } from '../index'
@@ -14,13 +14,13 @@ type Props = {
 
 // TODO: Add back the FastImage component.
 const ItemCard = ({ item, style, onPress }: Props) => (
-  <TouchableWithoutFeedback onPress={() => onPress(item)}>
+  <TouchableOpacity onPress={() => onPress(item)}>
     <Card style={[styles.container, style]}>
       <Heading2 style={styles.title}>{item.title}</Heading2>
       <Heading3 style={styles.description} numberOfLines={2}>{item.description}</Heading3>
       <Heading2 style={styles.price}>{item.price}</Heading2>
     </Card>
-  </TouchableWithoutFeedback>
+  </TouchableOpacity>
 )
 
 ItemCard.defaultProps = {

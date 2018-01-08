@@ -175,7 +175,7 @@ storiesOf('Navigation', module)
 
 storiesOf('Shopping', module)
   .add('item card', () => (
-    <ItemCard item={shoppingItem1} />
+    <ItemCard item={shoppingItem1} onPress={action('on-item-card-press')} />
   ))
   .add('item details', () => (
     <ItemDetails
