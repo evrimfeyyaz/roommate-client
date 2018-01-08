@@ -10,7 +10,7 @@ type Props = {
   onItemPress: (ShoppingItem) => void
 }
 
-class ShoppingItemsInCategory extends Component<Props> {
+class ItemsInCategory extends Component<Props> {
 // eslint-disable-next-line react/no-unused-prop-types
   renderItem = ({ item }: { item: ShoppingItem }) => (
     <ItemCard item={item} style={styles.item} onPress={this.props.onItemPress} />
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ShoppingItemsInCategory
+export default ItemsInCategory

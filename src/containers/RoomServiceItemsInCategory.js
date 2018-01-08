@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import type { OperationComponent } from 'react-apollo'
 
-import { ShoppingItemsInCategory } from '../components'
+import { ItemsInCategory } from '../components'
 import type { ShoppingItem } from '../types/shopping'
 
 const getRoomServiceCategoryWithItems = gql`
@@ -39,5 +39,5 @@ export default withRoomServiceItems(({ data: { items, loading }, onItemPress }) 
     return <ActivityIndicator />
   }
 
-  return <ShoppingItemsInCategory items={items} onItemPress={onItemPress} />
+  return <ItemsInCategory items={items} onItemPress={onItemPress} />
 })
