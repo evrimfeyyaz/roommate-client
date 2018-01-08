@@ -233,7 +233,7 @@ storiesOf('Controls', module)
       disabled
     />
   ))
-  .add('regular', () => (
+  .add('switch', () => (
     <Switch
       onTitle="On"
       offTitle="Off"

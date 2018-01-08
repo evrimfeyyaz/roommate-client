@@ -9,8 +9,9 @@ import {
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
-import { Heading2 } from '../index'
+import { Body } from '../index'
 import colors from '../../config/colors'
+import getHitSlop from '../utils/hitSlop'
 
 /**
  * We need bottom padding to keep the shadows within the container.
@@ -71,9 +72,9 @@ class Switch extends Component<Props> {
             />
 
             <View style={[styles.container, style]}>
-              <Heading2 style={styles.title}>{this.props.onTitle}</Heading2>
+              <Body style={styles.title}>{this.props.onTitle}</Body>
               <View style={styles.separator} />
-              <Heading2 style={styles.title}>{this.props.offTitle}</Heading2>
+              <Body style={styles.title}>{this.props.offTitle}</Body>
             </View>
           </View>
         </View>
@@ -100,8 +101,6 @@ const styles = StyleSheet.create({
     elevation: 999
   },
   title: {
-    fontSize: 14,
-    lineHeight: 19,
     textAlign: 'center',
     flex: 1
   },

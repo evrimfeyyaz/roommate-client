@@ -1,11 +1,11 @@
 // @flow
-import React, { Component } from 'react'
-import { StyleSheet, Text, ViewPropTypes, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import { StyleSheet, ViewPropTypes, TouchableOpacity, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import colors from '../../config/colors'
-import fonts from '../../config/fonts'
 import getHitSlop from '../utils/hitSlop'
+import { Body } from '../.'
 
 const PADDING_VERTICAL = 8
 const FONT_SIZE = 12
@@ -21,7 +21,7 @@ const PrimaryButton = ({ title, onPress, style }: Props) => (
     <View style={[styles.container, style]}>
       <LinearGradient colors={colors.primaryButtonGradient} style={styles.gradientContainer} />
 
-      <Text style={styles.title}>{title}</Text>
+      <Body style={styles.title}>{title}</Body>
     </View>
   </TouchableOpacity>
 )
@@ -47,11 +47,8 @@ const styles = StyleSheet.create({
     elevation: 4
   },
   title: {
-    fontFamily: fonts.regular,
-    fontSize: FONT_SIZE,
     textAlign: 'center',
-    color: colors.primaryButtonTitle,
-    backgroundColor: 'rgba(0, 0, 0, 0)'
+    color: colors.primaryButtonTitle
   },
   gradientContainer: {
     ...StyleSheet.absoluteFillObject,

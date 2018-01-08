@@ -1,11 +1,10 @@
 // @flow
 import React, { Component } from 'react'
-import { StyleSheet, ViewPropTypes, TouchableOpacity, View, Text } from 'react-native'
+import { StyleSheet, ViewPropTypes, TouchableOpacity, View } from 'react-native'
 
-import { SvgIcon } from '../index'
+import { SvgIcon, Body } from '../index'
 import type { IconData } from '../../../assets/iconData'
 import colors from '../../config/colors'
-import fonts from '../../config/fonts'
 import getHitSlop from '../utils/hitSlop'
 
 const PADDING_VERTICAL = 8
@@ -49,7 +48,7 @@ class SecondaryButton extends Component<Props> {
         <View style={[styles.container, style]}>
           {this.renderIcon()}
 
-          <Text style={styles.title}>{title}</Text>
+          <Body style={styles.title}>{title}</Body>
         </View>
       </TouchableOpacity>
     )
@@ -69,11 +68,8 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   title: {
-    fontFamily: fonts.regular,
-    fontSize: FONT_SIZE,
     textAlign: 'center',
-    color: colors.secondaryButtonTitle,
-    backgroundColor: 'rgba(0, 0, 0, 0)'
+    color: colors.secondaryButtonTitle
   },
   icon: {
     marginRight: 12
