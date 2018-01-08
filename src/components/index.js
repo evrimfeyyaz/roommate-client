@@ -20,7 +20,7 @@ export { default as NavigationBar } from './navigation/NavigationBar'
 
 // Shopping
 export { default as ItemCard } from './shopping/ItemCard'
-export { default as ShoppingItemsInCategory } from './shopping/ItemsInCategory'
+export { default as ItemsInCategory } from './shopping/ItemsInCategory'
 export { default as ItemDetails } from './shopping/ItemDetails'
 export { default as Cart } from './shopping/Cart'
 
