@@ -4,18 +4,11 @@ import { ViewPropTypes, TouchableWithoutFeedback, Platform, StyleSheet } from 'r
 import FastImage from 'react-native-fast-image'
 
 import { Heading2, Heading3, Card } from '../index'
-
-// TODO: Take this out to a separate file when you find a place that makes sense.
-type ShoppingItem = {
-  id: string,
-  title: string,
-  description?: string,
-  price?: string
-}
+import type { ShoppingItem } from '../../types/shopping'
 
 type Props = {
   item: ShoppingItem,
-  onPress: Function,
+  onPress: (item: ShoppingItem) => void,
   style?: ViewPropTypes.style,
 }
 

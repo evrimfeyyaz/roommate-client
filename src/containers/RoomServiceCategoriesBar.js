@@ -1,11 +1,12 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import { ActivityIndicator } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import type { OperationComponent } from 'react-apollo'
 
 import { TabBar } from '../components/index'
+import type { ShoppingCategory } from '../types/shopping'
 
 const getRoomServiceCategories = gql`
   {
@@ -15,11 +16,6 @@ const getRoomServiceCategories = gql`
     }
   }
 `
-
-type ShoppingCategory = {
-  id: string,
-  title: string
-}
 
 type Response = {
   categories: ShoppingCategory[]
