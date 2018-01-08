@@ -6,6 +6,7 @@ const colors = {
   secondaryButtonIcon: '#d2b994',
 
   circularButtonIcon: '#fff',
+  circularButtonBorder: 'rgba(255, 255, 255, 0.1)',
 
   cardBackgroundGradient: ['#2F3846', '#232A36'],
 

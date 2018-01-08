@@ -64,7 +64,6 @@ class Cart extends Component<Props> {
           />
 
           <CircularButton
-            iconFill={colors.circularButtonIcon}
             iconData={iconData.cross}
             onPress={onRemoveButtonPress}
             small

@@ -4,7 +4,6 @@ import { View, StyleSheet, ViewPropTypes } from 'react-native'
 
 import { Heading, CircularButton } from '../.'
 import * as iconData from '../../../assets/iconData'
-import colors from '../../config/colors'
 
 type Props = {
   /**
@@ -72,7 +71,6 @@ class Stepper extends Component<Props> {
       <View style={[styles.container, style]}>
         <CircularButton
           iconData={iconData.minus}
-          iconFill={colors.circularButtonIcon}
           onPress={this.decrementPressed}
           disabled={this.shouldDisableDecrementButton()}
           small={small}
@@ -82,7 +80,6 @@ class Stepper extends Component<Props> {
 
         <CircularButton
           iconData={iconData.plus}
-          iconFill={colors.circularButtonIcon}
           onPress={this.incrementPressed}
           small={small}
         />

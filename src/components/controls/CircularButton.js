@@ -4,6 +4,8 @@ import { TouchableOpacity, StyleSheet, ViewPropTypes } from 'react-native'
 
 import { SvgIcon } from '../index'
 import type { IconData } from '../../../assets/iconData'
+import getHitSlop from '../utils/hitSlop'
+import colors from '../../config/colors'
 
 const PADDING_REGULAR = 10
 const PADDING_SMALL = 5
@@ -13,7 +15,6 @@ const ICON_SIZE_SMALL = 10
 type Props = {
   onPress: Function,
   iconData: IconData,
-  iconFill: string,
   disabled?: boolean,
   small?: boolean,
   style?: ViewPropTypes.style
@@ -42,31 +43,20 @@ class CircularButton extends Component<Props> {
     return this.props.disabled ? 0.1 : 1
   }
 
-  /**
-   * Calculates the required hit slop to have a clickable area of at least 45x45.
-   *
-   * @returns {{top: number, bottom: number, left: number, right: number}}
-   */
-  hitSlop() {
-    let value = 45 - this.iconSize() - (2 * this.padding())
-    value = Math.max(0, value) // Avoid negative hit slop.
-
-    return { top: value, bottom: value, left: value, right: value }
-  }
-
   render() {
-    const { onPress, disabled, iconFill, iconData } = this.props
+    const { onPress, disabled, iconData } = this.props
+    const hitSlop = getHitSlop(this.iconSize(), this.padding())
 
     return (
       <TouchableOpacity
         style={this.containerStyle()}
         onPress={onPress}
         disabled={disabled}
-        hitSlop={this.hitSlop()}
+        hitSlop={hitSlop}
       >
         <SvgIcon
           iconData={iconData}
-          fill={iconFill}
+          fill={colors.circularButtonIcon}
           width={this.iconSize()}
           height={this.iconSize()}
           opacity={this.iconOpacity()}
@@ -78,7 +68,7 @@ class CircularButton extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.circularButtonBorder,
     borderWidth: 1,
     borderRadius: 999
   }

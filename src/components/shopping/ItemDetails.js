@@ -56,7 +56,6 @@ class ItemDetails extends Component<Props, State> {
       <Card style={[styles.container, style]}>
         <CircularButton
           iconData={icons.cross}
-          iconFill={colors.circularButtonIcon}
           onPress={onCloseButtonPress}
           style={styles.closeButton}
         />

@@ -217,14 +217,12 @@ storiesOf('Controls', module)
     <CircularButton
       onPress={action('circular-button-press')}
       iconData={icons.plus}
-      iconFill={colors.circularButtonIcon}
     />
   ))
   .add('circular button (small)', () => (
     <CircularButton
       onPress={action('circular-button-press')}
       iconData={icons.plus}
-      iconFill={colors.circularButtonIcon}
       small
     />
   ))
@@ -232,7 +230,6 @@ storiesOf('Controls', module)
     <CircularButton
       onPress={action('circular-button-press')}
       iconData={icons.plus}
-      iconFill={colors.circularButtonIcon}
       disabled
     />
   ))

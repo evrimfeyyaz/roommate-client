@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import colors from '../../config/colors'
 import fonts from '../../config/fonts'
+import getHitSlop from '../utils/hitSlop'
 
 const PADDING_VERTICAL = 8
 const FONT_SIZE = 12
@@ -15,37 +16,18 @@ type Props = {
   style?: ViewPropTypes.style
 }
 
-class PrimaryButton extends Component<Props> {
-  static defaultProps = {
-    style: null
-  }
+const PrimaryButton = ({ title, onPress, style }: Props) => (
+  <TouchableOpacity onPress={onPress} hitSlop={getHitSlop(FONT_SIZE, PADDING_VERTICAL, true)}>
+    <View style={[styles.container, style]}>
+      <LinearGradient colors={colors.primaryButtonGradient} style={styles.gradientContainer} />
 
-  // TODO: Find a way to refactor out this function, other buttons also have this.
-  /**
-   * Calculates the required vertical hit slop to have a clickable area of at least 45 pixels high.
-   *
-   * @returns {{top: number, bottom: number, left: number, right: number}}
-   */
-  static hitSlop() {
-    let value = 45 - FONT_SIZE - (PADDING_VERTICAL * 2)
-    value = Math.max(0, value) // Avoid negative hit slop.
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  </TouchableOpacity>
+)
 
-    return { top: value, bottom: value, left: 0, right: 0 }
-  }
-
-  render() {
-    const { title, onPress, style } = this.props
-
-    return (
-      <TouchableOpacity onPress={onPress} hitSlop={PrimaryButton.hitSlop()}>
-        <View style={[styles.container, style]}>
-          <LinearGradient colors={colors.primaryButtonGradient} style={styles.gradientContainer} />
-
-          <Text style={styles.title}>{title}</Text>
-        </View>
-      </TouchableOpacity>
-    )
-  }
+PrimaryButton.defaultProps = {
+  style: null
 }
 
 const styles = StyleSheet.create({

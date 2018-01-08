@@ -6,6 +6,7 @@ import { SvgIcon } from '../index'
 import type { IconData } from '../../../assets/iconData'
 import colors from '../../config/colors'
 import fonts from '../../config/fonts'
+import getHitSlop from '../utils/hitSlop'
 
 const PADDING_VERTICAL = 8
 const FONT_SIZE = 12
@@ -22,20 +23,8 @@ class SecondaryButton extends Component<Props> {
     style: null
   }
 
-  /**
-   * Calculates the required vertical hit slop to have a clickable area of at least 45 pixels high.
-   *
-   * @returns {{top: number, bottom: number, left: number, right: number}}
-   */
-  static hitSlop() {
-    let value = 45 - FONT_SIZE - (PADDING_VERTICAL * 2)
-    value = Math.max(0, value) // Avoid negative hit slop.
-
-    return { top: value, bottom: value, left: 0, right: 0 }
-  }
-
   renderIcon() {
-    const { iconData} = this.props
+    const { iconData } = this.props
 
     if (typeof iconData === 'undefined') {
       return null
@@ -56,7 +45,7 @@ class SecondaryButton extends Component<Props> {
     const { title, onPress, style } = this.props
 
     return (
-      <TouchableOpacity onPress={onPress} hitSlop={SecondaryButton.hitSlop()}>
+      <TouchableOpacity onPress={onPress} hitSlop={getHitSlop(FONT_SIZE, PADDING_VERTICAL)}>
         <View style={[styles.container, style]}>
           {this.renderIcon()}
 
