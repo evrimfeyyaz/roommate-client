@@ -13,7 +13,7 @@ const FONT_SIZE = 12
 type Props = {
   title: string,
   onPress: Function,
-  iconData: IconData,
+  iconData?: IconData,
   style?: ViewPropTypes.style
 }
 
@@ -34,19 +34,31 @@ class SecondaryButton extends Component<Props> {
     return { top: value, bottom: value, left: 0, right: 0 }
   }
 
+  renderIcon() {
+    const { iconData} = this.props
+
+    if (typeof iconData === 'undefined') {
+      return null
+    }
+
+    return (
+      <SvgIcon
+        style={styles.icon}
+        height={15}
+        width={15}
+        fill={colors.secondaryButtonIcon}
+        iconData={iconData}
+      />
+    )
+  }
+
   render() {
-    const { title, onPress, style, iconData } = this.props
+    const { title, onPress, style } = this.props
 
     return (
       <TouchableOpacity onPress={onPress} hitSlop={SecondaryButton.hitSlop()}>
         <View style={[styles.container, style]}>
-          <SvgIcon
-            style={styles.icon}
-            height={15}
-            width={15}
-            fill={colors.secondaryButtonIcon}
-            iconData={iconData}
-          />
+          {this.renderIcon()}
 
           <Text style={styles.title}>{title}</Text>
         </View>

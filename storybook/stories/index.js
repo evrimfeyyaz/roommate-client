@@ -63,6 +63,35 @@ const routes: SideMenuRoute[] = [
 ]
 const routeKeys = routes.map(route => route.routeKey)
 
+// Shopping
+const shoppingItem1 = {
+  id: 'item-1-id',
+  title: 'Mexican Omelet',
+  description: 'Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a ' +
+  'side of roasted potatoes, and your choice of toast or croissant.',
+  price: '16'
+}
+
+const shoppingItem2 = {
+  id: 'sample-id-2',
+  title: 'Tiramisu',
+  description: 'Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ' +
+  'ladyfingers, topped with Valrhona cocoa powder.',
+  price: '15'
+}
+
+const shoppingCartItem1 = {
+  id: 'shopping-cart-item-1-id',
+  item: shoppingItem1,
+  quantity: 1
+}
+
+const shoppingCartItem2 = {
+  id: 'shopping-cart-item-2-id',
+  item: shoppingItem2,
+  quantity: 2
+}
+
 /**
  * APOLLO
  */
@@ -157,57 +186,24 @@ storiesOf('Navigation', module)
 
 storiesOf('Shopping', module)
   .add('item card', () => (
-    <ItemCard
-      item={{
-        id: 'some-item-id',
-        title: 'Mexican Omelet',
-        description: 'Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a ' +
-        'side of roasted potatoes, and your choice of toast or croissant.',
-        price: '16'
-      }}
+    <ItemCard item={shoppingItem1} />
+  ))
+  .add('item details', () => (
+    <ItemDetails
+      item={shoppingItem1}
+      style={{ width: '80%', backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
     />
   ))
-  .add('item details', () => {
-    const item = {
-      id: 'sample-id',
-      title: 'Baked Dijon Salmon',
-      description: 'Fresh Norwegian salmon, lightly brushed with our herbed Dijon mustard sauce,' +
-      ' with choice of two sides.',
-      price: '32'
-    }
-
-    return (
-      <ItemDetails
-        item={item}
-        style={{ width: '80%', backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
-      />
-    )
-  })
-  .add('cart', () => {
-    const cartItem1 = {
-      item: {
-        id: 'sample-id-1',
-        title: 'Baked Dijon Salmon',
-        description: 'Fresh Norwegian salmon, lightly brushed with our herbed Dijon mustard sauce,' +
-        ' with choice of two sides.',
-        price: '32'
-      },
-      quantity: 1
-    }
-
-    const cartItem2 = {
-      item: {
-        id: 'sample-id-2',
-        title: 'Tiramisu',
-        description: 'Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ' +
-        'ladyfingers, topped with Valrhona cocoa powder.',
-        price: '15'
-      },
-      quantity: 2
-    }
-
-    return <Cart cartItems={[cartItem1, cartItem2]} />
-  })
+  .add('cart', () => (
+    <Cart
+      cartItems={[shoppingCartItem1, shoppingCartItem2]}
+      cartTotal="$100"
+      onClearButtonPress={action('cart-clear-button-press')}
+      onReviewButtonPress={action('cart-review-button-press')}
+      onQuantityStepperPress={action('cart-quantity-stepper-press')}
+      onRemoveButtonPress={action('cart-remove-button-press')}
+    />
+  ))
 
 storiesOf('Controls', module)
   .add('stepper', () => (

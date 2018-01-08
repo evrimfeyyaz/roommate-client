@@ -1,9 +1,9 @@
+// @flow
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
-import PropTypes from 'prop-types'
 
 import {
-  BackgroundCard,
+  Card,
   Heading,
   Heading2,
   CircularButton,
@@ -12,46 +12,63 @@ import {
   SecondaryButton
 } from '../.'
 import * as iconData from '../../../assets/iconData'
+import type { ShoppingCartItem } from '../../types/shopping'
+import colors from '../../config/colors'
 
-class Cart extends Component {
-  totalPrice(cartItem) {
-    const { price } = cartItem.item
-    const { quantity } = cartItem
+type Props = {
+  cartItems: ShoppingCartItem[],
+  /**
+   * Total of all items in the cart.
+   */
+  cartTotal: number,
+  /**
+   * Fired when the user presses the "Clear All" button.
+   */
+  onClearButtonPress: () => void,
+  /**
+   * Fired when the user presses the "Review Order" button.
+   */
+  onReviewButtonPress: () => void,
+  /**
+   * Fired when the user presses either the increment or the decrement
+   * button for a cart item.
+   *
+   * Takes three arguments:
+   * - cartItem: Referenced ShoppingCartItem.
+   * - newValue: New value that the stepper should have after button press.
+   */
+  onQuantityStepperPress: (cartItem: ShoppingCartItem, newValue: number) => void,
+  /**
+   * Fired when the user presses the remove button for a specific cart item.
+   */
+  onRemoveButtonPress: (cartItem: ShoppingCartItem) => void
+}
 
-    return price * quantity
-  }
-
-  // FIXME: Implement this properly.
-  priceWithCurrency(price) {
-    const currency = '$'
-
-    return `${currency}${price}`
-  }
-
-  uniqueKeyForCartItem(cartItem) {
-    // FIXME: Change this to use options and choices when they are added.
-    return cartItem.item.id
-  }
-
-  cartTotal() {
-    return this.props.cartItems.reduce((sum, cartItem) => sum + this.totalPrice(cartItem), 0)
-  }
-
-  renderCartItem(cartItem) {
-    const { quantity, item } = cartItem
-    const totalPriceWithCurrency = this.priceWithCurrency(this.totalPrice(cartItem))
-    const key = this.uniqueKeyForCartItem(cartItem)
+class Cart extends Component<Props> {
+  renderCartItem(cartItem: ShoppingCartItem) {
+    const { id, quantity, item: { title, price } } = cartItem
+    const { onQuantityStepperPress, onRemoveButtonPress } = this.props
 
     return (
-      <View style={styles.itemContainer} key={key}>
+      <View style={styles.itemContainer} key={id}>
         <View style={styles.itemTopRowContainer}>
-          <Heading2 style={styles.itemTitle}>{item.title}</Heading2>
-          <Heading2 style={styles.itemPrice}>{totalPriceWithCurrency}</Heading2>
+          <Heading2 style={styles.itemTitle}>{title}</Heading2>
+          <Heading2 style={styles.itemPrice}>{price}</Heading2>
         </View>
         <View style={styles.itemBottomRowContainer}>
-          <Stepper initialValue={quantity} small />
+          <Stepper
+            value={quantity}
+            minValue={1}
+            onButtonPress={(_, newValue) => onQuantityStepperPress(cartItem, newValue)}
+            small
+          />
 
-          <CircularButton iconFill="#fff" iconData={iconData.cross} small />
+          <CircularButton
+            iconFill={colors.circularButtonIcon}
+            iconData={iconData.cross}
+            onPress={onRemoveButtonPress}
+            small
+          />
         </View>
 
         <View style={styles.itemSeparator} />
@@ -64,24 +81,24 @@ class Cart extends Component {
   }
 
   render() {
-    const totalWithCurrency = this.priceWithCurrency(this.cartTotal())
+    const { onClearButtonPress, cartTotal, onReviewButtonPress } = this.props
 
     return (
-      <BackgroundCard style={styles.container}>
+      <Card style={styles.container}>
         <View style={styles.headingContainer}>
           <Heading style={styles.heading}>Order</Heading>
-          <SecondaryButton title="Clear All" />
+          <SecondaryButton title="Clear All" onPress={onClearButtonPress} />
         </View>
 
         {this.renderCartItems()}
 
         <View style={styles.totalContainer}>
           <Heading style={styles.heading}>Total</Heading>
-          <Heading style={styles.heading}>{totalWithCurrency}</Heading>
+          <Heading style={styles.heading}>{cartTotal}</Heading>
         </View>
 
-        <PrimaryButton title="Review Order" />
-      </BackgroundCard>
+        <PrimaryButton title="Review Order" onPress={onReviewButtonPress} />
+      </Card>
     )
   }
 }
@@ -129,9 +146,8 @@ const styles = StyleSheet.create({
     lineHeight: 15
   },
   itemSeparator: {
-    borderBottomColor: '#979797',
+    borderBottomColor: colors.cartItemSeparator,
     borderBottomWidth: 1,
-    opacity: 0.1,
     marginHorizontal: -5
   },
   totalContainer: {
@@ -141,19 +157,5 @@ const styles = StyleSheet.create({
     marginBottom: 20
   }
 })
-
-Cart.propTypes = {
-  cartItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      item: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string,
-        price: PropTypes.string
-      }),
-      quantity: PropTypes.number
-    })
-  ).isRequired
-}
 
 export default Cart
