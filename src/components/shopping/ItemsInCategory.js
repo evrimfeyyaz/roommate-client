@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
 
-import { ItemCard } from '../../.'
+import { ItemCard } from '../index'
 
 class ItemsInCategory extends Component {
   constructor(props) {

@@ -21,8 +21,8 @@ export { default as NavigationBar } from './navigation/NavigationBar'
 
 // Shopping
 export { default as ItemCard } from './Shopping/ItemCard'
-export { default as ItemsInCategory } from './Shopping/ItemsInCategory/ItemsInCategory'
-export { default as Categories } from './Shopping/Categories'
+export { default as ItemsInCategory } from './shopping/ItemsInCategory'
+export { default as Categories } from '../containers/Categories'
 export { default as ItemDetails } from './Shopping/ItemDetails'
 export { default as Cart } from './Shopping/Cart'
 
