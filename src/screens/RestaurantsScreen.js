@@ -1,9 +1,10 @@
+// @flow
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { Title } from '../../components'
+import { Title } from '../components/index'
 
-class RestaurantsScreen extends Component {
+class RestaurantsScreen extends Component<void> {
   static navigationOptions = {
     title: 'Restaurants'
   }
