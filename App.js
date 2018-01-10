@@ -6,17 +6,19 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
 import { combineReducers, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { UIManager, Platform } from 'react-native'
+import { UIManager, Platform, StatusBar } from 'react-native'
 
 import MainNavigator from './src/navigation/navigators/MainNavigator'
 import * as reducers from './src/redux'
 
-export default class App extends Component {
+export default class App extends Component<void> {
   componentDidMount() {
     if (Platform.OS === 'android') {
       // eslint-disable-next-line no-unused-expressions
       UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
     }
+
+    StatusBar.setHidden(true)
   }
 
   client = new ApolloClient({

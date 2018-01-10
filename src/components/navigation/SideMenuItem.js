@@ -6,15 +6,17 @@ import { SvgIcon } from '../index'
 import type { IconData } from '../../../assets/iconData'
 import colors from '../../config/colors'
 import fonts from '../../config/fonts'
+import type { Tab } from './SideMenu'
 
 type Props = {
-  title: string,
-  iconData: IconData,
+  tab: Tab,
   /**
-   * Route key of the route in react-navigation.
+   * Fired when side menu item is pressed.
+   *
+   * Has the following argument:
+   * - routeName: "react-navigation" route name of the pressed tab.
    */
-  routeKey: string,
-  onPress: (string) => void,
+  onPress: (routeName: string) => void,
   selected?: boolean,
 }
 
@@ -44,10 +46,10 @@ class SideMenuItem extends Component<Props> {
   }
 
   render() {
-    const { onPress, iconData, routeKey, title } = this.props
+    const { onPress, tab: { iconData, title, routeName } } = this.props
 
     return (
-      <TouchableWithoutFeedback onPress={() => onPress(routeKey)} key={routeKey}>
+      <TouchableWithoutFeedback onPress={() => onPress(routeName)} key={routeName}>
         <View style={styles.container}>
           {this.renderSelectedIndicator()}
 

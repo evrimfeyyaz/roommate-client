@@ -4,32 +4,28 @@ import { StyleSheet, View } from 'react-native'
 
 import SideMenuItem from './SideMenuItem'
 import colors from '../../config/colors'
-import type { IconData } from '../../../assets/iconData'
+import type { MainTabOptions } from '../../types/navigation'
 
-export type SideMenuRoute = {
-  title: string,
-  routeKey: string,
-  iconData: IconData
-}
+export type Tab = {
+  routeName: string
+} & MainTabOptions
 
 type Props = {
-  routes: SideMenuRoute[],
-  activeRouteKey: string,
+  tabs: Tab[],
+  activeTabTitle: string,
   sideMenuItemTapped: Function
 }
 
 class SideMenu extends Component<Props> {
   renderItems() {
-    const { routes, sideMenuItemTapped, activeRouteKey } = this.props
+    const { tabs, sideMenuItemTapped, activeTabTitle } = this.props
 
-    return routes.map(route => (
+    return tabs.map(tab => (
       <SideMenuItem
-        title={route.title}
-        routeKey={route.routeKey}
-        key={route.routeKey}
-        iconData={route.iconData}
+        key={tab.routeName}
+        tab={tab}
         onPress={sideMenuItemTapped}
-        selected={activeRouteKey === route.routeKey}
+        selected={activeTabTitle === tab.title}
       />
     ))
   }

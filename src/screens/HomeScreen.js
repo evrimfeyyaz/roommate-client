@@ -2,10 +2,12 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Title } from '../components/index'
+import * as icons from '../../assets/iconData'
 
 class HomeScreen extends Component<void> {
   static navigationOptions = {
-    title: 'Home'
+    title: 'Home',
+    iconData: icons.home
   }
 
   render() {

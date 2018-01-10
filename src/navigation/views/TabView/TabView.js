@@ -25,7 +25,7 @@ class TabView extends Component {
     const { navigation } = this.props
     const { routes, index } = navigation.state
 
-    // The state of the active child screen can be found at routes[id]
+    // The state of the active child screen can be found at tabs[id]
     const childNavigation = { dispatch: navigation.dispatch, state: routes[index] }
 
     return addNavigationHelpers(childNavigation)
