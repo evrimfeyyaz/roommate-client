@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import { ActivityIndicator } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
@@ -26,23 +26,37 @@ type Props = {
  * This container shows a small tab bar populated with all the
  * room service categories fetched from the GraphQL API.
  */
-const RoomServiceCategoriesBar = (props: Props) => {
-  const { data, updateSelectedRoomServiceCategoryId, selectedRoomServiceCategoryId } = props
-  const { loading, roomServiceCategories } = data
+class RoomServiceCategoriesBar extends Component<Props> {
+  componentWillReceiveProps(nextProps) {
+    const {
+      data: { loading, roomServiceCategories },
+      updateSelectedRoomServiceCategoryId,
+      selectedRoomServiceCategoryId
+    } = nextProps
 
-  // TODO: Use a global activity indicator.
-  if (loading) {
-    return <ActivityIndicator />
+    if (!loading && selectedRoomServiceCategoryId == null) {
+      updateSelectedRoomServiceCategoryId(roomServiceCategories[0].id)
+    }
   }
 
-  return (
-    <TabBar
-      onTabPress={updateSelectedRoomServiceCategoryId}
-      data={roomServiceCategories}
-      activeTabId={selectedRoomServiceCategoryId}
-      small
-    />
-  )
+  render() {
+    const { data, updateSelectedRoomServiceCategoryId, selectedRoomServiceCategoryId } = this.props
+    const { loading, roomServiceCategories } = data
+
+    // TODO: Use a global activity indicator.
+    if (loading) {
+      return <ActivityIndicator />
+    }
+
+    return (
+      <TabBar
+        onTabPress={updateSelectedRoomServiceCategoryId}
+        data={roomServiceCategories}
+        activeTabId={selectedRoomServiceCategoryId}
+        small
+      />
+    )
+  }
 }
 
 const mapStateToProps = state => ({
