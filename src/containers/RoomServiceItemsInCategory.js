@@ -44,7 +44,7 @@ const RoomServiceItemsInCategory = (props: Props) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <ItemsInCategory items={roomServiceCategory.items} onItemPress={showRoomServiceItem} />
 
       <Modal
@@ -69,6 +69,9 @@ const RoomServiceItemsInCategory = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   modal: {
     alignItems: 'center',
     justifyContent: 'center'
