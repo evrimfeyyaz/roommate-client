@@ -26,11 +26,10 @@ type Props = {
  * This container shows a small tab bar populated with all the
  * room service categories fetched from the GraphQL API.
  */
-const RoomServiceCategoriesBar = ({
-  data: { roomServiceCategories, loading },
-  updateSelectedRoomServiceCategoryId,
-  selectedRoomServiceCategoryId
-}: Props) => {
+const RoomServiceCategoriesBar = (props: Props) => {
+  const { data, updateSelectedRoomServiceCategoryId, selectedRoomServiceCategoryId } = props
+  const { loading, roomServiceCategories } = data
+
   // TODO: Use a global activity indicator.
   if (loading) {
     return <ActivityIndicator />
@@ -63,7 +62,6 @@ const getRoomServiceCategories = gql`
   }
 `
 
-export default graphql(getRoomServiceCategories)(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RoomServiceCategoriesBar))
+const graphQlContainer = graphql(getRoomServiceCategories)(RoomServiceCategoriesBar)
+
+export default connect(mapStateToProps, mapDispatchToProps)(graphQlContainer)
