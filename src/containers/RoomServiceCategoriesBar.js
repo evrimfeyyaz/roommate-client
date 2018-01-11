@@ -18,7 +18,7 @@ const getRoomServiceCategories = gql`
 `
 
 type Response = {
-  categories: ShoppingCategory[]
+  roomServiceCategories: ShoppingCategory[]
 }
 
 type InputProps = {
@@ -31,11 +31,11 @@ const withRoomServiceCategories: OperationComponent<Response, InputProps> = grap
  * This container shows a small tab bar populated with all the
  * room service categories fetched from the GraphQL API.
  */
-export default withRoomServiceCategories(({ data: { categories, loading }, onCategoryPress }) => {
+export default withRoomServiceCategories(({ data: { roomServiceCategories, loading }, onCategoryPress }) => {
   // TODO: Use a global activity indicator.
   if (loading) {
     return <ActivityIndicator />
   }
 
-  return <TabBar onTabPress={onCategoryPress} data={categories} small />
+  return <TabBar onTabPress={onCategoryPress} data={roomServiceCategories} small />
 })

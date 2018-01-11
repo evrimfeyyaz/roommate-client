@@ -1,6 +1,6 @@
 import { createNavigator, StackRouter, TabRouter } from 'react-navigation'
 
-import RoomServiceScreen from '../../screens/RoomServiceScreen/RoomServiceScreen'
+import RoomServiceScreen from '../../screens/RoomServiceScreen'
 import TabView from '../views/TabView/TabView'
 import RestaurantsScreen from '../../screens/RestaurantsScreen'
 

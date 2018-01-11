@@ -4,11 +4,11 @@ import { StyleSheet, View } from 'react-native'
 
 import SideMenuItem from './SideMenuItem'
 import colors from '../../config/colors'
-import type { MainTabOptions } from '../../types/navigation'
+import type { MainTabScreenOptions } from '../../types/navigation'
 
 export type Tab = {
   routeName: string
-} & MainTabOptions
+} & MainTabScreenOptions
 
 type Props = {
   tabs: Tab[],

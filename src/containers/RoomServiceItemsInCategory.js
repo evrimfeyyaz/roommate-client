@@ -6,7 +6,7 @@ import { graphql } from 'react-apollo'
 import type { OperationComponent } from 'react-apollo'
 
 import { ItemsInCategory } from '../components'
-import type { ShoppingItem } from '../types/shopping'
+import type { ShoppingCategory, ShoppingItem } from '../types/shopping'
 
 const getRoomServiceCategoryWithItems = gql`
   query getRoomServiceCategoryWithItems($categoryId: ID!) {
@@ -23,7 +23,7 @@ const getRoomServiceCategoryWithItems = gql`
 `
 
 type Response = {
-  items: ShoppingItem[]
+  roomServiceCategory: ShoppingCategory
 }
 
 type InputProps = {
@@ -33,11 +33,11 @@ type InputProps = {
 
 const withRoomServiceItems: OperationComponent<Response, InputProps> = graphql(getRoomServiceCategoryWithItems)
 
-export default withRoomServiceItems(({ data: { items, loading }, onItemPress }) => {
+export default withRoomServiceItems(({ data: { roomServiceCategory, loading }, onItemPress }) => {
   // TODO: Use a global activity indicator.
   if (loading) {
     return <ActivityIndicator />
   }
 
-  return <ItemsInCategory items={items} onItemPress={onItemPress} />
+  return <ItemsInCategory items={roomServiceCategory.items} onItemPress={onItemPress} />
 })

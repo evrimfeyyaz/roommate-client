@@ -7,7 +7,7 @@ import type { TabData } from './TabBar'
 
 type Props = {
   data: TabData,
-  onPress: (string) => void,
+  onPress: (tabId: string) => void,
   /**
    * Toggles the "active" style.
    *

@@ -5,12 +5,12 @@ import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 import type { NavigationScreenProp, NavigationRouter, NavigationState, NavigationRoute } from 'react-navigation'
 
 import { SideMenu, TopBar, Card } from '../../components/index'
-import type { MainTabOptions } from '../../types/navigation'
+import type { MainTabScreenOptions } from '../../types/navigation'
 import type { Tab } from '../../components/navigation/SideMenu'
 
 type Props = {
   navigation: NavigationScreenProp<NavigationState>,
-  router: NavigationRouter<NavigationState, MainTabOptions>
+  router: NavigationRouter<NavigationState, MainTabScreenOptions>
 }
 
 class MainNavigationView extends Component<Props> {
