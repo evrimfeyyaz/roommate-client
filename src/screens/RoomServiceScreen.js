@@ -12,7 +12,6 @@ import * as Redux from '../redux/roomServiceScreen'
 import type { ShoppingItem } from '../types/shopping'
 
 type DispatchProps = {
-  updateSelectedRoomServiceCategoryId: (categoryId: string) => void,
   showRoomServiceItem: (item: ShoppingItem) => void,
   hideRoomServiceItem: () => void
 }
@@ -41,7 +40,6 @@ class RoomServiceScreen extends Component<Props> {
 
   render() {
     const {
-      updateSelectedRoomServiceCategoryId,
       hideRoomServiceItem,
       selectedRoomServiceItem,
       isSelectedRoomServiceItemVisible
@@ -49,7 +47,7 @@ class RoomServiceScreen extends Component<Props> {
 
     return (
       <View style={styles.container}>
-        <RoomServiceCategoriesBar onCategoryPress={updateSelectedRoomServiceCategoryId} />
+        <RoomServiceCategoriesBar />
         {this.renderItemsInCategory()}
 
         <Modal
@@ -93,7 +91,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateSelectedRoomServiceCategoryId: categoryId => dispatch(Redux.updateSelectedRoomServiceCategoryId(categoryId)),
   showRoomServiceItem: item => dispatch(Redux.showRoomServiceItem(item)),
   hideRoomServiceItem: () => dispatch(Redux.hideRoomServiceItem())
 })

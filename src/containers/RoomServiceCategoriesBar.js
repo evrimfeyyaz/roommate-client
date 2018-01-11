@@ -3,10 +3,56 @@ import React from 'react'
 import { ActivityIndicator } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
-import type { OperationComponent } from 'react-apollo'
+import { connect } from 'react-redux'
 
 import { TabBar } from '../components/index'
 import type { ShoppingCategory } from '../types/shopping'
+import * as Redux from '../redux/roomServiceScreen'
+import type { ApolloDataObject } from '../types/apollo'
+
+type DispatchProps = {
+  updateSelectedRoomServiceCategoryId: (categoryId: string) => void
+}
+
+type Props = {
+  data: {
+    ...ApolloDataObject,
+    roomServiceCategories: ShoppingCategory[]
+  }
+} & DispatchProps & Redux.State
+
+
+/**
+ * This container shows a small tab bar populated with all the
+ * room service categories fetched from the GraphQL API.
+ */
+const RoomServiceCategoriesBar = ({
+  data: { roomServiceCategories, loading },
+  updateSelectedRoomServiceCategoryId,
+  selectedRoomServiceCategoryId
+}: Props) => {
+  // TODO: Use a global activity indicator.
+  if (loading) {
+    return <ActivityIndicator />
+  }
+
+  return (
+    <TabBar
+      onTabPress={updateSelectedRoomServiceCategoryId}
+      data={roomServiceCategories}
+      activeTabId={selectedRoomServiceCategoryId}
+      small
+    />
+  )
+}
+
+const mapStateToProps = state => ({
+  ...state.roomServiceScreen
+})
+
+const mapDispatchToProps = dispatch => ({
+  updateSelectedRoomServiceCategoryId: categoryId => dispatch(Redux.updateSelectedRoomServiceCategoryId(categoryId))
+})
 
 const getRoomServiceCategories = gql`
   {
@@ -17,25 +63,7 @@ const getRoomServiceCategories = gql`
   }
 `
 
-type Response = {
-  roomServiceCategories: ShoppingCategory[]
-}
-
-type InputProps = {
-  onCategoryPress: (categoryId: string) => void
-}
-
-const withRoomServiceCategories: OperationComponent<Response, InputProps> = graphql(getRoomServiceCategories)
-
-/**
- * This container shows a small tab bar populated with all the
- * room service categories fetched from the GraphQL API.
- */
-export default withRoomServiceCategories(({ data: { roomServiceCategories, loading }, onCategoryPress }) => {
-  // TODO: Use a global activity indicator.
-  if (loading) {
-    return <ActivityIndicator />
-  }
-
-  return <TabBar onTabPress={onCategoryPress} data={roomServiceCategories} small />
-})
+export default graphql(getRoomServiceCategories)(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RoomServiceCategoriesBar))
