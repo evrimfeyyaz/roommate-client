@@ -41,6 +41,9 @@ class MainNavigationView extends Component<Props> {
     return this.props.router.getScreenOptions(navigation)
   }
 
+  /**
+   * Gets all main tabs from given routes, such as "Home," "Room Service," etc.
+   */
   getTabObjectForAllChildRoutes(): Tab[] {
     const { routes } = this.props.navigation.state
 
