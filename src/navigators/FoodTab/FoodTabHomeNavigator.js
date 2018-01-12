@@ -6,7 +6,7 @@ import type { Dispatch } from 'redux'
 import type { NavigationState } from 'react-navigation'
 
 import RoomServiceScreen from '../../screens/FoodTab/RoomServiceScreen'
-import TabView from '../../navigation/views/TabView/TabView'
+import TabView from '../../components/navigation/TabView'
 import RestaurantsScreen from '../../screens/FoodTab/RestaurantsScreen'
 
 const FoodTabHomeRouter = TabRouter({
