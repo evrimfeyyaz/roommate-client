@@ -1,4 +1,6 @@
 const colors = {
+  mainNavigationBackground: '#1E222C',
+
   primaryButtonTitle: '#fff',
   primaryButtonGradient: ['#c1b296', '#998263'],
 

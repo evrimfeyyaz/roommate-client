@@ -7,6 +7,7 @@ import type { NavigationScreenProp, NavigationRouter, NavigationState, Navigatio
 import { SideMenu, TopBar, Card } from '../index'
 import type { MainTabScreenOptions } from '../../types/navigation'
 import type { Tab } from './SideMenu'
+import colors from '../../config/colors'
 
 type Props = {
   navigation: NavigationScreenProp<NavigationState>,
@@ -23,26 +24,25 @@ class MainNavigationView extends Component<Props> {
   /**
    * Creates a navigation object for a given route.
    */
-  getChildNavigationForRoute(route: NavigationRoute) {
-    const { navigation } = this.props
+  getNavigationForRoute(route: NavigationRoute) {
+    const { dispatch } = this.props.navigation
 
-    // The state of the active child screen can be found at `tabs[index]`.
-    let childNavigation = { dispatch: navigation.dispatch, state: route }
-    childNavigation = addNavigationHelpers(childNavigation)
+    let navigation = { dispatch, state: route }
+    navigation = addNavigationHelpers(navigation)
 
-    return childNavigation
+    return navigation
   }
 
   getScreenOptionsForRoute(route: NavigationRoute) {
     // https://github.com/react-community/react-navigation/blob/6af770d6449bc450ed42378dd91e5a7015d1710b/src/views/TabView/TabView.js#L91
     // https://stackoverflow.com/questions/46278399/use-of-getscreenoptions-from-the-root-navigator-to-get-the-title-of-nested-activ
-    const navigation = this.getChildNavigationForRoute(route)
+    const navigation = this.getNavigationForRoute(route)
 
     return this.props.router.getScreenOptions(navigation)
   }
 
   /**
-   * Gets all main tabs from given routes, such as "Home," "Room Service," etc.
+   * Returns all main tabs from given routes, such as "Home," "Room Service," etc.
    */
   getTabObjectForAllChildRoutes(): Tab[] {
     const { routes } = this.props.navigation.state
@@ -61,15 +61,14 @@ class MainNavigationView extends Component<Props> {
     dispatch(navigateAction)
   }
 
-  renderActiveChild() {
+  renderActiveScreen() {
     const { router } = this.props
     const activeRoute = this.getActiveRoute()
 
-    const ActiveChild = router.getComponentForRouteName(activeRoute.routeName)
-    const childNavigation = this.getChildNavigationForRoute(activeRoute)
+    const ActiveScreen = router.getComponentForRouteName(activeRoute.routeName)
 
     // $FlowFixMe
-    return <ActiveChild />
+    return <ActiveScreen />
   }
 
   render() {
@@ -85,7 +84,7 @@ class MainNavigationView extends Component<Props> {
           <TopBar title={currentTitle} />
 
           <Card style={styles.contentContainer} backgroundOpacity={0.6}>
-            {this.renderActiveChild()}
+            {this.renderActiveScreen()}
           </Card>
         </View>
       </View>
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#1E222C'
+    backgroundColor: colors.mainNavigationBackground
   },
   subContainer: {
     flex: 1
