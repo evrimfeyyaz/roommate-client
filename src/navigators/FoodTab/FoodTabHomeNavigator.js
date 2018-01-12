@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { NavigationState } from 'react-navigation'
 
-import RoomServiceScreen from '../../screens/RoomServiceScreen'
+import RoomServiceScreen from '../../screens/FoodTab/RoomServiceScreen'
 import TabView from '../../navigation/views/TabView/TabView'
-import RestaurantsScreen from '../../screens/RestaurantsScreen'
+import RestaurantsScreen from '../../screens/FoodTab/RestaurantsScreen'
 
 const FoodTabHomeRouter = TabRouter({
   RoomService: { screen: RoomServiceScreen },
@@ -24,22 +24,15 @@ type Props = {
 /**
  * This is the navigator for the home page of the "Food" tab.
  */
-class FoodTabHomeNavigator extends Component<Props> {
-  static router = FoodTabHomeRouter
+const FoodTabHomeNavigator = (props: Props) => {
+  const navigation = addNavigationHelpers({
+    dispatch: props.dispatch,
+    state: props.foodTabHomeNavigation
+  })
 
-  static navigationOptions: {
-    hideNavigationBar: true
-  }
-
-  render() {
-    const navigation = addNavigationHelpers({
-      dispatch: this.props.dispatch,
-      state: this.props.foodTabHomeNavigation
-    })
-
-    return <TabView router={FoodTabHomeRouter} navigation={navigation} />
-  }
+  return <TabView router={FoodTabHomeRouter} navigation={navigation} />
 }
+FoodTabHomeNavigator.router = FoodTabHomeRouter
 
 const mapStateToProps = state => ({
   foodTabHomeNavigation: state.foodTabHomeNavigator

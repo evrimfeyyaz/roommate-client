@@ -6,7 +6,7 @@ import { SvgIcon, Heading } from '../index'
 import { leftArrow } from '../../../assets/iconData'
 
 type Props = {
-  onBackButtonPress: Function,
+  onBackButtonPress: () => void,
   title: string
 }
 

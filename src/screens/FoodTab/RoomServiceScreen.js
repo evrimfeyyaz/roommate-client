@@ -2,13 +2,14 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import RoomServiceCategoriesBar from '../containers/RoomServiceCategoriesBar'
-import RoomServiceItemsInCategory from '../containers/RoomServiceItemsInCategory'
-import type { SubTabScreenOptions } from '../types/navigation'
+import RoomServiceCategoriesBar from '../../containers/RoomServiceCategoriesBar'
+import RoomServiceItemsInCategory from '../../containers/RoomServiceItemsInCategory'
+import type { SubScreenOptions } from '../../types/navigation'
 
 class RoomServiceScreen extends Component<void> {
-  static navigationOptions: SubTabScreenOptions = {
-    title: 'Room Service'
+  static navigationOptions: SubScreenOptions = {
+    title: 'Room Service',
+    hideStackNavigationBar: true
   }
 
   render() {
