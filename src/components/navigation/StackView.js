@@ -4,8 +4,8 @@ import { View, StyleSheet } from 'react-native'
 import { addNavigationHelpers } from 'react-navigation'
 import type { NavigationRoute, NavigationRouter, NavigationScreenProp, NavigationState } from 'react-navigation'
 
-import { NavigationBar } from '../../../components'
-import type { MainTabScreenOptions } from '../../../types/navigation'
+import { NavigationBar } from '../index'
+import type { MainTabScreenOptions } from '../../types/navigation'
 
 type Props = {
   navigation: NavigationScreenProp<NavigationState>,

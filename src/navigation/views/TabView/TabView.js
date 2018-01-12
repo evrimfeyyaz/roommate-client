@@ -1,86 +1,81 @@
+// @flow
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { PropTypes } from 'prop-types'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
+import type { NavigationRoute, NavigationRouter, NavigationScreenProp, NavigationState } from 'react-navigation'
 
 import { TabBar } from '../../../components'
+import type { MainTabScreenOptions } from '../../../types/navigation'
+import type { TabData } from '../../../components/navigation/TabBar'
 
-class TabView extends Component {
-  constructor(props) {
-    super(props)
+type Props = {
+  navigation: NavigationScreenProp<NavigationState>,
+  router: NavigationRouter<NavigationState, MainTabScreenOptions>
+}
 
-    const childNavigation = this.getChildNavigation()
-    const screenOptions = this.getCurrentScreenOptions(childNavigation)
+class TabView extends Component<Props> {
+  getActiveRoute() {
+    const { routes, index } = this.props.navigation.state
 
-    this.state = {
-      childNavigation,
-      screenOptions
-    }
-
-    this.navigateTo = this.navigateTo.bind(this)
+    return routes[index]
   }
 
-  getChildNavigation() {
-    // From https://reactnavigation.org/docs/navigators/custom
-    const { navigation } = this.props
-    const { routes, index } = navigation.state
+  /**
+   * Creates a navigation object for a given route.
+   */
+  getNavigationForRoute(route: NavigationRoute) {
+    const { dispatch } = this.props.navigation
 
-    // The state of the active child screen can be found at tabs[id]
-    const childNavigation = { dispatch: navigation.dispatch, state: routes[index] }
+    let navigation = { dispatch, state: route }
+    navigation = addNavigationHelpers(navigation)
 
-    return addNavigationHelpers(childNavigation)
+    return navigation
   }
 
-  getCurrentScreenOptions(navigation) {
+  getScreenOptionsForRoute(route: NavigationRoute) {
     // https://github.com/react-community/react-navigation/blob/6af770d6449bc450ed42378dd91e5a7015d1710b/src/views/TabView/TabView.js#L91
     // https://stackoverflow.com/questions/46278399/use-of-getscreenoptions-from-the-root-navigator-to-get-the-title-of-nested-activ
+    const navigation = this.getNavigationForRoute(route)
+
     return this.props.router.getScreenOptions(navigation)
   }
 
-  getScreenOptions(route) {
-    // The following method is not well-documented. Check out the source code to find out more.
-    return this.props.router.getScreenOptions({ state: route })
+  getTabDataForAllChildRoutes(): TabData[] {
+    const { routes } = this.props.navigation.state
+
+    // eslint-disable-next-line arrow-body-style
+    return routes.map(route => {
+      const { title } = this.getScreenOptionsForRoute(route)
+
+      return { id: route.routeName, title }
+    })
   }
 
-  navigateTo(routeName) {
-    const { dispatch, state } = this.props.navigation
+  navigateTo = (routeName: string) => {
+    const { dispatch } = this.props.navigation
 
-    const navigateAction = NavigationActions.navigate({
-      routeName: routeName
-    })
+    const navigateAction = NavigationActions.navigate({ routeName })
 
     dispatch(navigateAction)
   }
 
   renderActiveScreen() {
-    const { navigation, router } = this.props
+    const { router } = this.props
+    const activeRoute = this.getActiveRoute()
 
-    const ActiveScreen = router.getComponentForState(navigation.state)
+    const ActiveScreen = router.getComponentForRouteName(activeRoute.routeName)
 
+    // $FlowFixMe
     return <ActiveScreen />
   }
 
-  renderTabBar() {
-    const { index: activeIndex, routes } = this.props.navigation.state
-
-    const subScreens = routes.map((route, index) => {
-      const { title } = this.getCurrentScreenOptions({ dispatch: this.props.navigation.dispatch, state: routes[index] })
-
-      const tabItem = {
-        title,
-        id: route.routeName
-      }
-
-      return tabItem
-    })
-
-    return <TabBar data={subScreens} onTabChange={this.navigateTo} />
-  }
-
   render() {
+    const tabs = this.getTabDataForAllChildRoutes()
+    const activeRouteName = this.getActiveRoute().routeName
+
     return (
       <View style={styles.container}>
-        {this.renderTabBar()}
+        <TabBar data={tabs} activeTabId={activeRouteName} onTabPress={this.navigateTo} />
         {this.renderActiveScreen()}
       </View>
     )

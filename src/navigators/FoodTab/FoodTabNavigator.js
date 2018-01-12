@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { NavigationState } from 'react-navigation'
 
-import StackView from '../../navigation/views/StackView/StackView'
+import StackView from '../../components/navigation/StackView'
 import FoodTabHomeNavigator from './FoodTabHomeNavigator'
 import type { MainTabScreenOptions } from '../../types/navigation'
 import * as icons from '../../../assets/iconData'
