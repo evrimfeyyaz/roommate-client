@@ -1,5 +1,5 @@
 // @flow
-import type { ShoppingItem } from '../types/shopping'
+import type { ShoppingItem } from '../../types/shopping'
 
 const UPDATE_SELECTED_CATEGORY_ID = 'roommate/roomServiceScreen/UPDATE_SELECTED_CATEGORY_ID'
 const SHOW_ITEM = 'roommate/roomServiceScreen/SHOW_ITEM'

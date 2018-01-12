@@ -4,9 +4,9 @@ import { View, StyleSheet } from 'react-native'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 import type { NavigationScreenProp, NavigationRouter, NavigationState, NavigationRoute } from 'react-navigation'
 
-import { SideMenu, TopBar, Card } from '../../components/index'
+import { SideMenu, TopBar, Card } from '../index'
 import type { MainTabScreenOptions } from '../../types/navigation'
-import type { Tab } from '../../components/navigation/SideMenu'
+import type { Tab } from './SideMenu'
 
 type Props = {
   navigation: NavigationScreenProp<NavigationState>,
@@ -69,7 +69,7 @@ class MainNavigationView extends Component<Props> {
     const childNavigation = this.getChildNavigationForRoute(activeRoute)
 
     // $FlowFixMe
-    return <ActiveChild navigation={childNavigation} />
+    return <ActiveChild />
   }
 
   render() {

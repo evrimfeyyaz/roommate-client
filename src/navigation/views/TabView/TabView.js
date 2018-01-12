@@ -57,7 +57,7 @@ class TabView extends Component {
 
     const ActiveScreen = router.getComponentForState(navigation.state)
 
-    return <ActiveScreen navigation={this.state.childNavigation} />
+    return <ActiveScreen />
   }
 
   renderTabBar() {

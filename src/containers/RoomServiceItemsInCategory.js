@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import Modal from 'react-native-modal'
 
 import { ItemsInCategory, ItemDetails } from '../components'
-import * as Redux from '../redux/roomServiceScreen'
+import * as Redux from '../redux/roomService/roomServiceScreen'
 import type { ShoppingCategory, ShoppingItem } from '../types/shopping'
 import type { ApolloDataObject } from '../types/apollo'
 

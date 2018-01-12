@@ -8,7 +8,7 @@ import { combineReducers, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { UIManager, Platform, StatusBar } from 'react-native'
 
-import MainNavigator from './src/navigation/navigators/MainNavigator'
+import MainNavigator from './src/navigators/MainNavigator'
 import * as reducers from './src/redux'
 
 export default class App extends Component<void> {

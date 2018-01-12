@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 import { TabBar } from '../components/index'
 import type { ShoppingCategory } from '../types/shopping'
-import * as Redux from '../redux/roomServiceScreen'
+import * as Redux from '../redux/roomService/roomServiceScreen'
 import type { ApolloDataObject } from '../types/apollo'
 
 type DispatchProps = {

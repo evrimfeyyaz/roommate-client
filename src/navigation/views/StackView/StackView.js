@@ -26,6 +26,9 @@ class StackView extends Component {
     const { navigation, router } = this.props
     const { routes, index } = navigation.state
 
+    console.log(navigation.state)
+    console.log('route: ' + routes[index])
+
     return router.getScreenOptions({ state: routes[index] })
   }
 
@@ -35,6 +38,8 @@ class StackView extends Component {
 
   renderNavigationBar() {
     const screenOptions = this.getScreenOptionsForActiveScreen()
+
+    console.log(screenOptions)
 
     if (screenOptions.hideNavigationBar) {
       return null
@@ -49,7 +54,7 @@ class StackView extends Component {
 
     const ActiveScreen = router.getComponentForRouteName(routes[index].routeName)
 
-    return <ActiveScreen navigation={this.getChildNavigation()} />
+    return <ActiveScreen />
   }
 
   render() {

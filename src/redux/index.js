@@ -1,3 +1,5 @@
-export { default as roomServiceCart } from './roomServiceCart'
-export { default as roomServiceScreen } from './roomServiceScreen'
-export { default as mainNavigator } from './mainNavigator'
+export { default as roomServiceCart } from './roomService/roomServiceCart'
+export { default as roomServiceScreen } from './roomService/roomServiceScreen'
+export { default as mainNavigator } from './navigation/mainNavigator'
+export { default as foodTabNavigator } from './navigation/foodTab/foodTabNavigator'
+export { default as foodTabHomeNavigator } from './navigation/foodTab/foodTabHomeNavigator'
