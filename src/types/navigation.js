@@ -1,3 +1,5 @@
+import type { NavigationRouter, NavigationScreenProp, NavigationState, NavigationRoute } from 'react-navigation'
+
 import type { IconData } from '../../assets/iconData'
 
 /**
@@ -14,14 +16,15 @@ export type MainTabScreenOptions = {
  * Screen options for the sub-tabs, such as "Room Service" and "Restaurants" in
  * the "Food" section.
  *
- * These are the screens in `...TabNavigator`s which use `TabView`.
+ * These are the screens in `...Tab...Navigator`s which use `TabView`.
  */
-export type SubScreenOptions = {
+export type SubTabScreenOptions = {
   title: string,
   /**
    * Whether or not the navigation bar inside the `StackView` should be hidden.
+   *
    * This is useful when we don't want to show the navigation bar on the main page
-   * where we can already have tabs.
+   * where we already have tabs.
    *
    * For example, in the "Food" tab, there are two sub-tabs, "Room Service" and
    * "Restaurants." On the main page of the "Food" tab, we have a `TabView` inside a
@@ -30,3 +33,16 @@ export type SubScreenOptions = {
    */
   hideStackNavigationBar: boolean
 }
+
+/**
+ * Screen options for screens inside a navigator that uses `StackView`.
+ *
+ * For example, `FoodTabNavigator`.
+ */
+export type StackScreenOptions = {
+  title: string
+}
+
+export type Navigation = NavigationScreenProp<NavigationState>
+export type Router<T> = NavigationRouter<NavigationState, T>
+export type Route = NavigationRoute

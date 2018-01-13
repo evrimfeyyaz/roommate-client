@@ -3,10 +3,10 @@ import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { Title } from '../../components/index'
-import type { SubScreenOptions } from '../../types/navigation'
+import type { SubTabScreenOptions } from '../../types/navigation'
 
 class RestaurantsScreen extends Component<void> {
-  static navigationOptions: SubScreenOptions = {
+  static navigationOptions: SubTabScreenOptions = {
     title: 'Restaurants',
     hideStackNavigationBar: true
   }

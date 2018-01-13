@@ -4,10 +4,10 @@ import { StyleSheet, View } from 'react-native'
 
 import RoomServiceCategoriesBar from '../../containers/RoomServiceCategoriesBar'
 import RoomServiceItemsInCategory from '../../containers/RoomServiceItemsInCategory'
-import type { SubScreenOptions } from '../../types/navigation'
+import type { SubTabScreenOptions } from '../../types/navigation'
 
 class RoomServiceScreen extends Component<void> {
-  static navigationOptions: SubScreenOptions = {
+  static navigationOptions: SubTabScreenOptions = {
     title: 'Room Service',
     hideStackNavigationBar: true
   }
