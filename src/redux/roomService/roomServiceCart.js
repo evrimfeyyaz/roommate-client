@@ -1,15 +1,25 @@
-const LOAD = 'roommate/roomServiceCart/LOAD'
+// @flow
+import type { ShoppingCartItem } from '../../types/shopping'
+
 const ADD_CART_ITEM = 'roommate/roomServiceCart/ADD_CART_ITEM'
 
-const initialState = {
+export type State = {
+  +cartItems: ShoppingCartItem[],
+  +specialRequest: ?string
+}
+
+type AddCartItemToRoomServiceCartAction = { type: typeof ADD_CART_ITEM, cartItem: ShoppingCartItem }
+
+export type Action =
+  | AddCartItemToRoomServiceCartAction
+
+const initialState: State = {
   cartItems: [],
   specialRequest: null
 }
 
-export default function reducer(state = initialState, action = {}) {
+export default function reducer(state: State = initialState, action: Action) {
   switch (action.type) {
-    case LOAD:
-      return state
     case ADD_CART_ITEM:
       return {
         ...state,
@@ -23,10 +33,6 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function loadRoomServiceCart() {
-  return { type: LOAD }
-}
-
-export function addCartItemToRoomServiceCart(cartItem) {
+export function addCartItemToRoomServiceCart(cartItem: ShoppingCartItem): AddCartItemToRoomServiceCartAction {
   return { type: ADD_CART_ITEM, cartItem }
 }

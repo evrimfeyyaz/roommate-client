@@ -7,13 +7,16 @@ import { connect } from 'react-redux'
 import Modal from 'react-native-modal'
 
 import { ItemsInCategory, ItemDetails } from '../components'
-import * as Redux from '../redux/roomService/roomServiceScreen'
-import type { ShoppingCategory, ShoppingItem } from '../types/shopping'
+import * as RoomServiceScreenRedux from '../redux/roomService/roomServiceScreen'
+import * as RoomServiceCartRedux from '../redux/roomService/roomServiceCart'
+import type { ShoppingCartItem, ShoppingCategory, ShoppingItem } from '../types/shopping'
 import type { ApolloDataObject } from '../types/apollo'
+import { addCartItemToRoomServiceCart } from '../redux/roomService/roomServiceCart'
 
 type DispatchProps = {
   showRoomServiceItem: (item: ShoppingItem) => void,
-  hideRoomServiceItem: () => void
+  hideRoomServiceItem: () => void,
+  addCartItemToRoomServiceCart: (cartItem: ShoppingCartItem) => void
 }
 
 type Props = {
@@ -21,7 +24,7 @@ type Props = {
     ...ApolloDataObject,
     roomServiceCategory: ShoppingCategory
   }
-} & Redux.State & DispatchProps
+} & RoomServiceScreenRedux.State & DispatchProps
 
 const RoomServiceItemsInCategory = (props: Props) => {
   // Means query was skipped.
@@ -62,6 +65,7 @@ const RoomServiceItemsInCategory = (props: Props) => {
           item={selectedRoomServiceItem}
           onCloseButtonPress={hideRoomServiceItem}
           style={styles.itemDetails}
+          onAddButtonPress={addCartItemToRoomServiceCart}
         />
       </Modal>
     </View>
@@ -86,8 +90,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  showRoomServiceItem: item => dispatch(Redux.showRoomServiceItem(item)),
-  hideRoomServiceItem: () => dispatch(Redux.hideRoomServiceItem())
+  showRoomServiceItem: item => dispatch(RoomServiceScreenRedux.showRoomServiceItem(item)),
+  hideRoomServiceItem: () => dispatch(RoomServiceScreenRedux.hideRoomServiceItem()),
+  addCartItemToRoomServiceCart: cartItem => dispatch(RoomServiceCartRedux.addCartItemToRoomServiceCart(cartItem))
 })
 
 const getRoomServiceCategoryWithItems = gql`
