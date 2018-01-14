@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
@@ -11,7 +11,6 @@ import * as RoomServiceScreenRedux from '../redux/roomService/roomServiceScreen'
 import * as RoomServiceCartRedux from '../redux/roomService/roomServiceCart'
 import type { ShoppingCartItem, ShoppingCategory, ShoppingItem } from '../types/shopping'
 import type { ApolloDataObject } from '../types/apollo'
-import { addCartItemToRoomServiceCart } from '../redux/roomService/roomServiceCart'
 
 type DispatchProps = {
   showRoomServiceItem: (item: ShoppingItem) => void,
@@ -26,50 +25,57 @@ type Props = {
   }
 } & RoomServiceScreenRedux.State & DispatchProps
 
-const RoomServiceItemsInCategory = (props: Props) => {
-  // Means query was skipped.
-  if (props.data == null) {
-    return null
+class RoomServiceItemsInCategory extends Component<Props> {
+  addButtonPress = (cartItem: ShoppingCartItem) => {
+    this.props.addCartItemToRoomServiceCart(cartItem)
+    this.props.hideRoomServiceItem()
   }
 
-  const {
-    data,
-    showRoomServiceItem,
-    hideRoomServiceItem,
-    isSelectedRoomServiceItemVisible,
-    selectedRoomServiceItem
-  } = props
-  const { loading, roomServiceCategory } = data
+  render() {
+    // Means query was skipped.
+    if (this.props.data == null) {
+      return null
+    }
 
-  // TODO: Use a global activity indicator.
-  if (loading) {
-    return <ActivityIndicator />
+    const {
+      data,
+      showRoomServiceItem,
+      hideRoomServiceItem,
+      isSelectedRoomServiceItemVisible,
+      selectedRoomServiceItem
+    } = this.props
+    const { loading, roomServiceCategory } = data
+
+    // TODO: Use a global activity indicator.
+    if (loading) {
+      return <ActivityIndicator />
+    }
+
+    return (
+      <View style={styles.container}>
+        <ItemsInCategory items={roomServiceCategory.items} onItemPress={showRoomServiceItem} />
+
+        <Modal
+          isVisible={isSelectedRoomServiceItemVisible}
+          animationInTiming={150}
+          animationOutTiming={150}
+          backdropTransitionInTiming={150}
+          backdropTransitionOutTiming={150}
+          onBackdropPress={hideRoomServiceItem}
+          backdropColor="#131519"
+          backdropOpacity={0.9}
+          style={styles.modal}
+        >
+          <ItemDetails
+            item={selectedRoomServiceItem}
+            onCloseButtonPress={hideRoomServiceItem}
+            style={styles.itemDetails}
+            onAddButtonPress={this.addButtonPress}
+          />
+        </Modal>
+      </View>
+    )
   }
-
-  return (
-    <View style={styles.container}>
-      <ItemsInCategory items={roomServiceCategory.items} onItemPress={showRoomServiceItem} />
-
-      <Modal
-        isVisible={isSelectedRoomServiceItemVisible}
-        animationInTiming={150}
-        animationOutTiming={150}
-        backdropTransitionInTiming={150}
-        backdropTransitionOutTiming={150}
-        onBackdropPress={hideRoomServiceItem}
-        backdropColor="#131519"
-        backdropOpacity={0.9}
-        style={styles.modal}
-      >
-        <ItemDetails
-          item={selectedRoomServiceItem}
-          onCloseButtonPress={hideRoomServiceItem}
-          style={styles.itemDetails}
-          onAddButtonPress={addCartItemToRoomServiceCart}
-        />
-      </Modal>
-    </View>
-  )
 }
 
 const styles = StyleSheet.create({

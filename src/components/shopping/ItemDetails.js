@@ -36,7 +36,11 @@ class ItemDetails extends Component<Props, State> {
 
   onQuantityStepperPress = (_: number, quantity: number) => {
     this.setState({
-      cartItem: { quantity }
+      ...this.state,
+      cartItem: {
+        ...this.state.cartItem,
+        quantity
+      }
     })
   }
 
