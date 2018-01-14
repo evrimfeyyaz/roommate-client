@@ -20,7 +20,7 @@ class ItemsInCategory extends Component<Props> {
     const { items } = this.props
 
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <FlatList
           data={items}
           renderItem={this.renderItem}
@@ -34,6 +34,9 @@ class ItemsInCategory extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   itemsListContentContainer: {
     paddingBottom: 24
   },
