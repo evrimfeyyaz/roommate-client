@@ -6,7 +6,7 @@ import { SideMenu, TopBar, Card } from '../index'
 import type { MainTabScreenOptions, Navigation, Router } from '../../types/navigation'
 import type { Tab } from './SideMenu'
 import colors from '../../config/colors'
-import * as NavigationHelpers from '../utils/navigationHelpers'
+import * as NavigationHelpers from '../../utils/navigationHelpers'
 
 type Props = {
   navigation: Navigation,

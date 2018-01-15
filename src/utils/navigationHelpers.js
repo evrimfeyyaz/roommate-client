@@ -2,7 +2,7 @@
 import React from 'react'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 
-import type { Navigation, Router, Route } from '../../types/navigation'
+import type { Navigation, Router, Route } from '../types/navigation'
 
 /**
  * Commonly used navigation functions for the 'react-navigation' library.

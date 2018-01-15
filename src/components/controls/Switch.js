@@ -11,7 +11,7 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import { Body } from '../index'
 import colors from '../../config/colors'
-import getHitSlop from '../utils/hitSlop'
+import getHitSlop from '../../utils/hitSlop'
 
 /**
  * We need bottom padding to keep the shadows within the container.

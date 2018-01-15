@@ -6,6 +6,7 @@ import { Title, PrimaryButton, Stepper, Heading3, Body, SvgIcon, CircularButton,
 import * as icons from '../../../assets/iconData'
 import type { ShoppingCartItem, ShoppingItem } from '../../types/shopping'
 import colors from '../../config/colors'
+import { generateTemporaryIdForCartItem } from '../../utils/shoppingHelpers'
 
 type Props = {
   item: ShoppingItem,

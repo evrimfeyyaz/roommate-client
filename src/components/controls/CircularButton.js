@@ -4,7 +4,7 @@ import { TouchableOpacity, StyleSheet, ViewPropTypes } from 'react-native'
 
 import { SvgIcon } from '../index'
 import type { IconData } from '../../../assets/iconData'
-import getHitSlop from '../utils/hitSlop'
+import getHitSlop from '../../utils/hitSlop'
 import colors from '../../config/colors'
 
 const PADDING_REGULAR = 10

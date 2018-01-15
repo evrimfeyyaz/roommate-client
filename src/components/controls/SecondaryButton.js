@@ -5,7 +5,7 @@ import { StyleSheet, ViewPropTypes, TouchableOpacity, View } from 'react-native'
 import { SvgIcon, Body } from '../index'
 import type { IconData } from '../../../assets/iconData'
 import colors from '../../config/colors'
-import getHitSlop from '../utils/hitSlop'
+import getHitSlop from '../../utils/hitSlop'
 
 const PADDING_VERTICAL = 8
 const FONT_SIZE = 12

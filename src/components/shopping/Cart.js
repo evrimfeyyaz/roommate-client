@@ -12,15 +12,12 @@ import {
   SecondaryButton
 } from '../.'
 import * as iconData from '../../../assets/iconData'
-import type { ShoppingCartItem } from '../../types/shopping'
+import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 import colors from '../../config/colors'
+import { getCartItemsArray, getCartItemTotal, getTotalOfCart } from '../../utils/shoppingHelpers'
 
 type Props = {
-  cartItems: ShoppingCartItem[],
-  /**
-   * Total of all items in the cart.
-   */
-  cartTotal: number,
+  cart: ShoppingCart,
   /**
    * Fired when the user presses the "Clear All" button.
    */
@@ -46,14 +43,15 @@ type Props = {
 
 class Cart extends Component<Props> {
   renderCartItem(cartItem: ShoppingCartItem) {
-    const { id, quantity, item: { title, price } } = cartItem
+    const { id, quantity, item: { title } } = cartItem
     const { onQuantityStepperPress, onRemoveButtonPress } = this.props
+    const total = getCartItemTotal(cartItem)
 
     return (
       <View style={styles.itemContainer} key={id}>
         <View style={styles.itemTopRowContainer}>
           <Heading2 style={styles.itemTitle}>{title}</Heading2>
-          <Heading2 style={styles.itemPrice}>{price}</Heading2>
+          <Heading2 style={styles.itemPrice}>{total}</Heading2>
         </View>
         <View style={styles.itemBottomRowContainer}>
           <Stepper
@@ -76,11 +74,14 @@ class Cart extends Component<Props> {
   }
 
   renderCartItems() {
-    return this.props.cartItems.map(cartItem => this.renderCartItem(cartItem))
+    const cartItemsArray = getCartItemsArray(this.props.cart)
+
+    return cartItemsArray.map(cartItem => this.renderCartItem(cartItem))
   }
 
   render() {
-    const { onClearButtonPress, cartTotal, onReviewButtonPress } = this.props
+    const { onClearButtonPress, onReviewButtonPress, cart } = this.props
+    const cartTotal = getTotalOfCart(cart)
 
     return (
       <Card style={styles.container}>

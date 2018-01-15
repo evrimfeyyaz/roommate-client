@@ -5,7 +5,7 @@ import { View, StyleSheet } from 'react-native'
 import { TabBar } from '../index'
 import type { MainTabScreenOptions, Navigation, Router } from '../../types/navigation'
 import type { TabData } from './TabBar'
-import * as NavigationHelpers from '../utils/navigationHelpers'
+import * as NavigationHelpers from '../../utils/navigationHelpers'
 
 type Props = {
   navigation: Navigation,

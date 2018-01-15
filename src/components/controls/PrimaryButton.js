@@ -4,7 +4,7 @@ import { StyleSheet, ViewPropTypes, TouchableOpacity, View } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import colors from '../../config/colors'
-import getHitSlop from '../utils/hitSlop'
+import getHitSlop from '../../utils/hitSlop'
 import { Body } from '../.'
 
 const PADDING_VERTICAL = 8

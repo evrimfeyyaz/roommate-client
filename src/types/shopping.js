@@ -16,3 +16,10 @@ export type ShoppingCartItem = {
   item: ShoppingItem,
   quantity: number
 }
+
+export type ShoppingCart = {
+  cartItems: {
+    [string]: ShoppingCartItem
+  },
+  specialRequest: ?string
+}

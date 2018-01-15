@@ -4,7 +4,7 @@ import { View, StyleSheet } from 'react-native'
 
 import { NavigationBar } from '../index'
 import type { Navigation, StackScreenOptions, Router } from '../../types/navigation'
-import * as NavigationHelpers from '../utils/navigationHelpers'
+import * as NavigationHelpers from '../../utils/navigationHelpers'
 
 type Props = {
   navigation: Navigation,
