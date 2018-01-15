@@ -4,15 +4,18 @@ import { generateTemporaryIdForCartItem } from '../../utils/shoppingHelpers'
 
 const ADD_CART_ITEM = 'roommate/roomServiceCart/ADD_CART_ITEM'
 const CLEAR_CART = 'roommate/roomServiceCart/CLEAR_CART'
+const ADJUST_CART_ITEM_QUANTITY = 'roommate/roomServiceCart/ADJUST_CART_ITEM_QUANTITY'
 
 export type State = ShoppingCart
 
 type AddCartItemToRoomServiceCartAction = { type: typeof ADD_CART_ITEM, cartItem: ShoppingCartItem }
 type ClearRoomServiceCartAction = { type: typeof CLEAR_CART }
+type AdjustCartItemQuantity = { type: typeof ADJUST_CART_ITEM_QUANTITY, cartItem: ShoppingCartItem, quantity: number }
 
 export type Action =
   | AddCartItemToRoomServiceCartAction
   | ClearRoomServiceCartAction
+  | AdjustCartItemQuantity
 
 const initialState: State = {
   cartItems: {},
@@ -27,6 +30,8 @@ export default function reducer(state: State = initialState, action: Action) {
       return addCartItem(state, action)
     case CLEAR_CART:
       return initialState
+    case ADJUST_CART_ITEM_QUANTITY:
+      return adjustQuantity(state, action)
     default:
       return state
   }
@@ -38,8 +43,9 @@ function addCartItem(state: State, action: AddCartItemToRoomServiceCartAction) {
 
   if (includesCartItem(state, cartItem)) {
     const existingCartItem = state.cartItems[id]
+    const newQuantity = cartItem.quantity + existingCartItem.quantity
 
-    cartItem = cartItemWithUpdatedQuantity(cartItem, existingCartItem)
+    cartItem = { ...cartItem, quantity: newQuantity }
   }
 
   return {
@@ -47,6 +53,18 @@ function addCartItem(state: State, action: AddCartItemToRoomServiceCartAction) {
     cartItems: {
       ...state.cartItems,
       [cartItem.id]: cartItem
+    }
+  }
+}
+
+function adjustQuantity(state: State, action: AdjustCartItemQuantity) {
+  const { cartItem, quantity } = action
+
+  return {
+    ...state,
+    cartItems: {
+      ...state.cartItems,
+      [cartItem.id]: { ...cartItem, quantity }
     }
   }
 }
@@ -61,44 +79,21 @@ export function clearRoomServiceCart() {
   return { type: CLEAR_CART }
 }
 
-// UTILITY FUNCTIONS
-
-/**
- * Combines two cart items that have the same ID.
- *
- * Check out the `generateTemporaryIdForCartItem()` helper method for more
- * information on how cart IDs are generated.
- *
- * @param cartItem1
- * @param cartItem2
- * @returns New ShoppingCartItem instance with updated quantity.
- */
-function cartItemWithUpdatedQuantity(cartItem1: ShoppingCartItem, cartItem2: ShoppingCartItem): ShoppingCartItem {
-  if (cartItem1.id !== cartItem2.id) {
-    throw ShoppingCartItemIdMismatch
-  }
-
-  const quantity = cartItem1.quantity + cartItem2.quantity
-
-  return { ...cartItem1, quantity }
+export function adjustCartItemQuantity(cartItem: ShoppingCartItem, quantity: number) {
+  return { type: ADJUST_CART_ITEM_QUANTITY, cartItem, quantity }
 }
+
+// UTILITY FUNCTIONS
 
 function includesCartItem(cart: ShoppingCart, cartItem: ShoppingCartItem) {
   return Object.hasOwnProperty.call(cart.cartItems, cartItem.id)
 }
 
+/**
+ * Returns a copy of the given cart item with a temporary ID.
+ */
 function getCartItemWithTemporaryId(cartItem: ShoppingCartItem) {
   const id = generateTemporaryIdForCartItem(cartItem)
 
   return { ...cartItem, id }
-}
-
-// ERROR OBJECTS
-
-// More info: https://medium.com/@xjamundx/custom-javascript-errors-in-es6-aa891b173f87
-class ShoppingCartItemIdMismatch extends Error {
-  constructor(...args) {
-    super(...args)
-    Error.captureStackTrace(this, ShoppingCartItemIdMismatch)
-  }
 }
