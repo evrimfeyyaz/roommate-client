@@ -105,9 +105,9 @@ class Cart extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    width: 200,
     borderRadius: 10,
-    padding: 15
+    padding: 15,
+    width: '25%'
   },
   heading: {
     fontSize: 18,

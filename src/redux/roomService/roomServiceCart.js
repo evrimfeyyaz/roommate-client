@@ -3,13 +3,16 @@ import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 import { generateTemporaryIdForCartItem } from '../../utils/shoppingHelpers'
 
 const ADD_CART_ITEM = 'roommate/roomServiceCart/ADD_CART_ITEM'
+const CLEAR_CART = 'roommate/roomServiceCart/CLEAR_CART'
 
 export type State = ShoppingCart
 
 type AddCartItemToRoomServiceCartAction = { type: typeof ADD_CART_ITEM, cartItem: ShoppingCartItem }
+type ClearRoomServiceCartAction = { type: typeof CLEAR_CART }
 
 export type Action =
   | AddCartItemToRoomServiceCartAction
+  | ClearRoomServiceCartAction
 
 const initialState: State = {
   cartItems: {},
@@ -22,6 +25,8 @@ export default function reducer(state: State = initialState, action: Action) {
   switch (action.type) {
     case ADD_CART_ITEM:
       return addCartItem(state, action)
+    case CLEAR_CART:
+      return initialState
     default:
       return state
   }
@@ -50,6 +55,10 @@ function addCartItem(state: State, action: AddCartItemToRoomServiceCartAction) {
 
 export function addCartItemToRoomServiceCart(cartItem: ShoppingCartItem): AddCartItemToRoomServiceCartAction {
   return { type: ADD_CART_ITEM, cartItem }
+}
+
+export function clearRoomServiceCart() {
+  return { type: CLEAR_CART }
 }
 
 // UTILITY FUNCTIONS

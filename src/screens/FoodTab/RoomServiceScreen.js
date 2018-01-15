@@ -29,11 +29,15 @@ class RoomServiceScreen extends Component<void> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   itemsAndCartContainer: {
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
+    paddingHorizontal: 15,
+    paddingVertical: 24,
+    alignItems: 'flex-start'
   }
 })
 
