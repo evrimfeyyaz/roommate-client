@@ -5,17 +5,20 @@ import { generateTemporaryIdForCartItem } from '../../utils/shoppingHelpers'
 const ADD_CART_ITEM = 'roommate/roomServiceCart/ADD_CART_ITEM'
 const CLEAR_CART = 'roommate/roomServiceCart/CLEAR_CART'
 const ADJUST_CART_ITEM_QUANTITY = 'roommate/roomServiceCart/ADJUST_CART_ITEM_QUANTITY'
+const REMOVE_CART_ITEM = 'roommate/roomServiceCart/REMOVE_CART_ITEM'
 
 export type State = ShoppingCart
 
 type AddCartItemToRoomServiceCartAction = { type: typeof ADD_CART_ITEM, cartItem: ShoppingCartItem }
 type ClearRoomServiceCartAction = { type: typeof CLEAR_CART }
 type AdjustCartItemQuantity = { type: typeof ADJUST_CART_ITEM_QUANTITY, cartItem: ShoppingCartItem, quantity: number }
+type RemoveCartItemFromRoomServiceCartAction = { type: typeof REMOVE_CART_ITEM, cartItem: ShoppingCartItem }
 
 export type Action =
   | AddCartItemToRoomServiceCartAction
   | ClearRoomServiceCartAction
   | AdjustCartItemQuantity
+  | RemoveCartItemFromRoomServiceCartAction
 
 const initialState: State = {
   cartItems: {},
@@ -32,6 +35,8 @@ export default function reducer(state: State = initialState, action: Action) {
       return initialState
     case ADJUST_CART_ITEM_QUANTITY:
       return adjustQuantity(state, action)
+    case REMOVE_CART_ITEM:
+      return removeCartItem(state, action)
     default:
       return state
   }
@@ -69,6 +74,15 @@ function adjustQuantity(state: State, action: AdjustCartItemQuantity) {
   }
 }
 
+function removeCartItem(state: State, action: RemoveCartItemFromRoomServiceCartAction) {
+  const idToRemove = action.cartItem.id
+
+  const cartItems = { ...state.cartItems }
+  delete cartItems[idToRemove]
+
+  return { ...state, cartItems }
+}
+
 // ACTION CREATORS
 
 export function addCartItemToRoomServiceCart(cartItem: ShoppingCartItem): AddCartItemToRoomServiceCartAction {
@@ -81,6 +95,10 @@ export function clearRoomServiceCart() {
 
 export function adjustCartItemQuantity(cartItem: ShoppingCartItem, quantity: number) {
   return { type: ADJUST_CART_ITEM_QUANTITY, cartItem, quantity }
+}
+
+export function removeCartItemFromRoomServiceCart(cartItem: ShoppingCartItem): RemoveCartItemFromRoomServiceCartAction {
+  return { type: REMOVE_CART_ITEM, cartItem }
 }
 
 // UTILITY FUNCTIONS

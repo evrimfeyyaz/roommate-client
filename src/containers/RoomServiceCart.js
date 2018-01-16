@@ -7,8 +7,9 @@ import type { ShoppingCart, ShoppingCartItem } from '../types/shopping'
 import * as RoomServiceCartRedux from '../redux/roomService/roomServiceCart'
 
 type DispatchProps = {
-  clearRoomServiceCart: () => void,
-  adjustCartItemQuantity: (cartItem: ShoppingCartItem, quantity: number) => void
+  clearCart: () => void,
+  adjustCartItemQuantity: (cartItem: ShoppingCartItem, quantity: number) => void,
+  removeCartItem: (cartItem: ShoppingCartItem) => void
 }
 
 type Props = {
@@ -16,13 +17,14 @@ type Props = {
 } & DispatchProps
 
 const RoomServiceCart = (props: Props) => {
-  const { roomServiceCart, clearRoomServiceCart, adjustCartItemQuantity } = props
+  const { roomServiceCart, clearCart, adjustCartItemQuantity, removeCartItem } = props
 
   return (
     <Cart
       cart={roomServiceCart}
-      onClearButtonPress={clearRoomServiceCart}
+      onClearButtonPress={clearCart}
       onQuantityStepperPress={adjustCartItemQuantity}
+      onRemoveButtonPress={removeCartItem}
     />
   )
 }
@@ -32,10 +34,14 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  clearRoomServiceCart: () => dispatch(RoomServiceCartRedux.clearRoomServiceCart()),
+  clearCart: () => dispatch(RoomServiceCartRedux.clearRoomServiceCart()),
   adjustCartItemQuantity: (
     cartItem: ShoppingCartItem,
-    quantity: number) => dispatch(RoomServiceCartRedux.adjustCartItemQuantity(cartItem, quantity))
+    quantity: number
+  ) => dispatch(RoomServiceCartRedux.adjustCartItemQuantity(cartItem, quantity)),
+  removeCartItem: (
+    cartItem: ShoppingCartItem
+  ) => dispatch(RoomServiceCartRedux.removeCartItemFromRoomServiceCart(cartItem))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomServiceCart)

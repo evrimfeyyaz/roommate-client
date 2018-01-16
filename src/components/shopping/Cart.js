@@ -63,7 +63,7 @@ class Cart extends Component<Props> {
 
           <CircularButton
             iconData={iconData.cross}
-            onPress={onRemoveButtonPress}
+            onPress={() => onRemoveButtonPress(cartItem)}
             small
           />
         </View>
