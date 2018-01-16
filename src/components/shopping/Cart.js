@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, ViewPropTypes, StyleSheet } from 'react-native'
 
 import {
   Card,
@@ -38,7 +38,8 @@ type Props = {
   /**
    * Fired when the user presses the remove button for a specific cart item.
    */
-  onRemoveButtonPress: (cartItem: ShoppingCartItem) => void
+  onRemoveButtonPress: (cartItem: ShoppingCartItem) => void,
+  style?: ?ViewPropTypes.style
 }
 
 class Cart extends Component<Props> {
@@ -80,7 +81,7 @@ class Cart extends Component<Props> {
   }
 
   render() {
-    const { onClearButtonPress, onReviewButtonPress, cart } = this.props
+    const { onClearButtonPress, onReviewButtonPress, cart, style } = this.props
     const cartTotal = getTotalOfCart(cart)
 
     if (isCartEmpty(cart)) {
@@ -88,7 +89,7 @@ class Cart extends Component<Props> {
     }
 
     return (
-      <Card style={styles.container}>
+      <Card style={[styles.container, style]}>
         <View style={styles.headingContainer}>
           <Heading style={styles.heading}>Order</Heading>
           <SecondaryButton title="Clear All" onPress={onClearButtonPress} />
@@ -110,8 +111,7 @@ class Cart extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
-    padding: 15,
-    width: '25%'
+    padding: 15
   },
   heading: {
     fontSize: 18,

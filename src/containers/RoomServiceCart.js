@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import { StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
 import { Cart } from '../components'
@@ -25,9 +26,16 @@ const RoomServiceCart = (props: Props) => {
       onClearButtonPress={clearCart}
       onQuantityStepperPress={adjustCartItemQuantity}
       onRemoveButtonPress={removeCartItem}
+      style={styles.cart}
     />
   )
 }
+
+const styles = StyleSheet.create({
+  cart: {
+    marginStart: 15
+  }
+})
 
 const mapStateToProps = state => ({
   roomServiceCart: state.roomServiceCart

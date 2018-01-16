@@ -94,9 +94,6 @@ class RoomServiceItemsInCategory extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
   modal: {
     alignItems: 'center',
     justifyContent: 'center'

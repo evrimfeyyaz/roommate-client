@@ -13,9 +13,17 @@ type Props = {
 
 class ItemsInCategory extends Component<Props> {
 // eslint-disable-next-line react/no-unused-prop-types
-  renderItem = ({ item }: { item: ShoppingItem }) => (
-    <ItemCard item={item} style={styles.item} onPress={this.props.onItemPress} />
-  )
+  renderItem = ({ item, index }: { item: ShoppingItem, index: number }) => {
+    let style
+
+    if ((index + 1) % this.props.numOfColumns === 0) { // If this is the last column.
+      style = [styles.item, styles.lastColumn]
+    } else {
+      style = [styles.item]
+    }
+
+    return <ItemCard item={item} style={style} onPress={this.props.onItemPress} />
+  }
 
   render() {
     const { items, numOfColumns } = this.props
@@ -39,6 +47,9 @@ const styles = StyleSheet.create({
   item: {
     marginBottom: 15,
     marginEnd: 15
+  },
+  lastColumn: {
+    marginEnd: 0
   }
 })
 
