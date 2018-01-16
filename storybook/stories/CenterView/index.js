@@ -1,11 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, ViewPropTypes } from 'react-native'
-import style from './style'
+import { View, ViewPropTypes, StyleSheet } from 'react-native'
 
 export default function CenterView(props) {
-  return <View style={[style.main, props.style]}>{props.children}</View>
+  return <View style={styles.main}>{props.children}</View>
 }
+
+const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2d3642'
+  }
+})
 
 CenterView.defaultProps = {
   children: null,

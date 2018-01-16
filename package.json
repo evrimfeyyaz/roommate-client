@@ -5,23 +5,28 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "storybook": "storybook start -p 7007"
+    "storybook": "storybook start -p 7007",
+    "postinstall": "rndebugger-open"
   },
   "dependencies": {
     "apollo-client-preset": "^1.0.5",
     "graphql": "^0.12.3",
     "graphql-tag": "^2.6.1",
-    "react": "16.0.0",
+    "react": "16.2.0",
     "react-apollo": "^2.0.4",
-    "react-native": "^0.50.4",
+    "react-native": "0.52.0",
     "react-native-fast-image": "^2.0.1",
     "react-native-linear-gradient": "^2.3.0",
     "react-native-modal": "^4.1.1",
     "react-native-svg": "5.5.1",
-    "react-navigation": "^1.0.0-beta.22"
+    "react-navigation": "^1.0.0-beta.22",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.17",
+    "@storybook/addon-knobs": "^3.3.3",
     "@storybook/addon-links": "^3.2.17",
     "@storybook/react-native": "^3.2.17",
     "babel-eslint": "^8.0.3",
@@ -32,9 +37,11 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
+    "flow-bin": "^0.62.0",
     "jest": "21.2.1",
     "prop-types": "^15.6.0",
     "react-dom": "16.0.0",
+    "react-native-debugger-open": "^0.3.15",
     "react-test-renderer": "16.0.0"
   },
   "jest": {
