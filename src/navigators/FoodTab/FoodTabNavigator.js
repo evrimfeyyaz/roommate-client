@@ -9,9 +9,11 @@ import StackView from '../../components/navigation/StackView'
 import FoodTabHomeNavigator from './FoodTabHomeNavigator'
 import type { MainTabScreenOptions } from '../../types/navigation'
 import * as icons from '../../../assets/iconData'
+import ReviewRoomServiceOrderScreen from '../../screens/FoodTab/ReviewRoomServiceOrderScreen'
 
 const FoodTabRouter = StackRouter({
-  FoodTabHome: { screen: FoodTabHomeNavigator }
+  FoodTabHome: { screen: FoodTabHomeNavigator },
+  ReviewRoomServiceOrder: { screen: ReviewRoomServiceOrderScreen }
 }, {
   initialRouteName: 'FoodTabHome'
 })

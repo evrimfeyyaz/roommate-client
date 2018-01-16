@@ -2,6 +2,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 import { Cart } from '../components'
 import type { ShoppingCart, ShoppingCartItem } from '../types/shopping'
@@ -10,7 +11,8 @@ import * as RoomServiceCartRedux from '../redux/roomService/roomServiceCart'
 type DispatchProps = {
   clearCart: () => void,
   adjustCartItemQuantity: (cartItem: ShoppingCartItem, quantity: number) => void,
-  removeCartItem: (cartItem: ShoppingCartItem) => void
+  removeCartItem: (cartItem: ShoppingCartItem) => void,
+  navigateToReviewOrderScreen: () => void
 }
 
 type Props = {
@@ -18,7 +20,13 @@ type Props = {
 } & DispatchProps
 
 const RoomServiceCart = (props: Props) => {
-  const { roomServiceCart, clearCart, adjustCartItemQuantity, removeCartItem } = props
+  const {
+    roomServiceCart,
+    clearCart,
+    adjustCartItemQuantity,
+    removeCartItem,
+    navigateToReviewOrderScreen
+  } = props
 
   return (
     <Cart
@@ -26,6 +34,7 @@ const RoomServiceCart = (props: Props) => {
       onClearButtonPress={clearCart}
       onQuantityStepperPress={adjustCartItemQuantity}
       onRemoveButtonPress={removeCartItem}
+      onReviewButtonPress={navigateToReviewOrderScreen}
       style={styles.cart}
     />
   )
@@ -49,7 +58,8 @@ const mapDispatchToProps = dispatch => ({
   ) => dispatch(RoomServiceCartRedux.adjustCartItemQuantity(cartItem, quantity)),
   removeCartItem: (
     cartItem: ShoppingCartItem
-  ) => dispatch(RoomServiceCartRedux.removeCartItem(cartItem))
+  ) => dispatch(RoomServiceCartRedux.removeCartItem(cartItem)),
+  navigateToReviewOrderScreen: () => dispatch(NavigationActions.navigate({ routeName: 'ReviewRoomServiceOrder' }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomServiceCart)
