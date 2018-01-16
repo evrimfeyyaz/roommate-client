@@ -65,7 +65,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateSelectedRoomServiceCategoryId: categoryId => dispatch(Redux.updateSelectedRoomServiceCategoryId(categoryId))
+  updateSelectedRoomServiceCategoryId: categoryId => dispatch(Redux.updateSelectedCategoryId(categoryId))
 })
 
 const getRoomServiceCategories = gql`

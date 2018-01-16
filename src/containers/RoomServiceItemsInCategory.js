@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { ActivityIndicator, LayoutAnimation, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
@@ -109,9 +109,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  showRoomServiceItem: item => dispatch(RoomServiceScreenRedux.showRoomServiceItem(item)),
-  hideRoomServiceItem: () => dispatch(RoomServiceScreenRedux.hideRoomServiceItem()),
-  addCartItemToRoomServiceCart: cartItem => dispatch(RoomServiceCartRedux.addCartItemToRoomServiceCart(cartItem))
+  showRoomServiceItem: item => dispatch(RoomServiceScreenRedux.showItem(item)),
+  hideRoomServiceItem: () => dispatch(RoomServiceScreenRedux.hideItem()),
+  addCartItemToRoomServiceCart: cartItem => dispatch(RoomServiceCartRedux.addCartItem(cartItem))
 })
 
 const getRoomServiceCategoryWithItems = gql`

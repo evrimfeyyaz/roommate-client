@@ -42,14 +42,14 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  clearCart: () => dispatch(RoomServiceCartRedux.clearRoomServiceCart()),
+  clearCart: () => dispatch(RoomServiceCartRedux.clearCart()),
   adjustCartItemQuantity: (
     cartItem: ShoppingCartItem,
     quantity: number
   ) => dispatch(RoomServiceCartRedux.adjustCartItemQuantity(cartItem, quantity)),
   removeCartItem: (
     cartItem: ShoppingCartItem
-  ) => dispatch(RoomServiceCartRedux.removeCartItemFromRoomServiceCart(cartItem))
+  ) => dispatch(RoomServiceCartRedux.removeCartItem(cartItem))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomServiceCart)

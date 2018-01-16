@@ -3,22 +3,22 @@ import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 import { generateTemporaryIdForCartItem } from '../../utils/shoppingHelpers'
 
 const ADD_CART_ITEM = 'roommate/roomServiceCart/ADD_CART_ITEM'
+const REMOVE_CART_ITEM = 'roommate/roomServiceCart/REMOVE_CART_ITEM'
 const CLEAR_CART = 'roommate/roomServiceCart/CLEAR_CART'
 const ADJUST_CART_ITEM_QUANTITY = 'roommate/roomServiceCart/ADJUST_CART_ITEM_QUANTITY'
-const REMOVE_CART_ITEM = 'roommate/roomServiceCart/REMOVE_CART_ITEM'
 
 export type State = ShoppingCart
 
-type AddCartItemToRoomServiceCartAction = { type: typeof ADD_CART_ITEM, cartItem: ShoppingCartItem }
-type ClearRoomServiceCartAction = { type: typeof CLEAR_CART }
+type AddCartItemAction = { type: typeof ADD_CART_ITEM, cartItem: ShoppingCartItem }
+type RemoveCartItemAction = { type: typeof REMOVE_CART_ITEM, cartItem: ShoppingCartItem }
+type ClearCartAction = { type: typeof CLEAR_CART }
 type AdjustCartItemQuantity = { type: typeof ADJUST_CART_ITEM_QUANTITY, cartItem: ShoppingCartItem, quantity: number }
-type RemoveCartItemFromRoomServiceCartAction = { type: typeof REMOVE_CART_ITEM, cartItem: ShoppingCartItem }
 
 export type Action =
-  | AddCartItemToRoomServiceCartAction
-  | ClearRoomServiceCartAction
+  | AddCartItemAction
+  | RemoveCartItemAction
+  | ClearCartAction
   | AdjustCartItemQuantity
-  | RemoveCartItemFromRoomServiceCartAction
 
 const initialState: State = {
   cartItems: {},
@@ -30,19 +30,19 @@ const initialState: State = {
 export default function reducer(state: State = initialState, action: Action) {
   switch (action.type) {
     case ADD_CART_ITEM:
-      return addCartItem(state, action)
+      return addCartItemReducer(state, action)
     case CLEAR_CART:
       return initialState
     case ADJUST_CART_ITEM_QUANTITY:
-      return adjustQuantity(state, action)
+      return adjustQuantityReducer(state, action)
     case REMOVE_CART_ITEM:
-      return removeCartItem(state, action)
+      return removeCartItemReducer(state, action)
     default:
       return state
   }
 }
 
-function addCartItem(state: State, action: AddCartItemToRoomServiceCartAction) {
+function addCartItemReducer(state: State, action: AddCartItemAction) {
   let cartItem = getCartItemWithTemporaryId(action.cartItem)
   const { id } = cartItem
 
@@ -62,7 +62,7 @@ function addCartItem(state: State, action: AddCartItemToRoomServiceCartAction) {
   }
 }
 
-function adjustQuantity(state: State, action: AdjustCartItemQuantity) {
+function adjustQuantityReducer(state: State, action: AdjustCartItemQuantity) {
   const { cartItem, quantity } = action
 
   return {
@@ -74,7 +74,7 @@ function adjustQuantity(state: State, action: AdjustCartItemQuantity) {
   }
 }
 
-function removeCartItem(state: State, action: RemoveCartItemFromRoomServiceCartAction) {
+function removeCartItemReducer(state: State, action: RemoveCartItemAction) {
   const idToRemove = action.cartItem.id
 
   const cartItems = { ...state.cartItems }
@@ -85,11 +85,11 @@ function removeCartItem(state: State, action: RemoveCartItemFromRoomServiceCartA
 
 // ACTION CREATORS
 
-export function addCartItemToRoomServiceCart(cartItem: ShoppingCartItem): AddCartItemToRoomServiceCartAction {
+export function addCartItem(cartItem: ShoppingCartItem): AddCartItemAction {
   return { type: ADD_CART_ITEM, cartItem }
 }
 
-export function clearRoomServiceCart() {
+export function clearCart() {
   return { type: CLEAR_CART }
 }
 
@@ -97,7 +97,7 @@ export function adjustCartItemQuantity(cartItem: ShoppingCartItem, quantity: num
   return { type: ADJUST_CART_ITEM_QUANTITY, cartItem, quantity }
 }
 
-export function removeCartItemFromRoomServiceCart(cartItem: ShoppingCartItem): RemoveCartItemFromRoomServiceCartAction {
+export function removeCartItem(cartItem: ShoppingCartItem): RemoveCartItemAction {
   return { type: REMOVE_CART_ITEM, cartItem }
 }
 
@@ -108,7 +108,7 @@ function includesCartItem(cart: ShoppingCart, cartItem: ShoppingCartItem) {
 }
 
 /**
- * Returns a copy of the given cart item with a temporary ID.
+ * Returns a copy of a given cart item with a temporary ID.
  */
 function getCartItemWithTemporaryId(cartItem: ShoppingCartItem) {
   const id = generateTemporaryIdForCartItem(cartItem)

@@ -11,14 +11,14 @@ export type State = {
   +isSelectedRoomServiceItemVisible: boolean
 }
 
-type UpdateSelectedRoomServiceCategoryIdAction = { type: typeof UPDATE_SELECTED_CATEGORY_ID, categoryId: string }
-type ShowRoomServiceItemAction = { type: typeof SHOW_ITEM, item: ShoppingItem }
-type HideRoomServiceItemAction = { type: typeof HIDE_ITEM }
+type UpdateSelectedCategoryIdAction = { type: typeof UPDATE_SELECTED_CATEGORY_ID, categoryId: string }
+type ShowItemAction = { type: typeof SHOW_ITEM, item: ShoppingItem }
+type HideItemAction = { type: typeof HIDE_ITEM }
 
 export type Action =
-  | UpdateSelectedRoomServiceCategoryIdAction
-  | ShowRoomServiceItemAction
-  | HideRoomServiceItemAction
+  | UpdateSelectedCategoryIdAction
+  | ShowItemAction
+  | HideItemAction
 
 const initialState: State = {
   selectedRoomServiceCategoryId: null,
@@ -57,14 +57,14 @@ export default function reducer(state: State = initialState, action: Action) {
  * Updates the currently selected room service category on the room service screen.
  * @param categoryId
  */
-export function updateSelectedRoomServiceCategoryId(categoryId: string): UpdateSelectedRoomServiceCategoryIdAction {
+export function updateSelectedCategoryId(categoryId: string): UpdateSelectedCategoryIdAction {
   return { type: UPDATE_SELECTED_CATEGORY_ID, categoryId }
 }
 
-export function showRoomServiceItem(item: ShoppingItem): ShowRoomServiceItemAction {
+export function showItem(item: ShoppingItem): ShowItemAction {
   return { type: SHOW_ITEM, item }
 }
 
-export function hideRoomServiceItem(): HideRoomServiceItemAction {
+export function hideItem(): HideItemAction {
   return { type: HIDE_ITEM }
 }
