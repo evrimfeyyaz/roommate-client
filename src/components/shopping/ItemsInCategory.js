@@ -7,7 +7,8 @@ import type { ShoppingItem } from '../../types/shopping'
 
 type Props = {
   items: ShoppingItem[],
-  onItemPress: (ShoppingItem) => void
+  onItemPress: (ShoppingItem) => void,
+  numOfColumns: number
 }
 
 class ItemsInCategory extends Component<Props> {
@@ -17,14 +18,14 @@ class ItemsInCategory extends Component<Props> {
   )
 
   render() {
-    const { items } = this.props
+    const { items, numOfColumns } = this.props
 
     return (
       <FlatList
         data={items}
         renderItem={this.renderItem}
         keyExtractor={item => item.id}
-        numColumns={3}
+        numColumns={numOfColumns}
         contentContainerStyle={styles.contentContainer}
       />
     )

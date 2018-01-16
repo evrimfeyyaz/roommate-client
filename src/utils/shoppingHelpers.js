@@ -35,3 +35,9 @@ export function generateTemporaryIdForCartItem(cartItem: ShoppingCartItem) {
 export function getCartItemsArray(cart: ShoppingCart) {
   return Object.values(cart.cartItems)
 }
+
+export function isCartEmpty(cart: ShoppingCart) {
+  const cartItemsCount = Object.keys(cart.cartItems).length
+
+  return cartItemsCount === 0
+}

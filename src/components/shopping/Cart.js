@@ -14,7 +14,7 @@ import {
 import * as iconData from '../../../assets/iconData'
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 import colors from '../../config/colors'
-import { getCartItemsArray, getCartItemTotal, getTotalOfCart } from '../../utils/shoppingHelpers'
+import { getCartItemsArray, getCartItemTotal, getTotalOfCart, isCartEmpty } from '../../utils/shoppingHelpers'
 
 type Props = {
   cart: ShoppingCart,
@@ -82,9 +82,8 @@ class Cart extends Component<Props> {
   render() {
     const { onClearButtonPress, onReviewButtonPress, cart } = this.props
     const cartTotal = getTotalOfCart(cart)
-    const cartItemsCount = Object.keys(cart.cartItems).length
 
-    if (cartItemsCount === 0) {
+    if (isCartEmpty(cart)) {
       return null
     }
 

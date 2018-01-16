@@ -11,6 +11,7 @@ import * as RoomServiceScreenRedux from '../redux/roomService/roomServiceScreen'
 import * as RoomServiceCartRedux from '../redux/roomService/roomServiceCart'
 import type { ShoppingCartItem, ShoppingCategory, ShoppingItem } from '../types/shopping'
 import type { ApolloDataObject } from '../types/apollo'
+import { isCartEmpty } from '../utils/shoppingHelpers'
 
 type DispatchProps = {
   showRoomServiceItem: (item: ShoppingItem) => void,
@@ -23,12 +24,20 @@ type Props = {
     ...ApolloDataObject,
     roomServiceCategory: ShoppingCategory
   }
-} & RoomServiceScreenRedux.State & DispatchProps
+} & RoomServiceScreenRedux.State & RoomServiceCartRedux.State & DispatchProps
 
 class RoomServiceItemsInCategory extends Component<Props> {
   addButtonPress = (cartItem: ShoppingCartItem) => {
     this.props.addCartItemToRoomServiceCart(cartItem)
     this.props.hideRoomServiceItem()
+  }
+
+  calculateNumOfColumns() {
+    if (isCartEmpty(this.props.cart)) {
+      return 4
+    }
+
+    return 3
   }
 
   render() {
@@ -45,6 +54,7 @@ class RoomServiceItemsInCategory extends Component<Props> {
       selectedRoomServiceItem
     } = this.props
     const { loading, roomServiceCategory } = data
+    const numOfColumns = this.calculateNumOfColumns()
 
     // TODO: Use a global activity indicator.
     if (loading) {
@@ -53,7 +63,12 @@ class RoomServiceItemsInCategory extends Component<Props> {
 
     return (
       <View style={styles.container}>
-        <ItemsInCategory items={roomServiceCategory.items} onItemPress={showRoomServiceItem} />
+        <ItemsInCategory
+          items={roomServiceCategory.items}
+          onItemPress={showRoomServiceItem}
+          numOfColumns={numOfColumns}
+          key={`room-service-items-${numOfColumns}`} // This is needed to force re-render when changing `numOfColumns`.
+        />
 
         <Modal
           isVisible={isSelectedRoomServiceItemVisible}
@@ -92,7 +107,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-  ...state.roomServiceScreen
+  ...state.roomServiceScreen,
+  cart: { ...state.roomServiceCart }
 })
 
 const mapDispatchToProps = dispatch => ({
