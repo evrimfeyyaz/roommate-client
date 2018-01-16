@@ -111,11 +111,13 @@ class Cart extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
-    padding: 15
+    padding: 15,
+    width: '25%'
   },
   heading: {
     fontSize: 18,
-    lineHeight: 24
+    lineHeight: 24,
+    marginEnd: 10
   },
   headingContainer: {
     flexDirection: 'row',
@@ -139,7 +141,8 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 14,
     lineHeight: 19,
-    marginEnd: 15
+    marginEnd: 15,
+    flexShrink: 1
   },
   itemPrice: {
     fontSize: 14,

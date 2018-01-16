@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, LayoutAnimation, StyleSheet, View } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'

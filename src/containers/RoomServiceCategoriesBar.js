@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, LayoutAnimation } from 'react-native'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
@@ -34,6 +34,7 @@ class RoomServiceCategoriesBar extends Component<Props> {
       selectedRoomServiceCategoryId
     } = nextProps
 
+    // Select the first category if no category is selected yet.
     if (!loading && selectedRoomServiceCategoryId == null) {
       updateSelectedRoomServiceCategoryId(roomServiceCategories[0].id)
     }
