@@ -33,17 +33,17 @@ const styles = StyleSheet.create({
   timeAndDayContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginRight: 20
+    marginEnd: 20
   },
   dayOfWeek: {
-    marginLeft: 5,
+    marginStart: 5,
     marginBottom: 3
   },
   wakeUpAlarmButton: {
-    marginRight: 20
+    marginEnd: 20
   },
   weatherIcon: {
-    marginRight: 5
+    marginEnd: 5
   }
 })
 

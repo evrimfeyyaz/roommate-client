@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   backButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 30
+    marginEnd: 30
   },
   backArrow: {
     marginTop: 2

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     color: colors.secondaryButtonTitle
   },
   icon: {
-    marginRight: 12
+    marginEnd: 12
   }
 })
 

@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 14,
     lineHeight: 19,
-    marginRight: 15
+    marginEnd: 15
   },
   itemPrice: {
     fontSize: 14,

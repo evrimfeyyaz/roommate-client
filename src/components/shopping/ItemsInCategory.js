@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   item: {
     marginBottom: 15,
-    marginRight: 15
+    marginEnd: 15
   }
 })
 
