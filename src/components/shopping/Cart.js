@@ -82,6 +82,11 @@ class Cart extends Component<Props> {
   render() {
     const { onClearButtonPress, onReviewButtonPress, cart } = this.props
     const cartTotal = getTotalOfCart(cart)
+    const cartItemsCount = Object.keys(cart.cartItems).length
+
+    if (cartItemsCount === 0) {
+      return null
+    }
 
     return (
       <Card style={styles.container}>

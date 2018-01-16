@@ -17,11 +17,6 @@ type Props = {
 
 const RoomServiceCart = (props: Props) => {
   const { roomServiceCart, clearRoomServiceCart, adjustCartItemQuantity } = props
-  const cartItemsCount = Object.keys(roomServiceCart.cartItems).length
-
-  if (cartItemsCount === 0) {
-    return null
-  }
 
   return (
     <Cart
