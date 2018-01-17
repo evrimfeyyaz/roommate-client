@@ -1,9 +1,12 @@
 // @flow
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { Body } from '../.'
 import colors from '../../config/colors'
+import getHitSlop from '../../utils/hitSlop'
+
+const OPTION_CIRCLE_SIZE = 18
 
 export type RadioOption = {
   value: string,
@@ -15,17 +18,18 @@ type Props = {
   /**
    * Selected option value.
    */
-  value: string
+  value: string,
+  onOptionPress: (option: RadioOption) => void
 }
 
 class RadioGroup extends Component<Props> {
-  static renderUnselectedOptionButton() {
-    return <View style={styles.unselectedOptionButton} />
+  static renderUnselectedOptionCircle() {
+    return <View style={styles.unselectedOptionCircle} />
   }
 
-  static renderSelectedOptionButton() {
+  static renderSelectedOptionCircle() {
     return (
-      <View style={styles.selectedOptionButton}>
+      <View style={styles.selectedOptionCircle}>
         <View style={styles.selectedOptionButtonInnerCircle} />
       </View>
     )
@@ -38,21 +42,24 @@ class RadioGroup extends Component<Props> {
   }
 
   renderOption(option: RadioOption) {
-    const { value: selectedValue } = this.props
+    const { value: selectedValue, onOptionPress } = this.props
+    const hitSlop = getHitSlop(OPTION_CIRCLE_SIZE, 0, true)
 
     let button
     if (option.value === selectedValue) {
-      button = RadioGroup.renderSelectedOptionButton()
+      button = RadioGroup.renderSelectedOptionCircle()
     } else {
-      button = RadioGroup.renderUnselectedOptionButton()
+      button = RadioGroup.renderUnselectedOptionCircle()
     }
 
     return (
-      <View style={styles.optionContainer} key={option.value}>
-        {button}
+      <TouchableOpacity onPress={() => onOptionPress(option)} hitSlop={hitSlop} key={option.value}>
+        <View style={styles.optionContainer}>
+          {button}
 
-        <Body style={styles.optionLabel}>{option.label}</Body>
-      </View>
+          <Body style={styles.optionLabel}>{option.label}</Body>
+        </View>
+      </TouchableOpacity>
     )
   }
 
@@ -74,21 +81,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginEnd: 38
   },
-  unselectedOptionButton: {
-    width: 18,
-    height: 18,
-    borderRadius: 18,
-    borderColor: colors.radioGroupUnselectedOptionButtonBorder,
+  unselectedOptionCircle: {
+    width: OPTION_CIRCLE_SIZE,
+    height: OPTION_CIRCLE_SIZE,
+    borderRadius: OPTION_CIRCLE_SIZE,
+    borderColor: colors.radioGroupUnselectedOptionCircleBorder,
     borderWidth: 1
   },
   optionLabel: {
     marginStart: 10
   },
-  selectedOptionButton: {
-    width: 18,
-    height: 18,
-    borderRadius: 18,
-    backgroundColor: colors.radioGroupSelectedOptionButton,
+  selectedOptionCircle: {
+    width: OPTION_CIRCLE_SIZE,
+    height: OPTION_CIRCLE_SIZE,
+    borderRadius: OPTION_CIRCLE_SIZE,
+    backgroundColor: colors.radioGroupSelectedOptionCircle,
     justifyContent: 'center',
     alignItems: 'center'
   },

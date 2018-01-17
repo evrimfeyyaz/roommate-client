@@ -39,8 +39,8 @@ const colors = {
   textFieldBase: 'rgba(255, 255, 255, 0.4)',
   textFieldText: '#fff',
 
-  radioGroupUnselectedOptionButtonBorder: 'rgba(255, 255, 255, 0.1)',
-  radioGroupSelectedOptionButton: 'rgba(205, 181, 142, 0.3)',
+  radioGroupUnselectedOptionCircleBorder: 'rgba(255, 255, 255, 0.1)',
+  radioGroupSelectedOptionCircle: 'rgba(205, 181, 142, 0.3)',
   radioGroupSelectedOptionButtonInnerCircle: '#cdb58e'
 }
 

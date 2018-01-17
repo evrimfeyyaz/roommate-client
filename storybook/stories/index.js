@@ -291,6 +291,7 @@ storiesOf('Controls', module)
     <RadioGroup
       options={radioOptions}
       value={select('Selected Radio Option', radioValues, radioValues[0])}
+      onOptionPress={action('radio-group-option-pressed')}
     />
   ))
 
