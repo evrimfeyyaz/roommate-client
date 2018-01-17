@@ -12,15 +12,15 @@ const colors = {
 
   cardBackgroundGradient: ['#2F3846', '#232A36'],
 
-  titleColor: '#fff',
+  title: '#fff',
 
-  headingColor: '#fff',
+  heading: '#fff',
 
-  heading2Color: '#fff',
+  heading2: '#fff',
 
-  heading3Color: 'rgba(255, 255, 255, 0.6)',
+  heading3: 'rgba(255, 255, 255, 0.6)',
 
-  bodyColor: 'rgba(255, 255, 255, 0.7)',
+  body: '#fff',
 
   sideMenuBackground: 'rgba(13, 17, 23, .28)',
 
@@ -33,7 +33,15 @@ const colors = {
 
   cartItemSeparator: 'rgba(151, 151, 151, 0.1)',
 
-  primaryIconColor: '#fff'
+  primaryIcon: '#fff',
+
+  textFieldTint: '#fff',
+  textFieldBase: 'rgba(255, 255, 255, 0.4)',
+  textFieldText: '#fff',
+
+  radioGroupUnselectedOptionButtonBorder: 'rgba(255, 255, 255, 0.1)',
+  radioGroupSelectedOptionButton: 'rgba(205, 181, 142, 0.3)',
+  radioGroupSelectedOptionButtonInnerCircle: '#cdb58e'
 }
 
 export default colors

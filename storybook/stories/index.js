@@ -1,11 +1,12 @@
 import React from 'react'
+import { KeyboardAvoidingView, View } from 'react-native'
 import { storiesOf, addDecorator } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
-import { withKnobs, boolean, select, number } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, number, text } from '@storybook/addon-knobs/react'
 
 import CenterView from './CenterView'
 import {
@@ -27,11 +28,16 @@ import {
   ItemDetails,
   Stepper,
   Cart,
-  CircularButton
+  CircularButton,
+  Order,
+  TextField,
+  RadioGroup
 } from '../../src/components'
 import * as icons from '../../assets/iconData'
 import colors from '../../src/config/colors'
 import type { SideMenuRoute } from '../../src/components/navigation/SideMenu'
+import type { ShoppingCart } from '../../src/types/shopping'
+import type { RadioOption } from '../../src/components/controls/RadioGroup'
 
 
 /**
@@ -91,6 +97,30 @@ const shoppingCartItem2 = {
   item: shoppingItem2,
   quantity: 2
 }
+
+const cart: ShoppingCart = {
+  cartItems: {
+    [shoppingCartItem1.id]: shoppingCartItem1,
+    [shoppingCartItem2.id]: shoppingCartItem2
+  },
+  specialRequest: ''
+}
+
+const radioOptions: RadioOption[] = [
+  {
+    value: 'room-bill',
+    label: 'Room bill'
+  },
+  {
+    value: 'credit-card-on-delivery',
+    label: 'Credit card on delivery'
+  },
+  {
+    value: 'cash-on-delivery',
+    label: 'Cash on delivery'
+  }
+]
+const radioValues = radioOptions.map(option => option.value)
 
 /**
  * APOLLO
@@ -187,14 +217,21 @@ storiesOf('Shopping', module)
   ))
   .add('cart', () => (
     <Cart
-      cartItems={[shoppingCartItem1, shoppingCartItem2]}
-      cartTotal="$100"
+      cart={cart}
       onClearButtonPress={action('cart-clear-button-press')}
       onReviewButtonPress={action('cart-review-button-press')}
       onQuantityStepperPress={action('cart-quantity-stepper-press')}
       onRemoveButtonPress={action('cart-remove-button-press')}
     />
   ))
+  .add('order', () => (
+    <View style={{ width: 400 }}>
+      <Order
+        cart={cart}
+      />
+    </View>
+  ))
+
 
 storiesOf('Controls', module)
   .add('stepper', () => (
@@ -240,6 +277,20 @@ storiesOf('Controls', module)
       style={{ width: 180 }}
       onPress={action('switch-tap')}
       value={boolean('Value', true)}
+    />
+  ))
+  .add('text field', () => (
+    <View style={{ width: 200, height: 400, justifyContent: 'center' }}>
+      <TextField
+        label="Name"
+        onChangeText={action('text-field-text-changed')}
+      />
+    </View>
+  ))
+  .add('radio group', () => (
+    <RadioGroup
+      options={radioOptions}
+      value={select('Selected Radio Option', radioValues, radioValues[0])}
     />
   ))
 

@@ -6,6 +6,7 @@ const ADD_CART_ITEM = 'roommate/roomServiceCart/ADD_CART_ITEM'
 const REMOVE_CART_ITEM = 'roommate/roomServiceCart/REMOVE_CART_ITEM'
 const CLEAR_CART = 'roommate/roomServiceCart/CLEAR_CART'
 const ADJUST_CART_ITEM_QUANTITY = 'roommate/roomServiceCart/ADJUST_CART_ITEM_QUANTITY'
+const UPDATE_SPECIAL_REQUEST = 'roommate/roomServiceCart/UPDATE_SPECIAL_REQUEST'
 
 export type State = ShoppingCart
 
@@ -13,12 +14,14 @@ type AddCartItemAction = { type: typeof ADD_CART_ITEM, cartItem: ShoppingCartIte
 type RemoveCartItemAction = { type: typeof REMOVE_CART_ITEM, cartItem: ShoppingCartItem }
 type ClearCartAction = { type: typeof CLEAR_CART }
 type AdjustCartItemQuantity = { type: typeof ADJUST_CART_ITEM_QUANTITY, cartItem: ShoppingCartItem, quantity: number }
+type UpdateSpecialRequest = { type: typeof UPDATE_SPECIAL_REQUEST, value: string }
 
 export type Action =
   | AddCartItemAction
   | RemoveCartItemAction
   | ClearCartAction
   | AdjustCartItemQuantity
+  | UpdateSpecialRequest
 
 const initialState: State = {
   cartItems: {},
@@ -37,6 +40,11 @@ export default function reducer(state: State = initialState, action: Action) {
       return adjustQuantityReducer(state, action)
     case REMOVE_CART_ITEM:
       return removeCartItemReducer(state, action)
+    case UPDATE_SPECIAL_REQUEST:
+      return {
+        ...state,
+        specialRequest: action.value
+      }
     default:
       return state
   }
@@ -99,6 +107,10 @@ export function adjustCartItemQuantity(cartItem: ShoppingCartItem, quantity: num
 
 export function removeCartItem(cartItem: ShoppingCartItem): RemoveCartItemAction {
   return { type: REMOVE_CART_ITEM, cartItem }
+}
+
+export function updateSpecialRequest(value: string) {
+  return { type: UPDATE_SPECIAL_REQUEST, value }
 }
 
 // UTILITY FUNCTIONS
