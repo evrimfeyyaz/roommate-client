@@ -22,5 +22,5 @@ export type ShoppingCart = {
     [string]: ShoppingCartItem
   },
   specialRequest: ?string,
-  paymentOption: 'room-bill' | 'credit-card-on-deliver' | 'cash-on-delivery'
+  paymentOption: 'room-bill' | 'credit-card-on-delivery' | 'cash-on-delivery'
 }
