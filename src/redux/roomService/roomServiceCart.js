@@ -24,6 +24,7 @@ export type Action =
   | ClearCartAction
   | AdjustCartItemQuantity
   | UpdateSpecialRequest
+  | UpdatePaymentOption
 
 const initialState: State = {
   cartItems: {},
