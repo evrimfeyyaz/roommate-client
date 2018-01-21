@@ -8,7 +8,8 @@ import type { RadioOption } from '../components/controls/RadioGroup'
 import * as RoomServiceCartRedux from '../redux/roomService/roomServiceCart'
 
 type DispatchProps = {
-  updatePaymentOption: (optionValue: string) => void
+  updatePaymentOption: (optionValue: string) => void,
+  updateSpecialRequest: (value: string) => void
 }
 
 type Props = {
@@ -33,6 +34,7 @@ const paymentOptions: RadioOption[] = [
 const RoomServiceOrder = (props: Props) => {
   const {
     updatePaymentOption,
+    updateSpecialRequest,
     roomServiceCart: cart,
     roomServiceCart: {
       paymentOption
@@ -45,6 +47,7 @@ const RoomServiceOrder = (props: Props) => {
       paymentOptions={paymentOptions}
       selectedPaymentOptionValue={paymentOption}
       onPaymentOptionPress={updatePaymentOption}
+      onChangeSpecialRequest={updateSpecialRequest}
     />
   )
 }
@@ -54,7 +57,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updatePaymentOption: (optionValue: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(optionValue))
+  updatePaymentOption: (optionValue: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(optionValue)),
+  updateSpecialRequest: (value: string) => dispatch(RoomServiceCartRedux.updateSpecialRequest(value))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomServiceOrder)
