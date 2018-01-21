@@ -5,7 +5,7 @@ export function getCartItemTotal(cartItem: ShoppingCartItem) {
   return cartItem.item.price * cartItem.quantity
 }
 
-export function getTotalOfCart(cart: ShoppingCart) {
+export function getCartTotal(cart: ShoppingCart) {
   const cartItemsArray = getCartItemsArray(cart)
 
   return cartItemsArray.reduce((sum, cartItem) => sum + getCartItemTotal(cartItem), 0)

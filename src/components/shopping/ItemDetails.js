@@ -67,7 +67,7 @@ class ItemDetails extends Component<Props, State> {
 
         <SvgIcon
           iconData={icons.food}
-          fill={colors.primaryIconColor}
+          fill={colors.primaryIcon}
           height={90}
           width={90}
           style={styles.foodIcon}
@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
   },
   description: {
     width: '100%',
-    marginTop: 10
+    marginTop: 10,
+    opacity: 0.7
   },
   quantityHeading: {
     marginTop: 70

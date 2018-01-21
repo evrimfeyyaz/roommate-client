@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { Title } from '../../components/index'
 import type { StackScreenOptions } from '../../types/navigation'
+import RoomServiceOrder from '../../containers/RoomServiceOrder'
 
 class ReviewOrderScreen extends Component<void> {
   static navigationOptions: StackScreenOptions = {
@@ -13,9 +13,7 @@ class ReviewOrderScreen extends Component<void> {
   render() {
     return (
       <View style={styles.container}>
-        <Title>
-          Coming Soon
-        </Title>
+        <RoomServiceOrder />
       </View>
     )
   }

@@ -11,6 +11,8 @@ export { default as Stepper } from './controls/Stepper'
 export { default as CircularButton } from './controls/CircularButton'
 export { default as SecondaryButton } from './controls/SecondaryButton'
 export { default as PrimaryButton } from './controls/PrimaryButton'
+export { default as TextField } from './controls/TextField'
+export { default as RadioGroup } from './controls/RadioGroup'
 
 // Navigation
 export { default as SideMenu } from './navigation/SideMenu'
@@ -24,6 +26,7 @@ export { default as ItemCard } from './shopping/ItemCard'
 export { default as ItemsInCategory } from './shopping/ItemsInCategory'
 export { default as ItemDetails } from './shopping/ItemDetails'
 export { default as Cart } from './shopping/Cart'
+export { default as Order } from './shopping/Order'
 
 // Misc
 export { default as Card } from './misc/Card'

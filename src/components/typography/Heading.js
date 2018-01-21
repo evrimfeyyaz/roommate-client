@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.regular,
     fontSize: 20,
     lineHeight: 27,
-    color: colors.headingColor,
+    color: colors.heading,
     backgroundColor: 'rgba(0, 0, 0, 0)'
   }
 })

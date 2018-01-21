@@ -6,6 +6,8 @@ const ADD_CART_ITEM = 'roommate/roomServiceCart/ADD_CART_ITEM'
 const REMOVE_CART_ITEM = 'roommate/roomServiceCart/REMOVE_CART_ITEM'
 const CLEAR_CART = 'roommate/roomServiceCart/CLEAR_CART'
 const ADJUST_CART_ITEM_QUANTITY = 'roommate/roomServiceCart/ADJUST_CART_ITEM_QUANTITY'
+const UPDATE_SPECIAL_REQUEST = 'roommate/roomServiceCart/UPDATE_SPECIAL_REQUEST'
+const UPDATE_PAYMENT_OPTION = 'roommate/roomServiceCart/UPDATE_PAYMENT_OPTION'
 
 export type State = ShoppingCart
 
@@ -13,16 +15,21 @@ type AddCartItemAction = { type: typeof ADD_CART_ITEM, cartItem: ShoppingCartIte
 type RemoveCartItemAction = { type: typeof REMOVE_CART_ITEM, cartItem: ShoppingCartItem }
 type ClearCartAction = { type: typeof CLEAR_CART }
 type AdjustCartItemQuantity = { type: typeof ADJUST_CART_ITEM_QUANTITY, cartItem: ShoppingCartItem, quantity: number }
+type UpdateSpecialRequest = { type: typeof UPDATE_SPECIAL_REQUEST, value: string }
+type UpdatePaymentOption = { type: typeof UPDATE_PAYMENT_OPTION, optionValue: string }
 
 export type Action =
   | AddCartItemAction
   | RemoveCartItemAction
   | ClearCartAction
   | AdjustCartItemQuantity
+  | UpdateSpecialRequest
+  | UpdatePaymentOption
 
 const initialState: State = {
   cartItems: {},
-  specialRequest: null
+  specialRequest: undefined, // `null` causes issues with the text input library we're using.
+  paymentOption: 'room-bill'
 }
 
 // REDUCERS
@@ -37,6 +44,16 @@ export default function reducer(state: State = initialState, action: Action) {
       return adjustQuantityReducer(state, action)
     case REMOVE_CART_ITEM:
       return removeCartItemReducer(state, action)
+    case UPDATE_SPECIAL_REQUEST:
+      return {
+        ...state,
+        specialRequest: action.value
+      }
+    case UPDATE_PAYMENT_OPTION:
+      return {
+        ...state,
+        paymentOption: action.optionValue
+      }
     default:
       return state
   }
@@ -99,6 +116,14 @@ export function adjustCartItemQuantity(cartItem: ShoppingCartItem, quantity: num
 
 export function removeCartItem(cartItem: ShoppingCartItem): RemoveCartItemAction {
   return { type: REMOVE_CART_ITEM, cartItem }
+}
+
+export function updateSpecialRequest(value: string) {
+  return { type: UPDATE_SPECIAL_REQUEST, value }
+}
+
+export function updatePaymentOption(optionValue: string) {
+  return { type: UPDATE_PAYMENT_OPTION, optionValue }
 }
 
 // UTILITY FUNCTIONS
