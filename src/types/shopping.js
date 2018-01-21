@@ -21,5 +21,6 @@ export type ShoppingCart = {
   cartItems: {
     [string]: ShoppingCartItem
   },
-  specialRequest: ?string
+  specialRequest: ?string,
+  paymentOption: 'room-bill' | 'credit-card-on-deliver' | 'cash-on-delivery'
 }

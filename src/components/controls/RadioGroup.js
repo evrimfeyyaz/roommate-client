@@ -54,7 +54,7 @@ class RadioGroup extends Component<Props> {
     }
 
     return (
-      <TouchableOpacity onPress={() => onOptionPress(option)} hitSlop={hitSlop} key={option.value}>
+      <TouchableOpacity onPress={() => onOptionPress(option.value)} hitSlop={hitSlop} key={option.value}>
         <View style={styles.optionContainer}>
           {button}
 

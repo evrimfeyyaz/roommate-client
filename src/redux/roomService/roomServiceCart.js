@@ -7,6 +7,7 @@ const REMOVE_CART_ITEM = 'roommate/roomServiceCart/REMOVE_CART_ITEM'
 const CLEAR_CART = 'roommate/roomServiceCart/CLEAR_CART'
 const ADJUST_CART_ITEM_QUANTITY = 'roommate/roomServiceCart/ADJUST_CART_ITEM_QUANTITY'
 const UPDATE_SPECIAL_REQUEST = 'roommate/roomServiceCart/UPDATE_SPECIAL_REQUEST'
+const UPDATE_PAYMENT_OPTION = 'roommate/roomServiceCart/UPDATE_PAYMENT_OPTION'
 
 export type State = ShoppingCart
 
@@ -15,6 +16,7 @@ type RemoveCartItemAction = { type: typeof REMOVE_CART_ITEM, cartItem: ShoppingC
 type ClearCartAction = { type: typeof CLEAR_CART }
 type AdjustCartItemQuantity = { type: typeof ADJUST_CART_ITEM_QUANTITY, cartItem: ShoppingCartItem, quantity: number }
 type UpdateSpecialRequest = { type: typeof UPDATE_SPECIAL_REQUEST, value: string }
+type UpdatePaymentOption = { type: typeof UPDATE_PAYMENT_OPTION, optionValue: string }
 
 export type Action =
   | AddCartItemAction
@@ -25,7 +27,8 @@ export type Action =
 
 const initialState: State = {
   cartItems: {},
-  specialRequest: undefined // `null` causes issues with the text input library we're using.
+  specialRequest: undefined, // `null` causes issues with the text input library we're using.
+  paymentOption: 'room-bill'
 }
 
 // REDUCERS
@@ -44,6 +47,11 @@ export default function reducer(state: State = initialState, action: Action) {
       return {
         ...state,
         specialRequest: action.value
+      }
+    case UPDATE_PAYMENT_OPTION:
+      return {
+        ...state,
+        paymentOption: action.optionValue
       }
     default:
       return state
@@ -111,6 +119,10 @@ export function removeCartItem(cartItem: ShoppingCartItem): RemoveCartItemAction
 
 export function updateSpecialRequest(value: string) {
   return { type: UPDATE_SPECIAL_REQUEST, value }
+}
+
+export function updatePaymentOption(optionValue: string) {
+  return { type: UPDATE_PAYMENT_OPTION, optionValue }
 }
 
 // UTILITY FUNCTIONS
