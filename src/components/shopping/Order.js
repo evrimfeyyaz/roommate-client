@@ -2,18 +2,23 @@
 import React, { Component } from 'react'
 import { View, ScrollView, StyleSheet, Text, KeyboardAvoidingView } from 'react-native'
 
-import { Heading, Body, TextField } from '../.'
+import { Heading, Body, TextField, Heading3, RadioGroup, PrimaryButton } from '../.'
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
-import { getCartItemsArray, getCartItemTotal } from '../../utils/shoppingHelpers'
+import { getCartItemsArray, getCartItemTotal, getCartTotal } from '../../utils/shoppingHelpers'
 import colors from '../../config/colors'
+import type { RadioOption } from '../controls/RadioGroup'
 
 type Props = {
   cart: ShoppingCart,
-  onChangeSpecialRequest: (value: string) => void
+  onChangeSpecialRequest: (value: string) => void,
+  onPaymentOptionPress: (option: RadioOption) => void,
+  paymentOptions: RadioOption[],
+  selectedPaymentOptionValue: string,
+  placeOrderButtonPress: () => void
 }
 
 class Order extends Component<Props> {
-  renderCartItem(cartItem: ShoppingCartItem) {
+  static renderCartItem(cartItem: ShoppingCartItem) {
     const { id, quantity, item: { title } } = cartItem
     const total = getCartItemTotal(cartItem)
 
@@ -21,7 +26,7 @@ class Order extends Component<Props> {
       <View style={styles.itemContainer} key={id}>
         <View style={styles.itemTopRowContainer}>
           <Body style={styles.itemTitle}>
-            <Text style={styles.quantity}>{quantity}x</Text>&nbsp;&nbsp;&nbsp;{title}
+          <Text style={styles.quantity}>{quantity}x</Text>&nbsp;&nbsp;&nbsp;{title}
           </Body>
           <Body style={styles.itemPrice}>{total}</Body>
         </View>
@@ -34,26 +39,56 @@ class Order extends Component<Props> {
   renderCartItems() {
     const cartItemsArray = getCartItemsArray(this.props.cart)
 
-    return cartItemsArray.map(cartItem => this.renderCartItem(cartItem))
+    return cartItemsArray.map(cartItem => Order.renderCartItem(cartItem))
   }
 
   render() {
-    const { onChangeSpecialRequest, cart: { specialRequest } } = this.props
+    const {
+      onChangeSpecialRequest,
+      onPaymentOptionPress,
+      paymentOptions,
+      selectedPaymentOptionValue,
+      cart,
+      cart: { specialRequest },
+      placeOrderButtonPress
+    } = this.props
+    const cartTotal = getCartTotal(cart)
 
     return (
       <KeyboardAvoidingView behavior="padding">
-        <ScrollView centerContent>
+        <ScrollView centerContent contentContainerStyle={styles.container}>
           <Heading style={styles.title}>Order</Heading>
 
           <View style={styles.cartItemsContainer}>
             {this.renderCartItems()}
           </View>
 
-          <TextField
-            label="Special Request"
-            onChangeText={onChangeSpecialRequest}
-            value={specialRequest}
-            multiline
+          <View style={styles.specialRequestContainer}>
+            <TextField
+              label="Special request"
+              onChangeText={onChangeSpecialRequest}
+              value={specialRequest}
+              multiline
+            />
+          </View>
+
+          <Heading3 style={styles.paymentMethodHeading}>Payment method</Heading3>
+          <RadioGroup
+            options={paymentOptions}
+            selectedOptionValue={selectedPaymentOptionValue}
+            onOptionPress={onPaymentOptionPress}
+            style={styles.paymentOptions}
+          />
+
+          <View style={styles.totalContainer}>
+            <Heading>Total</Heading>
+            <Heading>{cartTotal}</Heading>
+          </View>
+
+          <PrimaryButton
+            title="Place Order"
+            onPress={placeOrderButtonPress}
+            style={styles.placeOrderButton}
           />
         </ScrollView>
       </KeyboardAvoidingView>
@@ -62,6 +97,9 @@ class Order extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 5
+  },
   title: {
     marginBottom: 20
   },
@@ -92,7 +130,24 @@ const styles = StyleSheet.create({
     opacity: 0.6
   },
   cartItemsContainer: {
-    marginBottom: 38
+    marginBottom: 10
+  },
+  specialRequestContainer: {
+    marginBottom: 40
+  },
+  paymentMethodHeading: {
+    marginBottom: 22
+  },
+  paymentOptions: {
+    marginBottom: 45
+  },
+  totalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20
+  },
+  placeOrderButton: {
+    alignSelf: 'center'
   }
 })
 

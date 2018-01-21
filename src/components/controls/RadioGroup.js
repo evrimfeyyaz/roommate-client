@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, ViewPropTypes } from 'react-native'
 
 import { Body } from '../.'
 import colors from '../../config/colors'
@@ -16,10 +16,11 @@ export type RadioOption = {
 type Props = {
   options: RadioOption[],
   /**
-   * Selected option value.
+   * Selected option selectedOptionValue.
    */
-  value: string,
-  onOptionPress: (option: RadioOption) => void
+  selectedOptionValue: string,
+  onOptionPress: (option: RadioOption) => void,
+  style?: ?ViewPropTypes.style
 }
 
 class RadioGroup extends Component<Props> {
@@ -42,7 +43,7 @@ class RadioGroup extends Component<Props> {
   }
 
   renderOption(option: RadioOption) {
-    const { value: selectedValue, onOptionPress } = this.props
+    const { selectedOptionValue: selectedValue, onOptionPress } = this.props
     const hitSlop = getHitSlop(OPTION_CIRCLE_SIZE, 0, true)
 
     let button
@@ -64,8 +65,10 @@ class RadioGroup extends Component<Props> {
   }
 
   render() {
+    const { style } = this.props
+
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         {this.renderItems()}
       </View>
     )
@@ -74,12 +77,14 @@ class RadioGroup extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   optionContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginEnd: 38
+    marginEnd: 38,
+    marginBottom: 24
   },
   unselectedOptionCircle: {
     width: OPTION_CIRCLE_SIZE,

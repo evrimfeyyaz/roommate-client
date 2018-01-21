@@ -14,7 +14,7 @@ import {
 import * as iconData from '../../../assets/iconData'
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 import colors from '../../config/colors'
-import { getCartItemsArray, getCartItemTotal, getTotalOfCart, isCartEmpty } from '../../utils/shoppingHelpers'
+import { getCartItemsArray, getCartItemTotal, getCartTotal, isCartEmpty } from '../../utils/shoppingHelpers'
 
 type Props = {
   cart: ShoppingCart,
@@ -32,7 +32,7 @@ type Props = {
    *
    * Takes three arguments:
    * - cartItem: Referenced ShoppingCartItem.
-   * - newValue: New value that the stepper should have after button press.
+   * - newValue: New selectedOptionValue that the stepper should have after button press.
    */
   onQuantityStepperPress: (cartItem: ShoppingCartItem, newValue: number) => void,
   /**
@@ -82,7 +82,7 @@ class Cart extends Component<Props> {
 
   render() {
     const { onClearButtonPress, onReviewButtonPress, cart, style } = this.props
-    const cartTotal = getTotalOfCart(cart)
+    const cartTotal = getCartTotal(cart)
 
     if (isCartEmpty(cart)) {
       return null

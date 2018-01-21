@@ -36,7 +36,7 @@ const colors = {
   primaryIcon: '#fff',
 
   textFieldTint: '#fff',
-  textFieldBase: 'rgba(255, 255, 255, 0.4)',
+  textFieldBase: 'rgba(255, 255, 255, 0.6)',
   textFieldText: '#fff',
 
   radioGroupUnselectedOptionCircleBorder: 'rgba(255, 255, 255, 0.1)',

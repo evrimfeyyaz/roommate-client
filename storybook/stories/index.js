@@ -103,10 +103,10 @@ const cart: ShoppingCart = {
     [shoppingCartItem1.id]: shoppingCartItem1,
     [shoppingCartItem2.id]: shoppingCartItem2
   },
-  specialRequest: ''
+  specialRequest: undefined
 }
 
-const radioOptions: RadioOption[] = [
+const paymentOptions: RadioOption[] = [
   {
     value: 'room-bill',
     label: 'Room bill'
@@ -120,7 +120,7 @@ const radioOptions: RadioOption[] = [
     label: 'Cash on delivery'
   }
 ]
-const radioValues = radioOptions.map(option => option.value)
+const paymentOptionValues = paymentOptions.map(option => option.value)
 
 /**
  * APOLLO
@@ -228,6 +228,11 @@ storiesOf('Shopping', module)
     <View style={{ width: 400 }}>
       <Order
         cart={cart}
+        paymentOptions={paymentOptions}
+        selectedPaymentOptionValue={select('Selected Payment Option', paymentOptionValues, paymentOptionValues[0])}
+        onChangeSpecialRequest={action('order-special-request-change')}
+        onPaymentOptionPress={action('order-payment-option-press')}
+        placeOrderButtonPress={action('order-place-order-button-press')}
       />
     </View>
   ))
@@ -289,8 +294,8 @@ storiesOf('Controls', module)
   ))
   .add('radio group', () => (
     <RadioGroup
-      options={radioOptions}
-      value={select('Selected Radio Option', radioValues, radioValues[0])}
+      options={paymentOptions}
+      selectedOptionValue={select('Selected Radio Option', paymentOptionValues, paymentOptionValues[0])}
       onOptionPress={action('radio-group-option-pressed')}
     />
   ))

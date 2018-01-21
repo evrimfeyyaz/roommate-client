@@ -18,6 +18,7 @@ const TextField = (props: Props) => (
     baseColor={colors.textFieldBase}
     textColor={colors.textFieldText}
     fontSize={14}
+    labelHeight={14}
   />
 )
 

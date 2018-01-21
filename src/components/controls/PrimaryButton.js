@@ -12,7 +12,7 @@ const FONT_SIZE = 12
 
 type Props = {
   title: string,
-  onPress: Function,
+  onPress: () => void,
   style?: ViewPropTypes.style
 }
 
@@ -33,7 +33,7 @@ PrimaryButton.defaultProps = {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: PADDING_VERTICAL,
-    paddingHorizontal: 20,
+    paddingHorizontal: 32,
     borderRadius: 999,
     flexDirection: 'row',
     justifyContent: 'center',
