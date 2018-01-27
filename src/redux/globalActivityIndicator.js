@@ -1,4 +1,10 @@
 // @flow
+/**
+ * The amount of time in milliseconds the loading view will
+ * still show after we receive the "hide" command.
+ */
+const HIDE_DELAY = 500
+
 const SHOW_ACTIVITY_INDICATOR = 'roommate/globalActivityIndicator/SHOW_ACTIVITY_SCREEN'
 const HIDE_ACTIVITY_INDICATOR = 'roommate/globalActivityIndicator/HIDE_ACTIVITY_SCREEN'
 
@@ -39,7 +45,7 @@ export default function reducer(state: State = initialState, action: Action) {
 }
 
 /**
- * Disables user interaction on the screen, shows a loading message and an indicator.
+ * Shows the loading view with the given message.
  * @param message
  */
 export function showActivityIndicator(message: string): ShowActivityIndicatorAction {
@@ -47,8 +53,19 @@ export function showActivityIndicator(message: string): ShowActivityIndicatorAct
 }
 
 /**
- * Enables user interaction on the screen, hides the loading indicator.
+ * Hides the loading view.
  */
 export function hideActivityIndicator(): HideActivityIndicatorAction {
   return { type: HIDE_ACTIVITY_INDICATOR }
+}
+
+/**
+ * Hides the loading view after a short delay to avoid flickering.
+ */
+export function hideActivityIndicatorWithDelay() {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(hideActivityIndicator())
+    }, HIDE_DELAY)
+  }
 }

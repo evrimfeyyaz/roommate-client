@@ -15,7 +15,7 @@ type DispatchProps = {
   updatePaymentOption: (optionValue: string) => void,
   updateSpecialRequest: (value: string) => void,
   showActivityIndicator: (message: string) => void,
-  hideActivityIndicator: () => void
+  hideActivityIndicatorWithDelay: () => void
 }
 
 type Props = {
@@ -40,7 +40,7 @@ const paymentOptions: RadioOption[] = [
 
 class RoomServiceOrder extends Component<Props> {
   createRoomServiceOrder = () => {
-    const { roomServiceCart, mutate, showActivityIndicator, hideActivityIndicator } = this.props
+    const { roomServiceCart, mutate, showActivityIndicator, hideActivityIndicatorWithDelay } = this.props
     const orderArgument = cartToOrderArgument(roomServiceCart)
 
     showActivityIndicator('We are sending your order.')
@@ -48,7 +48,7 @@ class RoomServiceOrder extends Component<Props> {
       variables: { order: orderArgument }
     })
       .then(({ data }) => {
-        hideActivityIndicator()
+        hideActivityIndicatorWithDelay()
       })
       .catch(({ error }) => {
         console.log(error)
@@ -87,7 +87,7 @@ const mapDispatchToProps = dispatch => ({
   updatePaymentOption: (optionValue: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(optionValue)),
   updateSpecialRequest: (value: string) => dispatch(RoomServiceCartRedux.updateSpecialRequest(value)),
   showActivityIndicator: (message: string) => dispatch(GlobalActivityIndicatorRedux.showActivityIndicator(message)),
-  hideActivityIndicator: () => dispatch(GlobalActivityIndicatorRedux.hideActivityIndicator())
+  hideActivityIndicatorWithDelay: () => dispatch(GlobalActivityIndicatorRedux.hideActivityIndicatorWithDelay())
 })
 
 const createRoomServiceOrder = gql`
