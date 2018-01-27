@@ -4,8 +4,9 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 import { UIManager, Platform, StatusBar } from 'react-native'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -31,7 +32,9 @@ export default class App extends Component<void> {
       cache: new InMemoryCache()
     })
 
-    const store = createStore(combineReducers(reducers), composeWithDevTools())
+    const store = createStore(combineReducers(reducers), composeWithDevTools(
+      applyMiddleware(thunk)
+    ))
 
     return (
       <ApolloProvider client={client}>
