@@ -48,10 +48,12 @@ class RoomServiceOrder extends Component<Props> {
       variables: { order: orderArgument }
     })
       .then(({ data }) => {
-        hideActivityIndicatorWithDelay()
+        hideActivityIndicatorWithDelay().then(() => {
+          console.log('hurray')
+        })
       })
-      .catch(({ error }) => {
-        console.log(error)
+      .catch((response) => {
+        console.log(response)
       })
   }
 

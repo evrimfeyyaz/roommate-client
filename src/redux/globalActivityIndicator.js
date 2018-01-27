@@ -1,4 +1,6 @@
 // @flow
+import wait from '../utils/wait'
+
 /**
  * The amount of time in milliseconds the loading view will
  * still show after we receive the "hide" command.
@@ -63,9 +65,9 @@ export function hideActivityIndicator(): HideActivityIndicatorAction {
  * Hides the loading view after a short delay to avoid flickering.
  */
 export function hideActivityIndicatorWithDelay() {
-  return (dispatch) => {
-    setTimeout(() => {
+  return dispatch => (
+    wait(HIDE_DELAY).then(() => {
       dispatch(hideActivityIndicator())
-    }, HIDE_DELAY)
-  }
+    })
+  )
 }
