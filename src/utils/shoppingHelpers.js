@@ -41,3 +41,23 @@ export function isCartEmpty(cart: ShoppingCart) {
 
   return cartItemsCount === 0
 }
+
+/**
+ * Converts a cart object to a format that can be used as a variable
+ * in the GraphQL mutation that creates an order.
+ *
+ * @param cart
+ * @returns {{cartItems: *, specialRequest, paymentOption}}
+ */
+export function cartToOrderArgument(cart: ShoppingCart) {
+  const cartItemArguments = getCartItemsArray(cart).map(cartItem => ({
+    itemId: cartItem.item.id,
+    quantity: cartItem.quantity
+  }))
+
+  return {
+    cartItems: cartItemArguments,
+    specialRequest: cart.specialRequest,
+    paymentOption: cart.paymentOption
+  }
+}

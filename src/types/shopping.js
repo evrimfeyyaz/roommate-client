@@ -22,5 +22,9 @@ export type ShoppingCart = {
     [string]: ShoppingCartItem
   },
   specialRequest: ?string,
-  paymentOption: 'room-bill' | 'credit-card-on-delivery' | 'cash-on-delivery'
+  // The values below use underscores, because these are the values
+  // we use in our Rails back-end. It's probably a better idea to
+  // define these payment options as dynamic items in the database
+  // at one point.
+  paymentOption: 'room_bill' | 'credit_card_on_delivery' | 'cash_on_delivery'
 }

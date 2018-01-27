@@ -8,6 +8,7 @@ import type { NavigationState } from 'react-navigation'
 import MainNavigationView from '../components/navigation/MainNavigationView'
 import HomeScreen from '../screens/HomeScreen'
 import FoodTabNavigator from './FoodTab/FoodTabNavigator'
+import * as GlobalActivityIndicatorRedux from '../redux/globalActivityIndicator'
 
 const MainRouter = TabRouter({
   Home: { screen: HomeScreen },
@@ -18,7 +19,8 @@ const MainRouter = TabRouter({
 
 type Props = {
   dispatch: Dispatch,
-  mainNavigation: NavigationState
+  mainNavigation: NavigationState,
+  globalActivityIndicator: GlobalActivityIndicatorRedux.State
 }
 
 const MainNavigator = (props: Props) => {
@@ -27,12 +29,19 @@ const MainNavigator = (props: Props) => {
     state: props.mainNavigation
   })
 
-  return <MainNavigationView router={MainRouter} navigation={navigation} />
+  return (
+    <MainNavigationView
+      router={MainRouter}
+      navigation={navigation}
+      globalActivityIndicator={props.globalActivityIndicator}
+    />
+  )
 }
 MainNavigator.router = MainRouter
 
 const mapStateToProps = state => ({
-  mainNavigation: state.mainNavigator
+  mainNavigation: state.mainNavigator,
+  globalActivityIndicator: state.globalActivityIndicator
 })
 
 export default connect(mapStateToProps)(MainNavigator)

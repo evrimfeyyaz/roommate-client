@@ -23,7 +23,8 @@ export default class App extends Component<void> {
   }
 
   client = new ApolloClient({
-    link: new HttpLink({ uri: 'https://roommate-backend-staging.herokuapp.com/graphql' }),
+    // link: new HttpLink({ uri: 'https://roommate-backend-staging.herokuapp.com/graphql' }),
+    link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
     cache: new InMemoryCache()
   })
 

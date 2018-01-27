@@ -31,10 +31,10 @@ import {
   CircularButton,
   Order,
   TextField,
-  RadioGroup
+  RadioGroup,
+  LoadingView
 } from '../../src/components'
 import * as icons from '../../assets/iconData'
-import colors from '../../src/config/colors'
 import type { SideMenuRoute } from '../../src/components/navigation/SideMenu'
 import type { ShoppingCart } from '../../src/types/shopping'
 import type { RadioOption } from '../../src/components/controls/RadioGroup'
@@ -301,6 +301,9 @@ storiesOf('Controls', module)
   ))
 
 storiesOf('Miscellaneous', module)
-  .add('background', () => (
+  .add('card', () => (
     <Card style={{ width: 300, height: 300 }} />
+  ))
+  .add('loading view', () => (
+    <LoadingView message="We are sending your order." />
   ))
