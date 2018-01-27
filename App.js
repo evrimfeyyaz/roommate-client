@@ -22,17 +22,19 @@ export default class App extends Component<void> {
     StatusBar.setHidden(true)
   }
 
-  client = new ApolloClient({
-    // link: new HttpLink({ uri: 'https://roommate-backend-staging.herokuapp.com/graphql' }),
-    link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
-    cache: new InMemoryCache()
-  })
-
   render() {
+    const uri = Platform.OS === 'android' ? 'http://10.0.2.2:3000/graphql' : 'http://localhost:3000/graphql'
+
+    const client = new ApolloClient({
+      // link: new HttpLink({ uri: 'https://roommate-backend-staging.herokuapp.com/graphql' }),
+      link: new HttpLink({ uri }),
+      cache: new InMemoryCache()
+    })
+
     const store = createStore(combineReducers(reducers), composeWithDevTools())
 
     return (
-      <ApolloProvider client={this.client}>
+      <ApolloProvider client={client}>
         <Provider store={store}>
           <MainNavigator />
         </Provider>
