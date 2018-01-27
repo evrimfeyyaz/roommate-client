@@ -47,7 +47,7 @@ class RoomServiceOrder extends Component<Props> {
     mutate({
       variables: { order: orderArgument }
     })
-      .then(({ data }) => {
+      .then(() => {
         hideActivityIndicatorWithDelay().then(() => {
           console.log('hurray')
         })

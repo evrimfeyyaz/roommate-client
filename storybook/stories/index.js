@@ -32,7 +32,8 @@ import {
   Order,
   TextField,
   RadioGroup,
-  LoadingView
+  LoadingView,
+  Flash
 } from '../../src/components'
 import * as icons from '../../assets/iconData'
 import type { SideMenuRoute } from '../../src/components/navigation/SideMenu'
@@ -306,4 +307,7 @@ storiesOf('Miscellaneous', module)
   ))
   .add('loading view', () => (
     <LoadingView message="We are sending your order." />
+  ))
+  .add('flash', () => (
+    <Flash message="Your order will be delivered within 45 minutes." />
   ))
