@@ -43,7 +43,11 @@ const colors = {
   radioGroupSelectedOptionCircle: 'rgba(205, 181, 142, 0.3)',
   radioGroupSelectedOptionButtonInnerCircle: '#cdb58e',
 
-  modalBackdropColor: '#131519'
+  modalBackdropColor: '#131519',
+
+  flashNotificationSuccessBackground: 'rgba(3, 168, 83, 0.6)',
+  flashNotificationWarningBackground: 'rgba(237, 210, 4, 0.6)',
+  flashNotificationErrorBackground: 'rgba(237, 7, 0, 0.6)'
 }
 
 export default colors

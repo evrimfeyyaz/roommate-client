@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
-import type { ShoppingCart } from '../types/shopping'
-import { Order } from '../components'
-import type { RadioOption } from '../components/controls/RadioGroup'
-import * as RoomServiceCartRedux from '../redux/roomService/roomServiceCart'
-import * as GlobalActivityIndicatorRedux from '../redux/globalActivityIndicator'
-import { cartToOrderArgument } from '../utils/shoppingHelpers'
+import type { ShoppingCart } from '../../types/shopping'
+import { Order } from '../../components/index'
+import type { RadioOption } from '../../components/controls/RadioGroup'
+import * as RoomServiceCartRedux from '../../redux/roomService/roomServiceCart'
+import * as GlobalActivityIndicatorRedux from '../../redux/globalActivityIndicator'
+import { cartToOrderArgument } from '../../utils/shoppingHelpers'
 
 type DispatchProps = {
   updatePaymentOption: (optionValue: string) => void,

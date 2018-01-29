@@ -6,12 +6,12 @@ import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
 import Modal from 'react-native-modal'
 
-import { ItemsInCategory, ItemDetails } from '../components'
-import * as RoomServiceScreenRedux from '../redux/roomService/roomServiceScreen'
-import * as RoomServiceCartRedux from '../redux/roomService/roomServiceCart'
-import type { ShoppingCartItem, ShoppingCategory, ShoppingItem } from '../types/shopping'
-import type { ApolloDataObject } from '../types/apollo'
-import { isCartEmpty } from '../utils/shoppingHelpers'
+import { ItemsInCategory, ItemDetails } from '../../components/index'
+import * as RoomServiceScreenRedux from '../../redux/roomService/roomServiceScreen'
+import * as RoomServiceCartRedux from '../../redux/roomService/roomServiceCart'
+import type { ShoppingCartItem, ShoppingCategory, ShoppingItem } from '../../types/shopping'
+import type { ApolloDataObject } from '../../types/apollo'
+import { isCartEmpty } from '../../utils/shoppingHelpers'
 
 type DispatchProps = {
   showRoomServiceItem: (item: ShoppingItem) => void,
