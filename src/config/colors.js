@@ -46,7 +46,7 @@ const colors = {
   modalBackdropColor: '#131519',
 
   flashNotificationSuccessBackground: 'rgba(3, 168, 83, 0.6)',
-  flashNotificationWarningBackground: 'rgba(237, 210, 4, 0.6)',
+  flashNotificationWarningBackground: 'rgba(237, 158, 0, 0.6)',
   flashNotificationErrorBackground: 'rgba(237, 7, 0, 0.6)'
 }
 
