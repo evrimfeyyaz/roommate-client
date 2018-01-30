@@ -18,10 +18,11 @@ import { getCurrentTimestampString } from '../../utils/timeUtils'
 type DispatchProps = {
   updatePaymentOption: (optionValue: string) => void,
   updateSpecialRequest: (value: string) => void,
+  clearRoomServiceCart: () => void,
   showActivityIndicator: (message: string) => void,
   hideActivityIndicatorWithDelay: () => void,
   flashNotification: (notification: FlashNotificationData) => void,
-  navigateToRoomServiceScreen: () => void
+  navigateToRoomServiceScreen: () => void,
 }
 
 type Props = {
@@ -52,7 +53,8 @@ class RoomServiceOrder extends Component<Props> {
       showActivityIndicator,
       hideActivityIndicatorWithDelay,
       flashNotification,
-      navigateToRoomServiceScreen
+      navigateToRoomServiceScreen,
+      clearRoomServiceCart
     } = this.props
     const orderArgument = cartToOrderArgument(roomServiceCart)
 
@@ -62,6 +64,7 @@ class RoomServiceOrder extends Component<Props> {
     })
       .then(() => {
         hideActivityIndicatorWithDelay().then(() => {
+          clearRoomServiceCart()
           navigateToRoomServiceScreen()
 
           flashNotification({
@@ -113,6 +116,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updatePaymentOption: (optionValue: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(optionValue)),
   updateSpecialRequest: (value: string) => dispatch(RoomServiceCartRedux.updateSpecialRequest(value)),
+  clearRoomServiceCart: () => dispatch(RoomServiceCartRedux.clearCart()),
   showActivityIndicator: (message: string) => dispatch(GlobalActivityIndicatorRedux.showActivityIndicator(message)),
   hideActivityIndicatorWithDelay: () => dispatch(GlobalActivityIndicatorRedux.hideActivityIndicatorWithDelay()),
   flashNotification: (notification: FlashNotificationData) =>

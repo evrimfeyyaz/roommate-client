@@ -29,7 +29,7 @@ export type Action =
 const initialState: State = {
   cartItems: {},
   specialRequest: undefined, // `null` causes issues with the text input library we're using.
-  paymentOption: 'room-bill'
+  paymentOption: 'room_bill'
 }
 
 // REDUCERS
