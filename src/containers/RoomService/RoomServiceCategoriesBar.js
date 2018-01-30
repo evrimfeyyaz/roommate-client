@@ -5,10 +5,10 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
 
-import { TabBar } from '../components/index'
-import type { ShoppingCategory } from '../types/shopping'
-import * as Redux from '../redux/roomService/roomServiceScreen'
-import type { ApolloDataObject } from '../types/apollo'
+import { TabBar } from '../../components/index'
+import type { ShoppingCategory } from '../../types/shopping'
+import * as Redux from '../../redux/roomService/roomServiceScreen'
+import type { ApolloDataObject } from '../../types/apollo'
 
 type DispatchProps = {
   updateSelectedRoomServiceCategoryId: (categoryId: string) => void

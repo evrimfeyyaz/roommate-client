@@ -27,6 +27,7 @@ export function getCartTotal(cart: ShoppingCart) {
  * @param cartItem
  */
 export function generateTemporaryIdForCartItem(cartItem: ShoppingCartItem) {
+  // TODO: Change this to include choices and options when they are added.
   const itemId = cartItem.item.id
 
   return itemId
@@ -40,4 +41,24 @@ export function isCartEmpty(cart: ShoppingCart) {
   const cartItemsCount = Object.keys(cart.cartItems).length
 
   return cartItemsCount === 0
+}
+
+/**
+ * Converts a cart object to a format that can be used as a variable
+ * in the GraphQL mutation that creates an order.
+ *
+ * @param cart
+ * @returns {{cartItems: *, specialRequest, paymentOption}}
+ */
+export function cartToOrderArgument(cart: ShoppingCart) {
+  const cartItemArguments = getCartItemsArray(cart).map(cartItem => ({
+    itemId: cartItem.item.id,
+    quantity: cartItem.quantity
+  }))
+
+  return {
+    cartItems: cartItemArguments,
+    specialRequest: cart.specialRequest,
+    paymentOption: cart.paymentOption
+  }
 }

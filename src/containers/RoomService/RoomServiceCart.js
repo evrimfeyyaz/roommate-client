@@ -4,9 +4,9 @@ import { StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import { Cart } from '../components'
-import type { ShoppingCart, ShoppingCartItem } from '../types/shopping'
-import * as RoomServiceCartRedux from '../redux/roomService/roomServiceCart'
+import { Cart } from '../../components/index'
+import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
+import * as RoomServiceCartRedux from '../../redux/roomService/roomServiceCart'
 
 type DispatchProps = {
   clearCart: () => void,

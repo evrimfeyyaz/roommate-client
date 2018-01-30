@@ -31,3 +31,6 @@ export { default as Order } from './shopping/Order'
 // Misc
 export { default as Card } from './misc/Card'
 export { default as SvgIcon } from './misc/SvgIcon'
+export { default as LoadingView } from './misc/LoadingView'
+export { default as FlashNotification } from './misc/FlashNotification'
+export { default as FlashNotificationList } from './misc/FlashNotificationList'

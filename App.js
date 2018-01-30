@@ -4,8 +4,9 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 import { UIManager, Platform, StatusBar } from 'react-native'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -22,16 +23,21 @@ export default class App extends Component<void> {
     StatusBar.setHidden(true)
   }
 
-  client = new ApolloClient({
-    link: new HttpLink({ uri: 'https://roommate-backend-staging.herokuapp.com/graphql' }),
-    cache: new InMemoryCache()
-  })
-
   render() {
-    const store = createStore(combineReducers(reducers), composeWithDevTools())
+    const uri = Platform.OS === 'android' ? 'http://10.0.2.2:3000/graphql' : 'http://localhost:3000/graphql'
+
+    const client = new ApolloClient({
+      // link: new HttpLink({ uri: 'https://roommate-backend-staging.herokuapp.com/graphql' }),
+      link: new HttpLink({ uri }),
+      cache: new InMemoryCache()
+    })
+
+    const store = createStore(combineReducers(reducers), composeWithDevTools(
+      applyMiddleware(thunk)
+    ))
 
     return (
-      <ApolloProvider client={this.client}>
+      <ApolloProvider client={client}>
         <Provider store={store}>
           <MainNavigator />
         </Provider>

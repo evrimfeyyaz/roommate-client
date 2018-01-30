@@ -31,13 +31,16 @@ import {
   CircularButton,
   Order,
   TextField,
-  RadioGroup
+  RadioGroup,
+  LoadingView,
+  FlashNotification,
+  FlashNotificationList
 } from '../../src/components'
 import * as icons from '../../assets/iconData'
-import colors from '../../src/config/colors'
 import type { SideMenuRoute } from '../../src/components/navigation/SideMenu'
 import type { ShoppingCart } from '../../src/types/shopping'
 import type { RadioOption } from '../../src/components/controls/RadioGroup'
+import type { FlashNotificationData } from '../../src/components/misc/FlashNotification'
 
 
 /**
@@ -121,6 +124,24 @@ const paymentOptions: RadioOption[] = [
   }
 ]
 const paymentOptionValues = paymentOptions.map(option => option.value)
+
+const flashNotifications: FlashNotificationData[] = [
+  {
+    id: 'message-1',
+    message: 'We received your order!',
+    type: 'success'
+  },
+  {
+    id: 'message-2',
+    message: 'Your battery is about to die.',
+    type: 'warning'
+  },
+  {
+    id: 'message-3',
+    message: 'There was an issue processing your credit card.',
+    type: 'error'
+  }
+]
 
 /**
  * APOLLO
@@ -301,6 +322,15 @@ storiesOf('Controls', module)
   ))
 
 storiesOf('Miscellaneous', module)
-  .add('background', () => (
+  .add('card', () => (
     <Card style={{ width: 300, height: 300 }} />
+  ))
+  .add('loading view', () => (
+    <LoadingView message="We are sending your order." />
+  ))
+  .add('flash notification', () => (
+    <FlashNotification message="Your order will be delivered within 45 minutes." />
+  ))
+  .add('flash notification list', () => (
+    <FlashNotificationList notifications={flashNotifications} />
   ))

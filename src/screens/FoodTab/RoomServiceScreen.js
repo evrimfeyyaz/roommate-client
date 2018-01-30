@@ -2,10 +2,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import RoomServiceCategoriesBar from '../../containers/RoomServiceCategoriesBar'
-import RoomServiceItemsInCategory from '../../containers/RoomServiceItemsInCategory'
+import RoomServiceCategoriesBar from '../../containers/RoomService/RoomServiceCategoriesBar'
+import RoomServiceItemsInCategory from '../../containers/RoomService/RoomServiceItemsInCategory'
 import type { SubTabScreenOptions } from '../../types/navigation'
-import RoomServiceCart from '../../containers/RoomServiceCart'
+import RoomServiceCart from '../../containers/RoomService/RoomServiceCart'
 
 class RoomServiceScreen extends Component<void> {
   static navigationOptions: SubTabScreenOptions = {
