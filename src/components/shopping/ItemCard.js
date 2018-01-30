@@ -1,7 +1,8 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import { ViewPropTypes, TouchableOpacity, Platform, StyleSheet } from 'react-native'
 import FastImage from 'react-native-fast-image'
+import LinearGradient from 'react-native-linear-gradient'
 
 import { Heading2, Heading3, Card } from '../index'
 import type { ShoppingItem } from '../../types/shopping'
@@ -12,19 +13,35 @@ type Props = {
   style?: ViewPropTypes.style,
 }
 
-// TODO: Add back the FastImage component.
-const ItemCard = ({ item, style, onPress }: Props) => (
-  <TouchableOpacity onPress={() => onPress(item)}>
-    <Card style={[styles.container, style]}>
-      <Heading2 style={styles.title}>{item.title}</Heading2>
-      <Heading3 style={styles.description} numberOfLines={2}>{item.description}</Heading3>
-      <Heading2 style={styles.price}>{item.price}</Heading2>
-    </Card>
-  </TouchableOpacity>
-)
+class ItemCard extends Component<Props> {
+  getThumbnailUrl() {
+    // TODO: This should depend on the device's pixel density.
+    return this.props.item.thumbnail2x
+  }
 
-ItemCard.defaultProps = {
-  style: null
+  render() {
+    const { item, style, onPress } = this.props
+
+    return (
+      <TouchableOpacity onPress={() => onPress(item)}>
+        <Card style={[styles.container, style]}>
+          <FastImage
+            style={styles.image}
+            source={{ uri: this.getThumbnailUrl() }}
+          />
+
+          <LinearGradient
+            colors={['rgba(36, 43, 55, 0)', 'rgba(37, 37, 42, 1)']}
+            style={styles.gradientOverlay}
+          />
+
+          <Heading2 style={styles.title}>{item.title}</Heading2>
+          <Heading3 style={styles.description} numberOfLines={2}>{item.description}</Heading3>
+          <Heading2 style={styles.price}>{item.price}</Heading2>
+        </Card>
+      </TouchableOpacity>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -51,11 +68,11 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 10,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
+    ...StyleSheet.absoluteFillObject
+  },
+  gradientOverlay: {
+    borderRadius: 10,
+    ...StyleSheet.absoluteFillObject
   }
 })
 
