@@ -28,6 +28,8 @@ const FlashNotification = ({ message, style, type }: Props) => {
     case 'error':
       backgroundColor = colors.flashNotificationErrorBackground
       break
+    default:
+      backgroundColor = colors.flashNotificationWarningBackground
   }
 
   return (

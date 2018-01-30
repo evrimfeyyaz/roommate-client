@@ -9,6 +9,8 @@ import type { Tab } from './SideMenu'
 import colors from '../../config/colors'
 import * as NavigationHelpers from '../../utils/navigationHelpers'
 import * as GlobalActivityIndicatorRedux from '../../redux/globalActivityIndicator'
+import FlashNotificationsContainer from '../../containers/FlashNotificationsContainer'
+import type { FlashNotificationData } from '../misc/FlashNotification'
 
 type Props = {
   navigation: Navigation,
@@ -49,6 +51,8 @@ class MainNavigationView extends Component<Props> {
           <Card style={styles.contentContainer} backgroundOpacity={0.6}>
             {NavigationHelpers.renderActiveScreen(navigation, router)}
           </Card>
+
+          <FlashNotificationsContainer style={styles.flashNotificationsContainer} />
         </View>
 
         {/* TODO: Refactor out the following component to its own file. */}
@@ -86,6 +90,12 @@ const styles = StyleSheet.create({
   modal: {
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  flashNotificationsContainer: {
+    position: 'absolute',
+    width: '80%',
+    alignSelf: 'center',
+    marginTop: 20
   }
 })
 

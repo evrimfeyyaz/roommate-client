@@ -19,7 +19,7 @@ export type ShoppingCartItem = {
 
 export type ShoppingCart = {
   cartItems: {
-    [string]: ShoppingCartItem
+    [id: string]: ShoppingCartItem
   },
   specialRequest: ?string,
   // The values below use underscores, because these are the values

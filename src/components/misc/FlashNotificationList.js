@@ -1,12 +1,13 @@
 // @flow
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, ViewPropTypes } from 'react-native'
 
 import type { FlashNotificationData } from './FlashNotification'
 import { FlashNotification } from '../.'
 
 type Props = {
-  notifications: FlashNotificationData[]
+  notifications: FlashNotificationData[],
+  style?: ?ViewPropTypes.style
 }
 
 class FlashNotificationList extends Component<Props> {
@@ -28,7 +29,7 @@ class FlashNotificationList extends Component<Props> {
 
   render() {
     return (
-      <View>
+      <View style={this.props.style}>
         {this.renderFlashNotifications()}
       </View>
     )

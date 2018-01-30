@@ -27,6 +27,7 @@ export function getCartTotal(cart: ShoppingCart) {
  * @param cartItem
  */
 export function generateTemporaryIdForCartItem(cartItem: ShoppingCartItem) {
+  // TODO: Change this to include choices and options when they are added.
   const itemId = cartItem.item.id
 
   return itemId
