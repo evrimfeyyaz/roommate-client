@@ -3,19 +3,25 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
+import { NavigationActions } from 'react-navigation'
 
 import type { ShoppingCart } from '../../types/shopping'
 import { Order } from '../../components/index'
 import type { RadioOption } from '../../components/controls/RadioGroup'
 import * as RoomServiceCartRedux from '../../redux/roomService/roomServiceCart'
 import * as GlobalActivityIndicatorRedux from '../../redux/globalActivityIndicator'
+import * as FlashNotificationsRedux from '../../redux/flashNotifications'
 import { cartToOrderArgument } from '../../utils/shoppingHelpers'
+import type { FlashNotificationData } from '../../components/misc/FlashNotification'
+import { getCurrentTimestampString } from '../../utils/timeUtils'
 
 type DispatchProps = {
   updatePaymentOption: (optionValue: string) => void,
   updateSpecialRequest: (value: string) => void,
   showActivityIndicator: (message: string) => void,
-  hideActivityIndicatorWithDelay: () => void
+  hideActivityIndicatorWithDelay: () => void,
+  flashNotification: (notification: FlashNotificationData) => void,
+  navigateToRoomServiceScreen: () => void
 }
 
 type Props = {
@@ -40,7 +46,14 @@ const paymentOptions: RadioOption[] = [
 
 class RoomServiceOrder extends Component<Props> {
   createRoomServiceOrder = () => {
-    const { roomServiceCart, mutate, showActivityIndicator, hideActivityIndicatorWithDelay } = this.props
+    const {
+      roomServiceCart,
+      mutate,
+      showActivityIndicator,
+      hideActivityIndicatorWithDelay,
+      flashNotification,
+      navigateToRoomServiceScreen
+    } = this.props
     const orderArgument = cartToOrderArgument(roomServiceCart)
 
     showActivityIndicator('We are sending your order.')
@@ -49,11 +62,23 @@ class RoomServiceOrder extends Component<Props> {
     })
       .then(() => {
         hideActivityIndicatorWithDelay().then(() => {
-          console.log('hurray')
+          navigateToRoomServiceScreen()
+
+          flashNotification({
+            id: getCurrentTimestampString(),
+            message: 'We received your order!',
+            type: 'success'
+          })
         })
       })
       .catch((response) => {
-        console.log(response)
+        hideActivityIndicatorWithDelay().then(() => {
+          flashNotification({
+            id: getCurrentTimestampString(),
+            message: response,
+            type: 'error'
+          })
+        })
       })
   }
 
@@ -89,7 +114,10 @@ const mapDispatchToProps = dispatch => ({
   updatePaymentOption: (optionValue: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(optionValue)),
   updateSpecialRequest: (value: string) => dispatch(RoomServiceCartRedux.updateSpecialRequest(value)),
   showActivityIndicator: (message: string) => dispatch(GlobalActivityIndicatorRedux.showActivityIndicator(message)),
-  hideActivityIndicatorWithDelay: () => dispatch(GlobalActivityIndicatorRedux.hideActivityIndicatorWithDelay())
+  hideActivityIndicatorWithDelay: () => dispatch(GlobalActivityIndicatorRedux.hideActivityIndicatorWithDelay()),
+  flashNotification: (notification: FlashNotificationData) =>
+    dispatch(FlashNotificationsRedux.flashNotification(notification)),
+  navigateToRoomServiceScreen: () => dispatch(NavigationActions.navigate({ routeName: 'RoomService' }))
 })
 
 const createRoomServiceOrder = gql`

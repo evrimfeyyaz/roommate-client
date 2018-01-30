@@ -43,13 +43,14 @@ export default function reducer(state: State = initialState, action: Action) {
           [action.notification.id]: action.notification
         }
       }
-    case REMOVE_NOTIFICATION:
-      const idToRemove = action.notification.id
+    case REMOVE_NOTIFICATION: {
+      const idToRemove = action.id
 
       const notifications = { ...state.notifications }
       delete notifications[idToRemove]
 
       return { ...state, notifications }
+    }
     default:
       return state
   }
