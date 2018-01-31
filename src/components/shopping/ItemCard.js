@@ -28,6 +28,7 @@ class ItemCard extends Component<Props> {
           <FastImage
             style={styles.image}
             source={{ uri: this.getThumbnailUrl() }}
+            resizeMode={FastImage.resizeMode.cover}
           />
 
           <LinearGradient
