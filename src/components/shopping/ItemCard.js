@@ -8,6 +8,7 @@ import { Heading2, Heading3, Card, SvgIcon } from '../.'
 import colors from '../../config/colors'
 import * as icons from '../../../assets/iconData'
 import type { ShoppingItem } from '../../types/shopping'
+import { getThumbnailUrlFromItem } from '../../utils/shoppingHelpers'
 
 type Props = {
   item: ShoppingItem,
@@ -16,19 +17,15 @@ type Props = {
 }
 
 class ItemCard extends Component<Props> {
-  getThumbnailUrl() {
-    // TODO: This should depend on the device's pixel density.
-    // TODO: This should be in a utility file.
-    return this.props.item.thumbnail2x
-  }
-
   renderThumbnail() {
-    if (this.getThumbnailUrl() != null) {
+    const thumbnailUrl = getThumbnailUrlFromItem(this.props.item)
+
+    if (thumbnailUrl != null) {
       return (
         <Fragment>
           <FastImage
             style={styles.image}
-            source={{ uri: this.getThumbnailUrl() }}
+            source={{ uri: thumbnailUrl }}
             resizeMode={FastImage.resizeMode.cover}
           />
 

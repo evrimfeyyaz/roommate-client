@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ScrollView, ViewPropTypes, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { ViewPropTypes, StyleSheet, View } from 'react-native'
 
 export default function CenterView(props) {
   return (
-    <KeyboardAvoidingView style={styles.main} behavior="padding">
-      <ScrollView centerContent>
-        {props.children}
-      </ScrollView>
-    </KeyboardAvoidingView>
+    <View style={styles.main} behavior="padding">
+      {props.children}
+    </View>
   )
 }
 

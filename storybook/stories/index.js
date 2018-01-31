@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { storiesOf, addDecorator } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, boolean, select, number } from '@storybook/addon-knobs/react'
@@ -307,12 +307,16 @@ storiesOf('Controls', module)
     />
   ))
   .add('text field', () => (
-    <View style={{ width: 200, height: 400, justifyContent: 'center' }}>
-      <TextField
-        label="Name"
-        onChangeText={action('text-field-text-changed')}
-      />
-    </View>
+    <KeyboardAvoidingView behavior="padding">
+      <ScrollView centerContent>
+        <View style={{ width: 200, height: 400, justifyContent: 'center' }}>
+          <TextField
+            label="Name"
+            onChangeText={action('text-field-text-changed')}
+          />
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   ))
   .add('radio group', () => (
     <RadioGroup

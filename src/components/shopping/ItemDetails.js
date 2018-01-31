@@ -8,6 +8,7 @@ import { Title, PrimaryButton, Stepper, Heading3, Body, SvgIcon, CircularButton,
 import * as icons from '../../../assets/iconData'
 import type { ShoppingCartItem, ShoppingItem } from '../../types/shopping'
 import colors from '../../config/colors'
+import { getImageUrlFromItem } from '../../utils/shoppingHelpers'
 
 type Props = {
   item: ShoppingItem,
@@ -50,19 +51,15 @@ class ItemDetails extends Component<Props, State> {
     this.props.onAddButtonPress(this.state.cartItem)
   }
 
-  getImageUrl() {
-    // TODO: This should depend on the device's pixel density.
-    // TODO: This should be in a utility file.
-    return this.props.item.image2x
-  }
-
   renderImage() {
-    if (this.getImageUrl() != null) {
+    const imageUrl = getImageUrlFromItem(this.props.item)
+
+    if (imageUrl != null) {
       return (
         <Fragment>
           <FastImage
             style={styles.image}
-            source={{ uri: this.getImageUrl() }}
+            source={{ uri: imageUrl }}
             resizeMode={FastImage.resizeMode.cover}
           />
 
