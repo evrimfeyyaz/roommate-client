@@ -1,10 +1,14 @@
 // @flow
-import React from 'react'
-import { ViewPropTypes, TouchableOpacity, Platform, StyleSheet } from 'react-native'
+import React, { Component, Fragment } from 'react'
+import { View, ViewPropTypes, TouchableOpacity, Platform, StyleSheet } from 'react-native'
 import FastImage from 'react-native-fast-image'
+import LinearGradient from 'react-native-linear-gradient'
 
-import { Heading2, Heading3, Card } from '../index'
+import { Heading2, Heading3, Card, SvgIcon } from '../.'
+import colors from '../../config/colors'
+import * as icons from '../../../assets/iconData'
 import type { ShoppingItem } from '../../types/shopping'
+import { getThumbnailUrlFromItem } from '../../utils/shoppingHelpers'
 
 type Props = {
   item: ShoppingItem,
@@ -12,19 +16,56 @@ type Props = {
   style?: ViewPropTypes.style,
 }
 
-// TODO: Add back the FastImage component.
-const ItemCard = ({ item, style, onPress }: Props) => (
-  <TouchableOpacity onPress={() => onPress(item)}>
-    <Card style={[styles.container, style]}>
-      <Heading2 style={styles.title}>{item.title}</Heading2>
-      <Heading3 style={styles.description} numberOfLines={2}>{item.description}</Heading3>
-      <Heading2 style={styles.price}>{item.price}</Heading2>
-    </Card>
-  </TouchableOpacity>
-)
+class ItemCard extends Component<Props> {
+  renderThumbnail() {
+    const thumbnailUrl = getThumbnailUrlFromItem(this.props.item)
 
-ItemCard.defaultProps = {
-  style: null
+    if (thumbnailUrl != null) {
+      return (
+        <Fragment>
+          <FastImage
+            style={styles.image}
+            source={{ uri: thumbnailUrl }}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+
+          <LinearGradient
+            colors={colors.itemCardGradientColors}
+            style={styles.gradientOverlay}
+          />
+        </Fragment>
+      )
+    }
+
+    return (
+      <SvgIcon
+        iconData={icons.food}
+        fill={colors.primaryIcon}
+        height={50}
+        width={50}
+        style={styles.foodIcon}
+        opacity={0.3}
+      />
+    )
+  }
+
+  render() {
+    const { item, style, onPress } = this.props
+
+    return (
+      <TouchableOpacity onPress={() => onPress(item)}>
+        <Card style={[styles.container, style]}>
+          <View style={styles.thumbnailContainer}>
+            {this.renderThumbnail()}
+          </View>
+
+          <Heading2 style={styles.title}>{item.title}</Heading2>
+          <Heading3 style={styles.description} numberOfLines={2}>{item.description}</Heading3>
+          <Heading2 style={styles.price}>{item.price}</Heading2>
+        </Card>
+      </TouchableOpacity>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -49,13 +90,20 @@ const styles = StyleSheet.create({
   price: {
     textAlign: 'right'
   },
-  image: {
+  thumbnailContainer: {
+    ...StyleSheet.absoluteFillObject,
     borderRadius: 10,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
+    overflow: 'hidden',
+    alignItems: 'center'
+  },
+  image: {
+    ...StyleSheet.absoluteFillObject
+  },
+  gradientOverlay: {
+    ...StyleSheet.absoluteFillObject
+  },
+  foodIcon: {
+    marginTop: 50
   }
 })
 

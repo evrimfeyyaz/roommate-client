@@ -1,5 +1,5 @@
 // @flow
-import type { ShoppingCart, ShoppingCartItem } from '../types/shopping'
+import type { ShoppingCart, ShoppingCartItem, ShoppingItem } from '../types/shopping'
 
 export function getCartItemTotal(cartItem: ShoppingCartItem) {
   return cartItem.item.price * cartItem.quantity
@@ -61,4 +61,26 @@ export function cartToOrderArgument(cart: ShoppingCart) {
     specialRequest: cart.specialRequest,
     paymentOption: cart.paymentOption
   }
+}
+
+/**
+ * Returns the thumbnail URL of a given item. Automatically picks the
+ * right scale (1x, 2x, etc.) depending on the device pixel density.
+ *
+ * @param item
+ */
+export function getThumbnailUrlFromItem(item: ShoppingItem) {
+  // TODO: This should depend on the device's pixel density.
+  return item.thumbnail2x
+}
+
+/**
+ * Returns the image URL of a given item. Automatically picks the
+ * right scale (1x, 2x, etc.) depending on the device pixel density.
+ *
+ * @param item
+ */
+export function getImageUrlFromItem(item: ShoppingItem) {
+  // TODO: This should depend on the device's pixel density.
+  return item.image2x
 }

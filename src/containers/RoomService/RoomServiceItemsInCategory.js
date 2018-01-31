@@ -123,6 +123,10 @@ const getRoomServiceCategoryWithItems = gql`
         title
         description
         price
+        image1x
+        image2x
+        thumbnail1x
+        thumbnail2x
       }
     }
   }

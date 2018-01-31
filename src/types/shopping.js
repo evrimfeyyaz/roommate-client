@@ -8,7 +8,11 @@ export type ShoppingItem = {
   id: string,
   title: string,
   description?: ?string,
-  price?: ?string
+  price: ?string,
+  image1x?: ?string,
+  image2x?: ?string,
+  thumbnail1x?: ?string,
+  thumbnail2x?: ?string
 }
 
 export type ShoppingCartItem = {

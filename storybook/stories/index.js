@@ -1,12 +1,8 @@
 import React from 'react'
-import { KeyboardAvoidingView, View } from 'react-native'
+import { View, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { storiesOf, addDecorator } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
-import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { ApolloProvider } from 'react-apollo'
-import { withKnobs, boolean, select, number, text } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, number } from '@storybook/addon-knobs/react'
 
 import CenterView from './CenterView'
 import {
@@ -86,7 +82,10 @@ const shoppingItem2 = {
   title: 'Tiramisu',
   description: 'Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ' +
   'ladyfingers, topped with Valrhona cocoa powder.',
-  price: '15'
+  price: '15',
+  image2x: 'file:///Users/evrimfeyyaz/workspace/roommate_client/assets/sample_images/baked-dijon-salmon.jpg',
+  thumbnail2x:
+    'file:///Users/evrimfeyyaz/workspace/roommate_client/assets/sample_images/smoked-salmon-eggs-benedict-thumbnail.jpg'
 }
 
 const shoppingCartItem1 = {
@@ -142,15 +141,6 @@ const flashNotifications: FlashNotificationData[] = [
     type: 'error'
   }
 ]
-
-/**
- * APOLLO
- */
-
-const client = new ApolloClient({
-  link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
-  cache: new InMemoryCache()
-})
 
 /**
  * GLOBAL DECORATORS
@@ -225,13 +215,24 @@ storiesOf('Navigation', module)
   ))
 
 storiesOf('Shopping', module)
-  .add('item card', () => (
+  .add('item card without thumbnail', () => (
     <ItemCard item={shoppingItem1} onPress={action('on-item-card-press')} />
   ))
-  .add('item details', () => (
+  .add('item card with thumbnail', () => (
+    <ItemCard item={shoppingItem2} onPress={action('on-item-card-press')} />
+  ))
+  .add('item details without image', () => (
     <ItemDetails
       item={shoppingItem1}
-      style={{ width: '80%' }}
+      style={{ width: 800, height: 600 }}
+      onCloseButtonPress={action('item-details-close-button-press')}
+      onAddButtonPress={action('item-details-add-button-press')}
+    />
+  ))
+  .add('item details with image', () => (
+    <ItemDetails
+      item={shoppingItem2}
+      style={{ width: 800, height: 600 }}
       onCloseButtonPress={action('item-details-close-button-press')}
       onAddButtonPress={action('item-details-add-button-press')}
     />
@@ -306,12 +307,16 @@ storiesOf('Controls', module)
     />
   ))
   .add('text field', () => (
-    <View style={{ width: 200, height: 400, justifyContent: 'center' }}>
-      <TextField
-        label="Name"
-        onChangeText={action('text-field-text-changed')}
-      />
-    </View>
+    <KeyboardAvoidingView behavior="padding">
+      <ScrollView centerContent>
+        <View style={{ width: 200, height: 400, justifyContent: 'center' }}>
+          <TextField
+            label="Name"
+            onChangeText={action('text-field-text-changed')}
+          />
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   ))
   .add('radio group', () => (
     <RadioGroup
