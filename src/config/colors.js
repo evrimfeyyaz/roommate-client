@@ -9,6 +9,7 @@ const colors = {
 
   circularButtonIcon: '#fff',
   circularButtonBorder: 'rgba(255, 255, 255, 0.1)',
+  circularButtonBorderSolid: 'rgb(255, 255, 255)',
 
   cardBackgroundGradient: ['#2F3846', '#232A36'],
 
@@ -47,7 +48,11 @@ const colors = {
 
   flashNotificationSuccessBackground: 'rgba(3, 168, 83, 0.9)',
   flashNotificationWarningBackground: 'rgba(237, 158, 0, 0.9)',
-  flashNotificationErrorBackground: 'rgba(237, 7, 0, 0.9)'
+  flashNotificationErrorBackground: 'rgba(237, 7, 0, 0.9)',
+
+  itemCardGradientColors: ['rgba(36, 43, 55, 0)', 'rgba(37, 37, 42, 1)'],
+
+  itemDetailImageGradientColors: ['rgba(35, 42, 54, 0)', 'rgba(35, 42, 54, 1)', 'rgba(35, 42, 54, 0)']
 }
 
 export default colors

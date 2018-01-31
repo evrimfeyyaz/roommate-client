@@ -1,10 +1,12 @@
 // @flow
-import React, { Component } from 'react'
-import { ViewPropTypes, TouchableOpacity, Platform, StyleSheet } from 'react-native'
+import React, { Component, Fragment } from 'react'
+import { View, ViewPropTypes, TouchableOpacity, Platform, StyleSheet } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 
-import { Heading2, Heading3, Card } from '../index'
+import { Heading2, Heading3, Card, SvgIcon } from '../.'
+import colors from '../../config/colors'
+import * as icons from '../../../assets/iconData'
 import type { ShoppingItem } from '../../types/shopping'
 
 type Props = {
@@ -16,7 +18,38 @@ type Props = {
 class ItemCard extends Component<Props> {
   getThumbnailUrl() {
     // TODO: This should depend on the device's pixel density.
+    // TODO: This should be in a utility file.
     return this.props.item.thumbnail2x
+  }
+
+  renderThumbnail() {
+    if (this.getThumbnailUrl() != null) {
+      return (
+        <Fragment>
+          <FastImage
+            style={styles.image}
+            source={{ uri: this.getThumbnailUrl() }}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+
+          <LinearGradient
+            colors={colors.itemCardGradientColors}
+            style={styles.gradientOverlay}
+          />
+        </Fragment>
+      )
+    }
+
+    return (
+      <SvgIcon
+        iconData={icons.food}
+        fill={colors.primaryIcon}
+        height={50}
+        width={50}
+        style={styles.foodIcon}
+        opacity={0.3}
+      />
+    )
   }
 
   render() {
@@ -25,16 +58,9 @@ class ItemCard extends Component<Props> {
     return (
       <TouchableOpacity onPress={() => onPress(item)}>
         <Card style={[styles.container, style]}>
-          <FastImage
-            style={styles.image}
-            source={{ uri: this.getThumbnailUrl() }}
-            resizeMode={FastImage.resizeMode.cover}
-          />
-
-          <LinearGradient
-            colors={['rgba(36, 43, 55, 0)', 'rgba(37, 37, 42, 1)']}
-            style={styles.gradientOverlay}
-          />
+          <View style={styles.thumbnailContainer}>
+            {this.renderThumbnail()}
+          </View>
 
           <Heading2 style={styles.title}>{item.title}</Heading2>
           <Heading3 style={styles.description} numberOfLines={2}>{item.description}</Heading3>
@@ -67,13 +93,20 @@ const styles = StyleSheet.create({
   price: {
     textAlign: 'right'
   },
-  image: {
+  thumbnailContainer: {
+    ...StyleSheet.absoluteFillObject,
     borderRadius: 10,
+    overflow: 'hidden',
+    alignItems: 'center'
+  },
+  image: {
     ...StyleSheet.absoluteFillObject
   },
   gradientOverlay: {
-    borderRadius: 10,
     ...StyleSheet.absoluteFillObject
+  },
+  foodIcon: {
+    marginTop: 50
   }
 })
 

@@ -7,10 +7,12 @@ export type ShoppingCategory = {
 export type ShoppingItem = {
   id: string,
   title: string,
-  description: ?string,
+  description?: ?string,
   price: ?string,
-  thumbnail1x: ?string,
-  thumbnail2x: ?string
+  image1x?: ?string,
+  image2x?: ?string,
+  thumbnail1x?: ?string,
+  thumbnail2x?: ?string
 }
 
 export type ShoppingCartItem = {
