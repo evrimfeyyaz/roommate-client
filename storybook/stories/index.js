@@ -73,6 +73,7 @@ const routeKeys = routes.map(route => route.routeKey)
 const toppingsChoice: ShoppingItemChoice = {
   id: 'toppings-choice-id',
   title: 'Toppings',
+  defaultOptionId: 'topping-1',
   options: [
     { id: 'topping-1', title: 'Mango Salsa', price: 0.500 },
     { id: 'topping-2', title: 'Guacamole', price: 0.700 },

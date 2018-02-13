@@ -11,7 +11,8 @@ const OPTION_SIZE = 18
 
 export type Option = {
   id: string,
-  label: string
+  label: string,
+  choiceId: string
 }
 
 type Props = {
@@ -74,7 +75,7 @@ class OptionGroup extends Component<Props> {
     }
 
     return (
-      <TouchableOpacity onPress={() => onOptionPress(option.id)} hitSlop={hitSlop} key={option.id}>
+      <TouchableOpacity onPress={() => onOptionPress(option)} hitSlop={hitSlop} key={option.id}>
         <View style={styles.optionContainer}>
           {button}
 

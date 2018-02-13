@@ -1,5 +1,6 @@
 // @flow
-import type { ShoppingCart, ShoppingCartItem, ShoppingItem } from '../types/shopping'
+import type { ShoppingCart, ShoppingCartItem, ShoppingItem, ShoppingItemChoice } from '../types/shopping'
+import type { Option } from '../components/controls/OptionGroup'
 
 export function getCartItemTotal(cartItem: ShoppingCartItem) {
   return cartItem.item.price * cartItem.quantity
@@ -83,4 +84,76 @@ export function getThumbnailUrlFromItem(item: ShoppingItem) {
 export function getImageUrlFromItem(item: ShoppingItem) {
   // TODO: This should depend on the device's pixel density.
   return item.image2x
+}
+
+export function isChoiceMultipleSelection(choice: ShoppingItemChoice) {
+  return (
+    choice.minimumNumberOfSelections !== choice.maximumNumberOfSelections
+    || choice.minimumNumberOfSelections > 1
+  )
+}
+
+export function isChoiceOptional(choice: ShoppingItemChoice) {
+  return choice.minimumNumberOfSelections == null
+}
+
+/**
+ * Returns a string like "Sauce (choose three to five)" that explains the choice
+ * and how many selections the user can make, and whether or not the choice is optional.
+ *
+ * @param choice
+ */
+export function choiceLabel(choice: ShoppingItemChoice) {
+  const { minimumNumberOfSelections: minimum, maximumNumberOfSelections: maximum } = choice
+
+  if (minimum == null && maximum != null) { // No minimum, maximum
+    return `${choice.title} (choose up to ${maximum}, optional)`
+  }
+
+  if (minimum == null && maximum == null) { // No minimum, no maximum
+    return `${choice.title} (optional)`
+  }
+
+  if (minimum != null && maximum == null) { // Minimum, no maximum
+    return `${choice.title} (hoose at least ${minimum})`
+  }
+
+  if (minimum !== maximum) { // Minimum, maximum, minimum = maximum
+    return `${choice.title} (choose ${minimum} to ${maximum})`
+  }
+
+  return `${choice.title} (choose ${minimum})` // Minimum, maximum, minimum != maximum
+}
+
+/**
+ * Returns an array of `Option`s from a `ShoppingItemChoice` that is suitable
+ * for use in `OptionGroup`s.
+ *
+ * @param choice
+ * @returns {{id: string, label: string}[]}
+ */
+export function optionsArrayFromChoice(choice: ShoppingItemChoice): Option[] {
+  return choice.options.map((option) => {
+    let label = option.title
+
+    if (option.price != null) {
+      label += ` (+${option.price})`
+    }
+
+    return {
+      id: option.id,
+      choiceId: choice.id,
+      label
+    }
+  })
+}
+
+export function arrayOfDefaultOptionIdsFromItem(item: ShoppingItem) {
+  return item.choices.reduce((arrayOfIds, choice) => {
+    if (choice.defaultOptionId != null) {
+      arrayOfIds.push(choice.defaultOptionId)
+    }
+
+    return arrayOfIds
+  }, [])
 }
