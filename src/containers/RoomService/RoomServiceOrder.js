@@ -7,7 +7,7 @@ import { NavigationActions } from 'react-navigation'
 
 import type { ShoppingCart } from '../../types/shopping'
 import { Order } from '../../components/index'
-import type { RadioOption } from '../../components/controls/RadioGroup'
+import type { RadioOption } from '../../components/controls/OptionGroup'
 import * as RoomServiceCartRedux from '../../redux/roomService/roomServiceCart'
 import * as GlobalActivityIndicatorRedux from '../../redux/globalActivityIndicator'
 import * as FlashNotificationsRedux from '../../redux/flashNotifications'
@@ -16,7 +16,7 @@ import type { FlashNotificationData } from '../../components/misc/FlashNotificat
 import { getCurrentTimestampString } from '../../utils/timeUtils'
 
 type DispatchProps = {
-  updatePaymentOption: (optionValue: string) => void,
+  updatePaymentOption: (optionId: string) => void,
   updateSpecialRequest: (value: string) => void,
   clearRoomServiceCart: () => void,
   showActivityIndicator: (message: string) => void,
@@ -32,15 +32,15 @@ type Props = {
 
 const paymentOptions: RadioOption[] = [
   {
-    value: 'room_bill',
+    id: 'room_bill',
     label: 'Room bill'
   },
   {
-    value: 'credit_card_on_delivery',
+    id: 'credit_card_on_delivery',
     label: 'Credit card on delivery'
   },
   {
-    value: 'cash_on_delivery',
+    id: 'cash_on_delivery',
     label: 'Cash on delivery'
   }
 ]
@@ -114,7 +114,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updatePaymentOption: (optionValue: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(optionValue)),
+  updatePaymentOption: (optionId: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(optionId)),
   updateSpecialRequest: (value: string) => dispatch(RoomServiceCartRedux.updateSpecialRequest(value)),
   clearRoomServiceCart: () => dispatch(RoomServiceCartRedux.clearCart()),
   showActivityIndicator: (message: string) => dispatch(GlobalActivityIndicatorRedux.showActivityIndicator(message)),

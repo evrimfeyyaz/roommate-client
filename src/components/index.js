@@ -12,7 +12,7 @@ export { default as CircularButton } from './controls/CircularButton'
 export { default as SecondaryButton } from './controls/SecondaryButton'
 export { default as PrimaryButton } from './controls/PrimaryButton'
 export { default as TextField } from './controls/TextField'
-export { default as RadioGroup } from './controls/RadioGroup'
+export { default as OptionGroup } from './controls/OptionGroup'
 
 // Navigation
 export { default as SideMenu } from './navigation/SideMenu'

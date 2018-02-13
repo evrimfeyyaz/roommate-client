@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import { Title, PrimaryButton, Stepper, Heading3, Body, SvgIcon, CircularButton, Card } from '../.'
 import * as icons from '../../../assets/iconData'
-import type { ShoppingCartItem, ShoppingItem } from '../../types/shopping'
+import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice } from '../../types/shopping'
 import colors from '../../config/colors'
 import { getImageUrlFromItem } from '../../utils/shoppingHelpers'
 
@@ -24,6 +24,14 @@ type State = {
 class ItemDetails extends Component<Props, State> {
   static defaultProps = {
     style: null
+  }
+
+  static renderChoice(choice: ShoppingItemChoice) {
+    return (
+      <View>
+        <Heading3>{choice.title}</Heading3>
+      </View>
+    )
   }
 
   constructor(props: Props) {
@@ -84,6 +92,14 @@ class ItemDetails extends Component<Props, State> {
     )
   }
 
+  renderChoices() {
+    const { item } = this.props
+
+    if (item.choices == null) return null
+
+    return item.choices.map(choice => ItemDetails.renderChoice(choice))
+  }
+
   render() {
     const {
       style,
@@ -105,6 +121,10 @@ class ItemDetails extends Component<Props, State> {
               <Title style={styles.price}>{price}</Title>
             </View>
             <Body style={styles.description}>{description}</Body>
+
+            <View style={styles.choicesContainer}>
+              {this.renderChoices()}
+            </View>
 
             <View style={styles.quantityContainer}>
               <Heading3 style={styles.quantityHeading}>Quantity</Heading3>

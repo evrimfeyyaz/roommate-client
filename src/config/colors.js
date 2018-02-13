@@ -40,9 +40,11 @@ const colors = {
   textFieldBase: 'rgba(255, 255, 255, 0.6)',
   textFieldText: '#fff',
 
-  radioGroupUnselectedOptionCircleBorder: 'rgba(255, 255, 255, 0.1)',
-  radioGroupSelectedOptionCircle: 'rgba(205, 181, 142, 0.3)',
-  radioGroupSelectedOptionButtonInnerCircle: '#cdb58e',
+  optionGroupUnselectedCircleBorder: 'rgba(255, 255, 255, 0.1)',
+  optionGroupSelectedOuterCircle: 'rgba(205, 181, 142, 0.3)',
+  optionGroupSelectedInnerCircle: '#cdb58e',
+  optionGroupSelectedIcon: '#fff',
+  optionGroupSquareBackground: '#cdb58e',
 
   modalBackdropColor: '#131519',
 

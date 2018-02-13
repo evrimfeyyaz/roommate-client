@@ -7,7 +7,7 @@ import * as iconData from '../../../assets/iconData'
 
 type Props = {
   /**
-   * Current selectedOptionValue of the stepper.
+   * Current selectedOptionIds of the stepper.
    */
   value: number,
   /**
@@ -15,15 +15,15 @@ type Props = {
    * button.
    *
    * Takes two arguments:
-   * - currentValue: Equals to the `selectedOptionValue` prop.
-   * - newValue: New selectedOptionValue that the stepper should have after button press.
+   * - currentValue: Equals to the `selectedOptionIds` prop.
+   * - newValue: New selectedOptionIds that the stepper should have after button press.
    */
   onButtonPress: (currentValue: number, newValue: number) => void,
   /**
-   * Minimum selectedOptionValue this stepper accepts. When the selectedOptionValue is below
+   * Minimum selectedOptionIds this stepper accepts. When the selectedOptionIds is below
    * this number, the decrement button is disabled.
    *
-   * Default is `null`, meaning no minimum selectedOptionValue.
+   * Default is `null`, meaning no minimum selectedOptionIds.
    */
   minValue?: ?number,
   style?: ViewPropTypes.style,

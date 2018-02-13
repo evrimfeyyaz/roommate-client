@@ -12,13 +12,32 @@ export type ShoppingItem = {
   image1x?: ?string,
   image2x?: ?string,
   thumbnail1x?: ?string,
-  thumbnail2x?: ?string
+  thumbnail2x?: ?string,
+  choices?: ?ShoppingItemChoice[]
+}
+
+export type ShoppingItemChoice = {
+  id: string,
+  title: string,
+  minimumNumberOfSelections?: ?number,
+  maximumNumberOfSelections?: ?number,
+  defaultOptionId?: ?string,
+  options: ShoppingItemChoiceOption[]
+}
+
+export type ShoppingItemChoiceOption = {
+  id: string,
+  title: string,
+  price?: ?string
 }
 
 export type ShoppingCartItem = {
   id: string,
   item: ShoppingItem,
-  quantity: number
+  quantity: number,
+  selectedOptions: {
+    [id: string]: ShoppingItemChoiceOption
+  }
 }
 
 export type ShoppingCart = {

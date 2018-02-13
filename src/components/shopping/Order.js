@@ -2,11 +2,11 @@
 import React, { Component } from 'react'
 import { View, ScrollView, StyleSheet, Text, KeyboardAvoidingView } from 'react-native'
 
-import { Heading, Body, TextField, Heading3, RadioGroup, PrimaryButton } from '../.'
+import { Heading, Body, TextField, Heading3, OptionGroup, PrimaryButton } from '../.'
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 import { getCartItemsArray, getCartItemTotal, getCartTotal } from '../../utils/shoppingHelpers'
 import colors from '../../config/colors'
-import type { RadioOption } from '../controls/RadioGroup'
+import type { RadioOption } from '../controls/OptionGroup'
 
 type Props = {
   cart: ShoppingCart,
@@ -75,7 +75,7 @@ class Order extends Component<Props> {
           <Heading3 style={styles.paymentMethodHeading}>Payment method</Heading3>
           <RadioGroup
             options={paymentOptions}
-            selectedOptionValue={selectedPaymentOptionValue}
+            selectedOptionId={selectedPaymentOptionValue}
             onOptionPress={onPaymentOptionPress}
             style={styles.paymentOptions}
           />
