@@ -103,7 +103,7 @@ export function isChoiceOptional(choice: ShoppingItemChoice) {
 export function choiceLabel(choice: ShoppingItemChoice) {
   const { minimumNumberOfSelections: minimum, maximumNumberOfSelections: maximum } = choice
 
-  if (minimum == null && maximum != null) { // No minimum, maximum
+  if (minimum == null && maximum != null && isChoiceMultipleSelection(choice)) { // No minimum, maximum, multiple choice
     return `${choice.title} (choose up to ${maximum}, optional)`
   }
 
