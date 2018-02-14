@@ -91,7 +91,7 @@ export function isChoiceMultipleSelection(choice: ShoppingItemChoice) {
 }
 
 export function isChoiceOptional(choice: ShoppingItemChoice) {
-  return choice.minimumNumberOfSelections == null
+  return (choice.minimumNumberOfSelections == null && isChoiceMultipleSelection(choice))
 }
 
 /**
