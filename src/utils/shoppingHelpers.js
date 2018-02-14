@@ -87,10 +87,7 @@ export function getImageUrlFromItem(item: ShoppingItem) {
 }
 
 export function isChoiceMultipleSelection(choice: ShoppingItemChoice) {
-  return (
-    choice.minimumNumberOfSelections !== choice.maximumNumberOfSelections
-    || choice.minimumNumberOfSelections > 1
-  )
+  return choice.maximumNumberOfSelections !== 1
 }
 
 export function isChoiceOptional(choice: ShoppingItemChoice) {
