@@ -75,8 +75,8 @@ const toppingsChoice: ShoppingItemChoice = {
   title: 'Toppings',
   defaultOptionId: 'topping-1',
   options: [
-    { id: 'topping-1', title: 'Mango Salsa', price: 0.500 },
-    { id: 'topping-2', title: 'Guacamole', price: 0.700 },
+    { id: 'topping-1', title: 'Mango Salsa', price: '0.500' },
+    { id: 'topping-2', title: 'Guacamole', price: '0.700' },
     { id: 'topping-3', title: 'Lime' },
     { id: 'topping-4', title: 'Crushed Nachos' },
     { id: 'topping-5', title: 'Cheese' },
@@ -105,8 +105,8 @@ const extrasChoice: ShoppingItemChoice = {
   minimumNumberOfSelections: 1,
   maximumNumberOfSelections: 5,
   options: [
-    { id: 'extra-1', title: 'Mango Salsa', price: 0.500 },
-    { id: 'extra-2', title: 'Guacamole', price: 0.700 },
+    { id: 'extra-1', title: 'Mango Salsa', price: '0.500' },
+    { id: 'extra-2', title: 'Guacamole', price: '0.700' },
     { id: 'extra-3', title: 'Lime' },
     { id: 'extra-4', title: 'Crushed Nachos' },
     { id: 'extra-5', title: 'Cheese' },

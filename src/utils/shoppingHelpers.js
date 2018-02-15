@@ -9,7 +9,7 @@ export function getCartItemTotal(cartItem: ShoppingCartItem) {
       return total
     }
 
-    return total + option.price
+    return total + +option.price
   }, 0)
 
   return (+cartItem.item.price + optionsTotal) * cartItem.quantity
@@ -160,6 +160,10 @@ export function findOptionById(id: string, choice: ShoppingItemChoice) {
 }
 
 export function arrayOfDefaultOptionsFromItem(item: ShoppingItem) {
+  if (item.choices == null) {
+    return []
+  }
+
   return item.choices.reduce((arrayOfOptions, choice) => {
     if (choice.defaultOptionId != null) {
       const defaultOption = findOptionById(choice.defaultOptionId, choice)

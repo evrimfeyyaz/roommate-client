@@ -196,7 +196,7 @@ class ItemDetails extends Component<Props, State> {
 
     return (
       <Card style={[styles.container, style]}>
-        <ScrollView centerContent>
+        <ScrollView>
           <View style={styles.imageContainer}>
             {this.renderImage()}
           </View>

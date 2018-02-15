@@ -61,6 +61,8 @@ class RoomServiceItemsInCategory extends Component<Props> {
       return <ActivityIndicator />
     }
 
+    console.log(this.props.data)
+
     return (
       <View style={styles.container}>
         <ItemsInCategory
@@ -127,6 +129,18 @@ const getRoomServiceCategoryWithItems = gql`
         image2x
         thumbnail1x
         thumbnail2x
+        choices {
+          id
+          title
+          minimumNumberOfSelections
+          maximumNumberOfSelections
+          defaultOptionId
+          options {
+            id
+            title
+            price
+          }
+        }
       }
     }
   }
