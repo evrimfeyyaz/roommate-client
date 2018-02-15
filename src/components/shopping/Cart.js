@@ -32,7 +32,7 @@ type Props = {
    *
    * Takes three arguments:
    * - cartItem: Referenced ShoppingCartItem.
-   * - newValue: New selectedOptionValue that the stepper should have after button press.
+   * - newValue: New selectedOptionIds that the stepper should have after button press.
    */
   onQuantityStepperPress: (cartItem: ShoppingCartItem, newValue: number) => void,
   /**

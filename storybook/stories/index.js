@@ -2,7 +2,7 @@ import React from 'react'
 import { View, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { storiesOf, addDecorator } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
-import { withKnobs, boolean, select, number } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, number, array } from '@storybook/addon-knobs/react'
 
 import CenterView from './CenterView'
 import {
@@ -27,15 +27,16 @@ import {
   CircularButton,
   Order,
   TextField,
-  RadioGroup,
+  OptionGroup,
   LoadingView,
   FlashNotification,
-  FlashNotificationList
+  FlashNotificationList,
+  CheckboxGroup
 } from '../../src/components'
 import * as icons from '../../assets/iconData'
 import type { SideMenuRoute } from '../../src/components/navigation/SideMenu'
-import type { ShoppingCart } from '../../src/types/shopping'
-import type { RadioOption } from '../../src/components/controls/RadioGroup'
+import type { ShoppingCart, ShoppingItem, ShoppingItemChoice } from '../../src/types/shopping'
+import type { Option } from '../../src/components/controls/OptionGroup'
 import type { FlashNotificationData } from '../../src/components/misc/FlashNotification'
 
 
@@ -69,20 +70,67 @@ const routes: SideMenuRoute[] = [
 const routeKeys = routes.map(route => route.routeKey)
 
 // Shopping
-const shoppingItem1 = {
+const toppingsChoice: ShoppingItemChoice = {
+  id: 'toppings-choice-id',
+  title: 'Toppings',
+  defaultOptionId: 'topping-1',
+  options: [
+    { id: 'topping-1', title: 'Mango Salsa', price: '0.500' },
+    { id: 'topping-2', title: 'Guacamole', price: '0.700' },
+    { id: 'topping-3', title: 'Lime' },
+    { id: 'topping-4', title: 'Crushed Nachos' },
+    { id: 'topping-5', title: 'Cheese' },
+    { id: 'topping-6', title: 'Sour Cream' },
+    { id: 'topping-7', title: 'Jalapenos' }
+  ]
+}
+
+const sauceChoice: ShoppingItemChoice = {
+  id: 'sauce-choice-id',
+  title: 'Sauce',
+  minimumNumberOfSelections: 1,
+  maximumNumberOfSelections: 1,
+  defaultOptionId: 'sauce-1',
+  options: [
+    { id: 'sauce-1', title: 'No Sauce' },
+    { id: 'sauce-2', title: 'Lime Yogurt' },
+    { id: 'sauce-3', title: 'Chile Con Queso' },
+    { id: 'sauce-4', title: 'Spicy Chipotle' }
+  ]
+}
+
+const extrasChoice: ShoppingItemChoice = {
+  id: 'extras-choice-id',
+  title: 'Extras',
+  minimumNumberOfSelections: 1,
+  maximumNumberOfSelections: 5,
+  options: [
+    { id: 'extra-1', title: 'Mango Salsa', price: '0.500' },
+    { id: 'extra-2', title: 'Guacamole', price: '0.700' },
+    { id: 'extra-3', title: 'Lime' },
+    { id: 'extra-4', title: 'Crushed Nachos' },
+    { id: 'extra-5', title: 'Cheese' },
+    { id: 'extra-6', title: 'Sour Cream' },
+    { id: 'extra-7', title: 'Jalapenos' }
+  ]
+}
+
+const shoppingItem1: ShoppingItem = {
   id: 'item-1-id',
   title: 'Mexican Omelet',
   description: 'Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a ' +
   'side of roasted potatoes, and your choice of toast or croissant.',
-  price: '16'
+  price: '16',
+  choices: [toppingsChoice, sauceChoice, extrasChoice]
 }
 
-const shoppingItem2 = {
+const shoppingItem2: ShoppingItem = {
   id: 'sample-id-2',
   title: 'Tiramisu',
   description: 'Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ' +
   'ladyfingers, topped with Valrhona cocoa powder.',
   price: '15',
+  choices: [toppingsChoice, sauceChoice, extrasChoice],
   image2x: 'file:///Users/evrimfeyyaz/workspace/roommate_client/assets/sample_images/baked-dijon-salmon.jpg',
   thumbnail2x:
     'file:///Users/evrimfeyyaz/workspace/roommate_client/assets/sample_images/smoked-salmon-eggs-benedict-thumbnail.jpg'
@@ -108,21 +156,21 @@ const cart: ShoppingCart = {
   specialRequest: undefined
 }
 
-const paymentOptions: RadioOption[] = [
+const paymentOptions: Option[] = [
   {
-    value: 'room-bill',
+    id: 'room_bill',
     label: 'Room bill'
   },
   {
-    value: 'credit-card-on-delivery',
+    id: 'credit_card_on_delivery',
     label: 'Credit card on delivery'
   },
   {
-    value: 'cash-on-delivery',
+    id: 'cash_on_delivery',
     label: 'Cash on delivery'
   }
 ]
-const paymentOptionValues = paymentOptions.map(option => option.value)
+const paymentOptionIds = paymentOptions.map(option => option.id)
 
 const flashNotifications: FlashNotificationData[] = [
   {
@@ -182,6 +230,9 @@ storiesOf('Icons', module)
   ))
   .add('plus', () => (
     <SvgIcon height={48} width={48} fill="#fff" stroke="#fff" strokeWidth={1} iconData={icons.plus} />
+  ))
+  .add('check', () => (
+    <SvgIcon height={48} width={48} fill="#fff" iconData={icons.check} />
   ))
 
 storiesOf('Navigation', module)
@@ -251,7 +302,7 @@ storiesOf('Shopping', module)
       <Order
         cart={cart}
         paymentOptions={paymentOptions}
-        selectedPaymentOptionValue={select('Selected Payment Option', paymentOptionValues, paymentOptionValues[0])}
+        selectedPaymentOptionValue={select('Selected Payment Option', paymentOptionIds, paymentOptionIds[0])}
         onChangeSpecialRequest={action('order-special-request-change')}
         onPaymentOptionPress={action('order-payment-option-press')}
         placeOrderButtonPress={action('order-place-order-button-press')}
@@ -318,11 +369,19 @@ storiesOf('Controls', module)
       </ScrollView>
     </KeyboardAvoidingView>
   ))
-  .add('radio group', () => (
-    <RadioGroup
+  .add('single-selection option group', () => (
+    <OptionGroup
       options={paymentOptions}
-      selectedOptionValue={select('Selected Radio Option', paymentOptionValues, paymentOptionValues[0])}
-      onOptionPress={action('radio-group-option-pressed')}
+      selectedOptionIds={[select('Selected Radio Option', paymentOptionIds, paymentOptionIds[0])]}
+      onOptionPress={action('single-selection-option-group-option-pressed')}
+    />
+  ))
+  .add('multiple-selection option group', () => (
+    <OptionGroup
+      allowMultipleSelection
+      options={paymentOptions}
+      selectedOptionIds={array('Selected Checkbox Option IDs', [paymentOptionIds[0]])}
+      onOptionPress={action('multiple-selection-option-group-option-pressed')}
     />
   ))
 

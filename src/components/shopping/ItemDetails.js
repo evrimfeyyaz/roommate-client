@@ -4,11 +4,16 @@ import { View, StyleSheet, ViewPropTypes, ScrollView } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 
-import { Title, PrimaryButton, Stepper, Heading3, Body, SvgIcon, CircularButton, Card } from '../.'
+import { Title, PrimaryButton, Stepper, Heading3, Body, SvgIcon, CircularButton, Card, OptionGroup } from '../.'
 import * as icons from '../../../assets/iconData'
-import type { ShoppingCartItem, ShoppingItem } from '../../types/shopping'
+import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice } from '../../types/shopping'
 import colors from '../../config/colors'
-import { getImageUrlFromItem } from '../../utils/shoppingHelpers'
+import {
+  arrayOfDefaultOptionsFromItem, choiceLabel, getCartItemTotal,
+  getImageUrlFromItem, isChoiceMultipleSelection,
+  optionsArrayFromChoice
+} from '../../utils/shoppingHelpers'
+import type { Option } from '../controls/OptionGroup'
 
 type Props = {
   item: ShoppingItem,
@@ -29,11 +34,30 @@ class ItemDetails extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
+    const selectedOptions = arrayOfDefaultOptionsFromItem(this.props.item)
+
     this.state = {
       cartItem: {
         item: this.props.item,
-        quantity: 1
+        quantity: 1,
+        selectedOptions
       }
+    }
+  }
+
+  onOptionPress = (option: Option) => {
+    const { selectedOptions } = this.state.cartItem
+    const choice = this.props.item.choices.find(c => c.id === option.choiceId)
+    const indexOfOptionInSelectedOptions = selectedOptions.findIndex(o => o.id === option.id)
+
+    if (isChoiceMultipleSelection(choice)) {
+      if (indexOfOptionInSelectedOptions === -1) { // Not selected.
+        this.addOptionToSelectedOptions(option)
+      } else {
+        this.removeIndexFromSelectedOptions(indexOfOptionInSelectedOptions)
+      }
+    } else if (indexOfOptionInSelectedOptions === -1) {
+      this.changeSelectedOption(option)
     }
   }
 
@@ -49,6 +73,76 @@ class ItemDetails extends Component<Props, State> {
 
   onAddButtonPress = () => {
     this.props.onAddButtonPress(this.state.cartItem)
+  }
+
+  addOptionToSelectedOptions(option: Option) {
+    const { selectedOptions } = this.state.cartItem
+
+    this.setState({
+      ...this.state,
+      cartItem: {
+        ...this.state.cartItem,
+        selectedOptions: [...selectedOptions, option.value]
+      }
+    })
+  }
+
+  removeIndexFromSelectedOptions(optionIndex) {
+    const { selectedOptions } = this.state.cartItem
+
+    this.setState({
+      ...this.state,
+      cartItem: {
+        ...this.state.cartItem,
+        selectedOptions: [
+          ...selectedOptions.slice(0, optionIndex),
+          ...selectedOptions.slice(optionIndex + 1)
+        ]
+      }
+    })
+  }
+
+  changeSelectedOption(option: Option) {
+    const { selectedOptions } = this.state.cartItem
+    const choice = this.props.item.choices.find(c => c.id === option.choiceId)
+
+    // Remove the selected option for the choice.
+    const newSelectedOptions = selectedOptions.filter(selectedOption =>
+      !choice.options.some(o => o.id === selectedOption.id))
+
+    // Push the new selection.
+    newSelectedOptions.push(option.value)
+
+    this.setState({
+      ...this.state,
+      cartItem: {
+        ...this.state.cartItem,
+        selectedOptions: newSelectedOptions
+      }
+    })
+  }
+
+  renderChoice(choice: ShoppingItemChoice) {
+    const allowMultipleSelection = isChoiceMultipleSelection(choice)
+    const options = optionsArrayFromChoice(choice)
+
+    // We can get away with supplying all selected option IDs
+    // for the cart item instead of the ones that are relevant
+    // to this specific choice, because the rest of the options
+    // are ignored by the `OptionGroup` control.
+    const { selectedOptions } = this.state.cartItem
+
+    return (
+      <View key={choice.id} style={styles.choiceContainer}>
+        <Heading3 style={styles.choiceTitle}>{choiceLabel(choice)}</Heading3>
+        <OptionGroup
+          allowMultipleSelection={allowMultipleSelection}
+          options={options}
+          selectedOptionIds={selectedOptions.map(o => o.id)}
+          onOptionPress={this.onOptionPress}
+        />
+      </View>
+    )
   }
 
   renderImage() {
@@ -84,6 +178,14 @@ class ItemDetails extends Component<Props, State> {
     )
   }
 
+  renderChoices() {
+    const { item } = this.props
+
+    if (item.choices == null) return null
+
+    return item.choices.map(choice => this.renderChoice(choice))
+  }
+
   render() {
     const {
       style,
@@ -94,7 +196,7 @@ class ItemDetails extends Component<Props, State> {
 
     return (
       <Card style={[styles.container, style]}>
-        <ScrollView centerContent>
+        <ScrollView>
           <View style={styles.imageContainer}>
             {this.renderImage()}
           </View>
@@ -106,14 +208,22 @@ class ItemDetails extends Component<Props, State> {
             </View>
             <Body style={styles.description}>{description}</Body>
 
+            <View style={styles.choicesContainer}>
+              {this.renderChoices()}
+            </View>
+
             <View style={styles.quantityContainer}>
-              <Heading3 style={styles.quantityHeading}>Quantity</Heading3>
+              <Heading3>Quantity</Heading3>
               <Stepper
                 value={quantity}
                 minValue={1}
                 onButtonPress={this.onQuantityStepperPress}
                 style={styles.quantityStepper}
               />
+            </View>
+
+            <View style={styles.totalContainer}>
+              <Heading3>Total: {getCartItemTotal(this.state.cartItem)}</Heading3>
             </View>
 
             <PrimaryButton title="Add to Order" onPress={this.onAddButtonPress} style={styles.addButton} />
@@ -167,9 +277,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     opacity: 0.7
   },
-  quantityHeading: {
-    marginTop: 70
-  },
   quantityStepper: {
     marginTop: 7,
     marginBottom: 30
@@ -198,7 +305,21 @@ const styles = StyleSheet.create({
   },
   quantityContainer: {
     alignSelf: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 40
+  },
+  choicesContainer: {
+    marginTop: 40
+  },
+  choiceContainer: {
+    marginBottom: 20
+  },
+  choiceTitle: {
+    marginBottom: 10
+  },
+  totalContainer: {
+    alignItems: 'center',
+    marginBottom: 15
   }
 })
 

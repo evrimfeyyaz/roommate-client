@@ -127,6 +127,18 @@ const getRoomServiceCategoryWithItems = gql`
         image2x
         thumbnail1x
         thumbnail2x
+        choices {
+          id
+          title
+          minimumNumberOfSelections
+          maximumNumberOfSelections
+          defaultOptionId
+          options {
+            id
+            title
+            price
+          }
+        }
       }
     }
   }

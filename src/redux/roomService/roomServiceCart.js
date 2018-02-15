@@ -16,7 +16,7 @@ type RemoveCartItemAction = { type: typeof REMOVE_CART_ITEM, cartItem: ShoppingC
 type ClearCartAction = { type: typeof CLEAR_CART }
 type AdjustCartItemQuantity = { type: typeof ADJUST_CART_ITEM_QUANTITY, cartItem: ShoppingCartItem, quantity: number }
 type UpdateSpecialRequest = { type: typeof UPDATE_SPECIAL_REQUEST, value: string }
-type UpdatePaymentOption = { type: typeof UPDATE_PAYMENT_OPTION, optionValue: string }
+type UpdatePaymentOption = { type: typeof UPDATE_PAYMENT_OPTION, option: string }
 
 export type Action =
   | AddCartItemAction
@@ -52,7 +52,7 @@ export default function reducer(state: State = initialState, action: Action) {
     case UPDATE_PAYMENT_OPTION:
       return {
         ...state,
-        paymentOption: action.optionValue
+        paymentOption: action.option.id
       }
     default:
       return state
@@ -122,8 +122,8 @@ export function updateSpecialRequest(value: string) {
   return { type: UPDATE_SPECIAL_REQUEST, value }
 }
 
-export function updatePaymentOption(optionValue: string) {
-  return { type: UPDATE_PAYMENT_OPTION, optionValue }
+export function updatePaymentOption(option: string) {
+  return { type: UPDATE_PAYMENT_OPTION, option }
 }
 
 // UTILITY FUNCTIONS
