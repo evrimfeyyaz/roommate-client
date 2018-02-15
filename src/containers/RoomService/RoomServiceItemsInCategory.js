@@ -61,8 +61,6 @@ class RoomServiceItemsInCategory extends Component<Props> {
       return <ActivityIndicator />
     }
 
-    console.log(this.props.data)
-
     return (
       <View style={styles.container}>
         <ItemsInCategory

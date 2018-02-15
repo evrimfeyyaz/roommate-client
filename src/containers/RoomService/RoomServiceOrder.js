@@ -7,7 +7,7 @@ import { NavigationActions } from 'react-navigation'
 
 import type { ShoppingCart } from '../../types/shopping'
 import { Order } from '../../components/index'
-import type { RadioOption } from '../../components/controls/OptionGroup'
+import type { Option } from '../../components/controls/OptionGroup'
 import * as RoomServiceCartRedux from '../../redux/roomService/roomServiceCart'
 import * as GlobalActivityIndicatorRedux from '../../redux/globalActivityIndicator'
 import * as FlashNotificationsRedux from '../../redux/flashNotifications'
@@ -16,13 +16,13 @@ import type { FlashNotificationData } from '../../components/misc/FlashNotificat
 import { getCurrentTimestampString } from '../../utils/timeUtils'
 
 type DispatchProps = {
-  updatePaymentOption: (optionId: string) => void,
+  updatePaymentOption: (option: string) => void,
   updateSpecialRequest: (value: string) => void,
   clearRoomServiceCart: () => void,
   showActivityIndicator: (message: string) => void,
   hideActivityIndicatorWithDelay: () => void,
   flashNotification: (notification: FlashNotificationData) => void,
-  navigateToRoomServiceScreen: () => void,
+  navigateToRoomServiceScreen: () => void
 }
 
 type Props = {
@@ -30,7 +30,7 @@ type Props = {
   mutate: Function
 } & DispatchProps
 
-const paymentOptions: RadioOption[] = [
+const paymentOptions: Option[] = [
   {
     id: 'room_bill',
     label: 'Room bill'
@@ -114,7 +114,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updatePaymentOption: (optionId: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(optionId)),
+  updatePaymentOption: (option: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(option)),
   updateSpecialRequest: (value: string) => dispatch(RoomServiceCartRedux.updateSpecialRequest(value)),
   clearRoomServiceCart: () => dispatch(RoomServiceCartRedux.clearCart()),
   showActivityIndicator: (message: string) => dispatch(GlobalActivityIndicatorRedux.showActivityIndicator(message)),
@@ -133,6 +133,11 @@ const createRoomServiceOrder = gql`
       cartItems {
         id
         quantity
+        selectedOptions {
+          id
+          title
+          price
+        }
         item {
           id
         }

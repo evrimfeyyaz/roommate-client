@@ -63,7 +63,8 @@ export function isCartEmpty(cart: ShoppingCart) {
 export function cartToOrderArgument(cart: ShoppingCart) {
   const cartItemArguments = getCartItemsArray(cart).map(cartItem => ({
     itemId: cartItem.item.id,
-    quantity: cartItem.quantity
+    quantity: cartItem.quantity,
+    selectedOptionIds: cartItem.selectedOptions.map(o => o.id)
   }))
 
   return {
