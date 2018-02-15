@@ -4,9 +4,10 @@ import { View, ScrollView, StyleSheet, Text, KeyboardAvoidingView } from 'react-
 
 import { Heading, Body, TextField, Heading3, OptionGroup, PrimaryButton } from '../.'
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
-import { getCartItemsArray, getCartItemTotal, getCartTotal } from '../../utils/shoppingHelpers'
+import { getCartItemsArray} from '../../utils/shopping/cartHelpers'
 import colors from '../../config/colors'
 import type { Option } from '../controls/OptionGroup'
+import { getCartItemTotal, getCartTotal } from '../../utils/shopping/cartHelpers'
 
 type Props = {
   cart: ShoppingCart,

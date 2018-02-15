@@ -9,11 +9,14 @@ import * as icons from '../../../assets/iconData'
 import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice } from '../../types/shopping'
 import colors from '../../config/colors'
 import {
-  arrayOfDefaultOptionsFromItem, choiceLabel, getCartItemTotal,
-  getImageUrlFromItem, isChoiceMultipleSelection,
-  optionsArrayFromChoice
-} from '../../utils/shoppingHelpers'
+  arrayOfDefaultOptionsFromItem} from '../../utils/shopping/choiceAndOptionHelpers'
 import type { Option } from '../controls/OptionGroup'
+import { getCartItemTotal } from '../../utils/shopping/cartHelpers'
+import { getImageUrlFromItem } from '../../utils/shopping/itemHelpers'
+import {
+  choiceLabel, isChoiceMultipleSelection,
+  optionsArrayFromChoice
+} from '../../utils/shopping/choiceAndOptionHelpers'
 
 type Props = {
   item: ShoppingItem,
