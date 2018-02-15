@@ -35,7 +35,7 @@ export type ShoppingCartItem = {
   id: string,
   item: ShoppingItem,
   quantity: number,
-  selectedOptionIds: [string]
+  selectedOptions: ?ShoppingItemChoiceOption[]
 }
 
 export type ShoppingCart = {

@@ -9,7 +9,7 @@ import * as icons from '../../../assets/iconData'
 import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice } from '../../types/shopping'
 import colors from '../../config/colors'
 import {
-  arrayOfDefaultOptionIdsFromItem, choiceLabel,
+  arrayOfDefaultOptionsFromItem, choiceLabel, getCartItemTotal,
   getImageUrlFromItem, isChoiceMultipleSelection,
   optionsArrayFromChoice
 } from '../../utils/shoppingHelpers'
@@ -34,32 +34,30 @@ class ItemDetails extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
-    const selectedOptionIds = arrayOfDefaultOptionIdsFromItem(this.props.item)
+    const selectedOptions = arrayOfDefaultOptionsFromItem(this.props.item)
 
     this.state = {
       cartItem: {
         item: this.props.item,
         quantity: 1,
-        selectedOptionIds
+        selectedOptions
       }
     }
   }
 
   onOptionPress = (option: Option) => {
-    const { selectedOptionIds } = this.state.cartItem
+    const { selectedOptions } = this.state.cartItem
     const choice = this.props.item.choices.find(c => c.id === option.choiceId)
-    const indexOfOptionInSelectedOptions = selectedOptionIds.indexOf(option.id)
+    const indexOfOptionInSelectedOptions = selectedOptions.findIndex(o => o.id === option.id)
 
     if (isChoiceMultipleSelection(choice)) {
       if (indexOfOptionInSelectedOptions === -1) { // Not selected.
-        return this.addOptionToSelectedOptions(option)
+        this.addOptionToSelectedOptions(option)
+      } else {
+        this.removeIndexFromSelectedOptions(indexOfOptionInSelectedOptions)
       }
-
-      return this.removeIndexFromSelectedOptions(indexOfOptionInSelectedOptions)
-    }
-
-    if (indexOfOptionInSelectedOptions === -1) {
-      return this.changeSelectedOption(option)
+    } else if (indexOfOptionInSelectedOptions === -1) {
+      this.changeSelectedOption(option)
     }
   }
 
@@ -78,49 +76,48 @@ class ItemDetails extends Component<Props, State> {
   }
 
   addOptionToSelectedOptions(option: Option) {
-    const { selectedOptionIds } = this.state.cartItem
+    const { selectedOptions } = this.state.cartItem
 
     this.setState({
       ...this.state,
       cartItem: {
         ...this.state.cartItem,
-        selectedOptionIds: [...selectedOptionIds, option.id]
+        selectedOptions: [...selectedOptions, option.value]
       }
     })
   }
 
   removeIndexFromSelectedOptions(optionIndex) {
-    const { selectedOptionIds } = this.state.cartItem
+    const { selectedOptions } = this.state.cartItem
 
     this.setState({
       ...this.state,
       cartItem: {
         ...this.state.cartItem,
-        selectedOptionIds: [
-          ...selectedOptionIds.slice(0, optionIndex),
-          ...selectedOptionIds.slice(optionIndex + 1)
+        selectedOptions: [
+          ...selectedOptions.slice(0, optionIndex),
+          ...selectedOptions.slice(optionIndex + 1)
         ]
       }
     })
   }
 
   changeSelectedOption(option: Option) {
-    const { selectedOptionIds } = this.state.cartItem
-    const { options: allOptionsForChoice } = this.props.item.choices.find(choice => choice.id === option.choiceId)
-    const optionIdsForChoice = allOptionsForChoice.map(o => o.id)
+    const { selectedOptions } = this.state.cartItem
+    const choice = this.props.item.choices.find(c => c.id === option.choiceId)
 
     // Remove the selected option for the choice.
-    const newSelectedOptionIds = selectedOptionIds.filter(selectedOptionId =>
-      !optionIdsForChoice.includes(selectedOptionId))
+    const newSelectedOptions = selectedOptions.filter(selectedOption =>
+      !choice.options.some(o => o.id === selectedOption.id))
 
     // Push the new selection.
-    newSelectedOptionIds.push(option.id)
+    newSelectedOptions.push(option.value)
 
     this.setState({
       ...this.state,
       cartItem: {
         ...this.state.cartItem,
-        selectedOptionIds: newSelectedOptionIds
+        selectedOptions: newSelectedOptions
       }
     })
   }
@@ -133,7 +130,7 @@ class ItemDetails extends Component<Props, State> {
     // for the cart item instead of the ones that are relevant
     // to this specific choice, because the rest of the options
     // are ignored by the `OptionGroup` control.
-    const { selectedOptionIds } = this.state.cartItem
+    const { selectedOptions } = this.state.cartItem
 
     return (
       <View key={choice.id} style={styles.choiceContainer}>
@@ -141,9 +138,8 @@ class ItemDetails extends Component<Props, State> {
         <OptionGroup
           allowMultipleSelection={allowMultipleSelection}
           options={options}
-          selectedOptionIds={selectedOptionIds}
+          selectedOptionIds={selectedOptions.map(o => o.id)}
           onOptionPress={this.onOptionPress}
-          style={styles.optionGroup}
         />
       </View>
     )
@@ -217,13 +213,17 @@ class ItemDetails extends Component<Props, State> {
             </View>
 
             <View style={styles.quantityContainer}>
-              <Heading3 style={styles.quantityHeading}>Quantity</Heading3>
+              <Heading3>Quantity</Heading3>
               <Stepper
                 value={quantity}
                 minValue={1}
                 onButtonPress={this.onQuantityStepperPress}
                 style={styles.quantityStepper}
               />
+            </View>
+
+            <View style={styles.totalContainer}>
+              <Heading3>Total: {getCartItemTotal(this.state.cartItem)}</Heading3>
             </View>
 
             <PrimaryButton title="Add to Order" onPress={this.onAddButtonPress} style={styles.addButton} />
@@ -277,9 +277,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     opacity: 0.7
   },
-  quantityHeading: {
-    marginTop: 70
-  },
   quantityStepper: {
     marginTop: 7,
     marginBottom: 30
@@ -308,7 +305,8 @@ const styles = StyleSheet.create({
   },
   quantityContainer: {
     alignSelf: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 40
   },
   choicesContainer: {
     marginTop: 40
@@ -318,6 +316,10 @@ const styles = StyleSheet.create({
   },
   choiceTitle: {
     marginBottom: 10
+  },
+  totalContainer: {
+    alignItems: 'center',
+    marginBottom: 15
   }
 })
 

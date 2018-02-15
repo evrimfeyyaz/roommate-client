@@ -12,7 +12,12 @@ const OPTION_SIZE = 18
 export type Option = {
   id: string,
   label: string,
-  choiceId: string
+  choiceId: string,
+  /**
+   * Contains the actual option object. For example,
+   * a shopping item choice option.
+   */
+  value?: any
 }
 
 type Props = {

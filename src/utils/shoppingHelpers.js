@@ -3,7 +3,16 @@ import type { ShoppingCart, ShoppingCartItem, ShoppingItem, ShoppingItemChoice }
 import type { Option } from '../components/controls/OptionGroup'
 
 export function getCartItemTotal(cartItem: ShoppingCartItem) {
-  return cartItem.item.price * cartItem.quantity
+  // TODO: We need to use some kind of a decimal implementation for the price.
+  const optionsTotal = cartItem.selectedOptions.reduce((total, option) => {
+    if (option.price == null) {
+      return total
+    }
+
+    return total + option.price
+  }, 0)
+
+  return (+cartItem.item.price + optionsTotal) * cartItem.quantity
 }
 
 export function getCartTotal(cart: ShoppingCart) {
@@ -127,7 +136,7 @@ export function choiceLabel(choice: ShoppingItemChoice) {
  * for use in `OptionGroup`s.
  *
  * @param choice
- * @returns {{id: string, label: string}[]}
+ * @returns {Option[]}
  */
 export function optionsArrayFromChoice(choice: ShoppingItemChoice): Option[] {
   return choice.options.map((option) => {
@@ -139,18 +148,25 @@ export function optionsArrayFromChoice(choice: ShoppingItemChoice): Option[] {
 
     return {
       id: option.id,
+      label,
       choiceId: choice.id,
-      label
+      value: option
     }
   })
 }
 
-export function arrayOfDefaultOptionIdsFromItem(item: ShoppingItem) {
-  return item.choices.reduce((arrayOfIds, choice) => {
+export function findOptionById(id: string, choice: ShoppingItemChoice) {
+  return choice.options.find(option => option.id === id)
+}
+
+export function arrayOfDefaultOptionsFromItem(item: ShoppingItem) {
+  return item.choices.reduce((arrayOfOptions, choice) => {
     if (choice.defaultOptionId != null) {
-      arrayOfIds.push(choice.defaultOptionId)
+      const defaultOption = findOptionById(choice.defaultOptionId, choice)
+
+      arrayOfOptions.push(defaultOption)
     }
 
-    return arrayOfIds
+    return arrayOfOptions
   }, [])
 }
