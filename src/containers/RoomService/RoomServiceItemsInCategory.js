@@ -137,6 +137,7 @@ const getRoomServiceCategoryWithItems = gql`
             id
             title
             price
+            choiceId
           }
         }
       }
