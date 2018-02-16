@@ -20,14 +20,16 @@ export function validateSelectedOptions(cartItem: ShoppingCartItem): ValidationE
       selectedOptionsByChoiceId[choice.id] = []
     }
 
+    const { minimumNumberOfSelections: minimum, maximumNumberOfSelections: maximum } = choice
+
     errors[choice.id] = []
     const numOfSelections = selectedOptionsByChoiceId[choice.id].length
 
-    if (numOfSelections < choice.minimumNumberOfSelections) {
+    if (minimum != null && numOfSelections < minimum) {
       errors[choice.id].push(LESS_THAN_MINIMUM)
     }
 
-    if (numOfSelections > choice.maximumNumberOfSelections) {
+    if (maximum != null && numOfSelections > maximum) {
       errors[choice.id].push(MORE_THAN_MAXIMUM)
     }
   })
