@@ -75,13 +75,13 @@ const toppingsChoice: ShoppingItemChoice = {
   title: 'Toppings',
   defaultOptionId: 'topping-1',
   options: [
-    { id: 'topping-1', title: 'Mango Salsa', price: '0.500' },
-    { id: 'topping-2', title: 'Guacamole', price: '0.700' },
-    { id: 'topping-3', title: 'Lime' },
-    { id: 'topping-4', title: 'Crushed Nachos' },
-    { id: 'topping-5', title: 'Cheese' },
-    { id: 'topping-6', title: 'Sour Cream' },
-    { id: 'topping-7', title: 'Jalapenos' }
+    { id: 'topping-1', title: 'Mango Salsa', price: '0.500', choiceId: 'toppings-choice-id' },
+    { id: 'topping-2', title: 'Guacamole', price: '0.700', choiceId: 'toppings-choice-id' },
+    { id: 'topping-3', title: 'Lime', choiceId: 'toppings-choice-id' },
+    { id: 'topping-4', title: 'Crushed Nachos', choiceId: 'toppings-choice-id' },
+    { id: 'topping-5', title: 'Cheese', choiceId: 'toppings-choice-id' },
+    { id: 'topping-6', title: 'Sour Cream', choiceId: 'toppings-choice-id' },
+    { id: 'topping-7', title: 'Jalapenos', choiceId: 'toppings-choice-id' }
   ]
 }
 
@@ -92,10 +92,10 @@ const sauceChoice: ShoppingItemChoice = {
   maximumNumberOfSelections: 1,
   defaultOptionId: 'sauce-1',
   options: [
-    { id: 'sauce-1', title: 'No Sauce' },
-    { id: 'sauce-2', title: 'Lime Yogurt' },
-    { id: 'sauce-3', title: 'Chile Con Queso' },
-    { id: 'sauce-4', title: 'Spicy Chipotle' }
+    { id: 'sauce-1', title: 'No Sauce', choiceId: 'sauce-choice-id' },
+    { id: 'sauce-2', title: 'Lime Yogurt', choiceId: 'sauce-choice-id' },
+    { id: 'sauce-3', title: 'Chile Con Queso', choiceId: 'sauce-choice-id' },
+    { id: 'sauce-4', title: 'Spicy Chipotle', choiceId: 'sauce-choice-id' }
   ]
 }
 
@@ -105,13 +105,13 @@ const extrasChoice: ShoppingItemChoice = {
   minimumNumberOfSelections: 1,
   maximumNumberOfSelections: 5,
   options: [
-    { id: 'extra-1', title: 'Mango Salsa', price: '0.500' },
-    { id: 'extra-2', title: 'Guacamole', price: '0.700' },
-    { id: 'extra-3', title: 'Lime' },
-    { id: 'extra-4', title: 'Crushed Nachos' },
-    { id: 'extra-5', title: 'Cheese' },
-    { id: 'extra-6', title: 'Sour Cream' },
-    { id: 'extra-7', title: 'Jalapenos' }
+    { id: 'extra-1', title: 'Mango Salsa', price: '0.500', choiceId: 'extras-choice-id' },
+    { id: 'extra-2', title: 'Guacamole', price: '0.700', choiceId: 'extras-choice-id'  },
+    { id: 'extra-3', title: 'Lime', choiceId: 'extras-choice-id'  },
+    { id: 'extra-4', title: 'Crushed Nachos', choiceId: 'extras-choice-id'  },
+    { id: 'extra-5', title: 'Cheese', choiceId: 'extras-choice-id'  },
+    { id: 'extra-6', title: 'Sour Cream', choiceId: 'extras-choice-id'  },
+    { id: 'extra-7', title: 'Jalapenos', choiceId: 'extras-choice-id'  }
   ]
 }
 

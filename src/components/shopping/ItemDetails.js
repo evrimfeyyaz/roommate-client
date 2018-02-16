@@ -3,17 +3,23 @@ import React, { Component, Fragment } from 'react'
 import { View, StyleSheet, ViewPropTypes, ScrollView } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
+import _ from 'lodash'
 
 import { Title, PrimaryButton, Stepper, Heading3, Body, SvgIcon, CircularButton, Card, OptionGroup } from '../.'
 import * as icons from '../../../assets/iconData'
 import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice } from '../../types/shopping'
 import colors from '../../config/colors'
-import {
-  arrayOfDefaultOptionsFromItem, choiceLabel, getCartItemTotal,
-  getImageUrlFromItem, isChoiceMultipleSelection,
-  optionsArrayFromChoice
-} from '../../utils/shoppingHelpers'
 import type { Option } from '../controls/OptionGroup'
+import { getCartItemTotal } from '../../utils/shopping/cartHelpers'
+import { getImageUrlFromItem } from '../../utils/shopping/itemHelpers'
+import {
+  choiceLabel,
+  isChoiceMultipleSelection,
+  optionsArrayFromChoice,
+  arrayOfDefaultOptionsFromItem
+} from '../../utils/shopping/choiceAndOptionHelpers'
+import { getErrorMessages, validateSelectedOptions } from '../../utils/shopping/cartItemValidationHelpers'
+import type { ValidationErrorsByChoiceId } from '../../utils/shopping/cartItemValidationHelpers'
 
 type Props = {
   item: ShoppingItem,
@@ -23,10 +29,19 @@ type Props = {
 }
 
 type State = {
-  cartItem: ShoppingCartItem
+  cartItem: ShoppingCartItem,
+  validationErrors: ValidationErrorsByChoiceId,
+  /**
+   * X and y coordinates of the top element with a validation error.
+   * Used for scrolling to the top element with error for an improved
+   * user experience.
+   */
+  topComponentWithErrorPosition: { x: number, y: number }
 }
 
 class ItemDetails extends Component<Props, State> {
+  // TODO: This file has gotten too big. Take out stuff that are rendered, such as choices, into files of their own.
+
   static defaultProps = {
     style: null
   }
@@ -41,13 +56,27 @@ class ItemDetails extends Component<Props, State> {
         item: this.props.item,
         quantity: 1,
         selectedOptions
-      }
+      },
+      validationErrors: {},
+      topComponentWithErrorPosition: { x: 0, y: -Infinity }
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.choiceContainersWithError.length > 0) {
+      const topContainerWithError = this.choiceContainersWithError[0]
+
+      console.log(this.choiceContainersWithError)
+
+      topContainerWithError.measure((x, y) => {
+        this.mainScrollView.scrollTo({ x, y, animated: true })
+      })
     }
   }
 
   onOptionPress = (option: Option) => {
     const { selectedOptions } = this.state.cartItem
-    const choice = this.props.item.choices.find(c => c.id === option.choiceId)
+    const choice = this.props.item.choices.find(c => c.id === option.value.choiceId)
     const indexOfOptionInSelectedOptions = selectedOptions.findIndex(o => o.id === option.id)
 
     if (isChoiceMultipleSelection(choice)) {
@@ -72,7 +101,20 @@ class ItemDetails extends Component<Props, State> {
   }
 
   onAddButtonPress = () => {
-    this.props.onAddButtonPress(this.state.cartItem)
+    // TODO: Probably better as a part of the state.
+    this.choiceContainersWithError = undefined
+
+    this.setState({
+      ...this.state,
+      validationErrors: validateSelectedOptions(this.state.cartItem),
+      topComponentWithErrorPosition: { x: 0, y: -Infinity }
+    }, () => {
+      if (this.hasValidationErrors()) {
+        return
+      }
+
+      this.props.onAddButtonPress(this.state.cartItem)
+    })
   }
 
   addOptionToSelectedOptions(option: Option) {
@@ -104,7 +146,7 @@ class ItemDetails extends Component<Props, State> {
 
   changeSelectedOption(option: Option) {
     const { selectedOptions } = this.state.cartItem
-    const choice = this.props.item.choices.find(c => c.id === option.choiceId)
+    const choice = this.props.item.choices.find(c => c.id === option.value.choiceId)
 
     // Remove the selected option for the choice.
     const newSelectedOptions = selectedOptions.filter(selectedOption =>
@@ -122,6 +164,46 @@ class ItemDetails extends Component<Props, State> {
     })
   }
 
+  saveRefToChoiceContainerWithError = (choiceContainer: React.Component, choice: ShoppingItemChoice) => {
+    if (!this.doesChoiceHaveError(choice)) {
+      return
+    }
+
+    if (choiceContainer == null) {
+      return
+    }
+
+    this.choiceContainersWithError.push(choiceContainer)
+  }
+
+  doesChoiceHaveError = choice => _.has(this.state.validationErrors, choice.id)
+
+  hasValidationErrors = () => _.keys(this.state.validationErrors).length > 0
+
+  renderErrorMessage(errorMessage: string, choice: ShoppingItemChoice) {
+    const key = `${choice.id}_${errorMessage}`
+
+    return (
+      <Body style={styles.validationErrorMessage} key={key}>
+      {errorMessage}
+      </Body>
+    )
+  }
+
+  renderValidationErrorMessage(choice: ShoppingItemChoice) {
+    if (this.doesChoiceHaveError(choice)) {
+      const errorMessages = getErrorMessages(this.state.validationErrors[choice.id], choice)
+
+      return (
+        <View style={styles.validationErrorContainer}>
+          {errorMessages.map(m => this.renderErrorMessage(m, choice))}
+        </View>
+      )
+    }
+
+    return null
+  }
+
   renderChoice(choice: ShoppingItemChoice) {
     const allowMultipleSelection = isChoiceMultipleSelection(choice)
     const options = optionsArrayFromChoice(choice)
@@ -133,8 +215,13 @@ class ItemDetails extends Component<Props, State> {
     const { selectedOptions } = this.state.cartItem
 
     return (
-      <View key={choice.id} style={styles.choiceContainer}>
+      <View
+        key={choice.id}
+        style={styles.choiceContainer}
+        ref={choiceContainer => this.saveRefToChoiceContainerWithError(choiceContainer, choice)}
+      >
         <Heading3 style={styles.choiceTitle}>{choiceLabel(choice)}</Heading3>
+        {this.renderValidationErrorMessage(choice)}
         <OptionGroup
           allowMultipleSelection={allowMultipleSelection}
           options={options}
@@ -183,6 +270,8 @@ class ItemDetails extends Component<Props, State> {
 
     if (item.choices == null) return null
 
+    this.choiceContainersWithError = []
+
     return item.choices.map(choice => this.renderChoice(choice))
   }
 
@@ -196,7 +285,11 @@ class ItemDetails extends Component<Props, State> {
 
     return (
       <Card style={[styles.container, style]}>
-        <ScrollView>
+        <ScrollView
+          ref={(mainScrollView) => {
+            this.mainScrollView = mainScrollView
+          }}
+        >
           <View style={styles.imageContainer}>
             {this.renderImage()}
           </View>
@@ -320,6 +413,12 @@ const styles = StyleSheet.create({
   totalContainer: {
     alignItems: 'center',
     marginBottom: 15
+  },
+  validationErrorContainer: {
+    marginBottom: 15
+  },
+  validationErrorMessage: {
+    color: colors.validationErrorMessage
   }
 })
 

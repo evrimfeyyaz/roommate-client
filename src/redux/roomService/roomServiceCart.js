@@ -1,6 +1,6 @@
 // @flow
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
-import { generateTemporaryIdForCartItem } from '../../utils/shoppingHelpers'
+import { generateTemporaryIdForCartItem } from '../../utils/shopping/cartHelpers'
 
 const ADD_CART_ITEM = 'roommate/roomServiceCart/ADD_CART_ITEM'
 const REMOVE_CART_ITEM = 'roommate/roomServiceCart/REMOVE_CART_ITEM'

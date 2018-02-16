@@ -14,7 +14,8 @@ import {
 import * as iconData from '../../../assets/iconData'
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 import colors from '../../config/colors'
-import { getCartItemsArray, getCartItemTotal, getCartTotal, isCartEmpty } from '../../utils/shoppingHelpers'
+import { isCartEmpty } from '../../utils/shopping/cartHelpers'
+import { getCartItemsArray, getCartItemTotal, getCartTotal } from '../../utils/shopping/cartHelpers'
 
 type Props = {
   cart: ShoppingCart,

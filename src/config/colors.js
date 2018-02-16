@@ -54,7 +54,9 @@ const colors = {
 
   itemCardGradientColors: ['rgba(36, 43, 55, 0)', 'rgba(37, 37, 42, 1)'],
 
-  itemDetailImageGradientColors: ['rgba(35, 42, 54, 0)', 'rgba(35, 42, 54, 1)', 'rgba(35, 42, 54, 0)']
+  itemDetailImageGradientColors: ['rgba(35, 42, 54, 0)', 'rgba(35, 42, 54, 1)', 'rgba(35, 42, 54, 0)'],
+
+  validationErrorMessage: '#ed2a44'
 }
 
 export default colors

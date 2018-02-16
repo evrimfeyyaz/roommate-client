@@ -8,7 +8,7 @@ import { Heading2, Heading3, Card, SvgIcon } from '../.'
 import colors from '../../config/colors'
 import * as icons from '../../../assets/iconData'
 import type { ShoppingItem } from '../../types/shopping'
-import { getThumbnailUrlFromItem } from '../../utils/shoppingHelpers'
+import { getThumbnailUrlFromItem } from '../../utils/shopping/itemHelpers'
 
 type Props = {
   item: ShoppingItem,

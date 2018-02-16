@@ -11,7 +11,7 @@ import * as RoomServiceScreenRedux from '../../redux/roomService/roomServiceScre
 import * as RoomServiceCartRedux from '../../redux/roomService/roomServiceCart'
 import type { ShoppingCartItem, ShoppingCategory, ShoppingItem } from '../../types/shopping'
 import type { ApolloDataObject } from '../../types/apollo'
-import { isCartEmpty } from '../../utils/shoppingHelpers'
+import { isCartEmpty } from '../../utils/shopping/cartHelpers'
 
 type DispatchProps = {
   showRoomServiceItem: (item: ShoppingItem) => void,
@@ -137,6 +137,7 @@ const getRoomServiceCategoryWithItems = gql`
             id
             title
             price
+            choiceId
           }
         }
       }

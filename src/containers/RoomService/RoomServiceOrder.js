@@ -11,7 +11,7 @@ import type { Option } from '../../components/controls/OptionGroup'
 import * as RoomServiceCartRedux from '../../redux/roomService/roomServiceCart'
 import * as GlobalActivityIndicatorRedux from '../../redux/globalActivityIndicator'
 import * as FlashNotificationsRedux from '../../redux/flashNotifications'
-import { cartToOrderArgument } from '../../utils/shoppingHelpers'
+import { cartToOrderArgument } from '../../utils/shopping/cartHelpers'
 import type { FlashNotificationData } from '../../components/misc/FlashNotification'
 import { getCurrentTimestampString } from '../../utils/timeUtils'
 
