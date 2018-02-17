@@ -1,4 +1,6 @@
 // @flow
+import _ from 'lodash'
+
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 
 export function getCartItemTotal(cartItem: ShoppingCartItem) {
@@ -66,7 +68,7 @@ export function cartToOrderArgument(cart: ShoppingCart) {
   const cartItemArguments = getCartItemsArray(cart).map(cartItem => ({
     itemId: cartItem.item.id,
     quantity: cartItem.quantity,
-    selectedOptionIds: cartItem.selectedOptionsContainer.map(o => o.id)
+    selectedOptionIds: _.map(cartItem.selectedOptions, (o => o.id))
   }))
 
   return {
