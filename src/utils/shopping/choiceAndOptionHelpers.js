@@ -1,5 +1,5 @@
 // @flow
-import type { ShoppingItem, ShoppingItemChoice } from '../../types/shopping'
+import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice } from '../../types/shopping'
 import type { Option } from '../../components/controls/OptionGroup'
 
 export function isChoiceMultipleSelection(choice: ShoppingItemChoice) {
@@ -80,4 +80,8 @@ export function arrayOfDefaultOptionsFromItem(item: ShoppingItem) {
 
     return arrayOfOptions
   }, [])
+}
+
+export function selectedOptionNamesString(cartItem: ShoppingCartItem) {
+  return cartItem.selectedOptions.map(o => o.title).join(', ')
 }

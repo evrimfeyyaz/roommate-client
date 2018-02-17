@@ -4,7 +4,7 @@ import { View, ScrollView, StyleSheet, Text, KeyboardAvoidingView } from 'react-
 
 import { Heading, Body, TextField, Heading3, OptionGroup, PrimaryButton } from '../.'
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
-import { getCartItemsArray} from '../../utils/shopping/cartHelpers'
+import { getCartItemsArray } from '../../utils/shopping/cartHelpers'
 import colors from '../../config/colors'
 import type { Option } from '../controls/OptionGroup'
 import { getCartItemTotal, getCartTotal } from '../../utils/shopping/cartHelpers'
@@ -27,7 +27,7 @@ class Order extends Component<Props> {
       <View style={styles.itemContainer} key={id}>
         <View style={styles.itemTopRowContainer}>
           <Body style={styles.itemTitle}>
-          <Text style={styles.quantity}>{quantity}x</Text>&nbsp;&nbsp;&nbsp;{title}
+            <Text style={styles.quantity}>{quantity}x</Text>&nbsp;&nbsp;&nbsp;{title}
           </Body>
           <Body style={styles.itemPrice}>{total}</Body>
         </View>

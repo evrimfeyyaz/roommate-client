@@ -6,6 +6,7 @@ import {
   Card,
   Heading,
   Heading2,
+  Heading3,
   CircularButton,
   Stepper,
   PrimaryButton,
@@ -14,8 +15,8 @@ import {
 import * as iconData from '../../../assets/iconData'
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 import colors from '../../config/colors'
-import { isCartEmpty } from '../../utils/shopping/cartHelpers'
-import { getCartItemsArray, getCartItemTotal, getCartTotal } from '../../utils/shopping/cartHelpers'
+import { getCartItemsArray, getCartItemTotal, getCartTotal, isCartEmpty } from '../../utils/shopping/cartHelpers'
+import { selectedOptionNamesString } from '../../utils/shopping/choiceAndOptionHelpers'
 
 type Props = {
   cart: ShoppingCart,
@@ -31,9 +32,8 @@ type Props = {
    * Fired when the user presses either the increment or the decrement
    * button for a cart item.
    *
-   * Takes three arguments:
-   * - cartItem: Referenced ShoppingCartItem.
-   * - newValue: New selectedOptionIds that the stepper should have after button press.
+   * @param cartItem: Referenced ShoppingCartItem.
+   * @param newValue: New quantity that the cart item should have after button press.
    */
   onQuantityStepperPress: (cartItem: ShoppingCartItem, newValue: number) => void,
   /**
@@ -54,6 +54,9 @@ class Cart extends Component<Props> {
         <View style={styles.itemTopRowContainer}>
           <Heading2 style={styles.itemTitle}>{title}</Heading2>
           <Heading2 style={styles.itemPrice}>{total}</Heading2>
+        </View>
+        <View style={styles.selectedOptionsContainer}>
+          <Heading3>{selectedOptionNamesString(cartItem)}</Heading3>
         </View>
         <View style={styles.itemBottomRowContainer}>
           <Stepper
