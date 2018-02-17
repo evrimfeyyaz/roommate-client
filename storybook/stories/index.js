@@ -31,11 +31,11 @@ import {
   LoadingView,
   FlashNotification,
   FlashNotificationList,
-  CheckboxGroup
+  ItemTags
 } from '../../src/components'
 import * as icons from '../../assets/iconData'
 import type { SideMenuRoute } from '../../src/components/navigation/SideMenu'
-import type { ShoppingCart, ShoppingItem, ShoppingItemChoice } from '../../src/types/shopping'
+import type { ShoppingCart, ShoppingItem, ShoppingItemChoice, ShoppingItemTag } from '../../src/types/shopping'
 import type { Option } from '../../src/components/controls/OptionGroup'
 import type { FlashNotificationData } from '../../src/components/misc/FlashNotification'
 
@@ -106,13 +106,23 @@ const extrasChoice: ShoppingItemChoice = {
   maximumNumberOfSelections: 5,
   options: [
     { id: 'extra-1', title: 'Mango Salsa', price: '0.500', choiceId: 'extras-choice-id' },
-    { id: 'extra-2', title: 'Guacamole', price: '0.700', choiceId: 'extras-choice-id'  },
-    { id: 'extra-3', title: 'Lime', choiceId: 'extras-choice-id'  },
-    { id: 'extra-4', title: 'Crushed Nachos', choiceId: 'extras-choice-id'  },
-    { id: 'extra-5', title: 'Cheese', choiceId: 'extras-choice-id'  },
-    { id: 'extra-6', title: 'Sour Cream', choiceId: 'extras-choice-id'  },
-    { id: 'extra-7', title: 'Jalapenos', choiceId: 'extras-choice-id'  }
+    { id: 'extra-2', title: 'Guacamole', price: '0.700', choiceId: 'extras-choice-id' },
+    { id: 'extra-3', title: 'Lime', choiceId: 'extras-choice-id' },
+    { id: 'extra-4', title: 'Crushed Nachos', choiceId: 'extras-choice-id' },
+    { id: 'extra-5', title: 'Cheese', choiceId: 'extras-choice-id' },
+    { id: 'extra-6', title: 'Sour Cream', choiceId: 'extras-choice-id' },
+    { id: 'extra-7', title: 'Jalapenos', choiceId: 'extras-choice-id' }
   ]
+}
+
+const cerealsTag: ShoppingItemTag = {
+  id: 'cereals-tag-id',
+  title: 'Cereals'
+}
+
+const seafoodTag: ShoppingItemTag = {
+  id: 'seafood-tag-id',
+  title: 'Seafood'
 }
 
 const shoppingItem1: ShoppingItem = {
@@ -121,7 +131,8 @@ const shoppingItem1: ShoppingItem = {
   description: 'Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a ' +
   'side of roasted potatoes, and your choice of toast or croissant.',
   price: '16',
-  choices: [toppingsChoice, sauceChoice, extrasChoice]
+  choices: [toppingsChoice, sauceChoice, extrasChoice],
+  tags: [cerealsTag, seafoodTag]
 }
 
 const shoppingItem2: ShoppingItem = {
@@ -131,6 +142,7 @@ const shoppingItem2: ShoppingItem = {
   'ladyfingers, topped with Valrhona cocoa powder.',
   price: '15',
   choices: [toppingsChoice, sauceChoice, extrasChoice],
+  tags: [cerealsTag, seafoodTag],
   image2x: 'file:///Users/evrimfeyyaz/workspace/roommate_client/assets/sample_images/baked-dijon-salmon.jpg',
   thumbnail2x:
     'file:///Users/evrimfeyyaz/workspace/roommate_client/assets/sample_images/smoked-salmon-eggs-benedict-thumbnail.jpg'
@@ -308,6 +320,9 @@ storiesOf('Shopping', module)
         placeOrderButtonPress={action('order-place-order-button-press')}
       />
     </View>
+  ))
+  .add('item tags', () => (
+    <ItemTags item={shoppingItem1} />
   ))
 
 

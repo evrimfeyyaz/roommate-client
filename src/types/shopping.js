@@ -13,7 +13,8 @@ export type ShoppingItem = {
   image2x?: ?string,
   thumbnail1x?: ?string,
   thumbnail2x?: ?string,
-  choices?: ?ShoppingItemChoice[]
+  choices: ShoppingItemChoice[],
+  tags: ShoppingItemTag[]
 }
 
 export type ShoppingItemChoice = {
@@ -37,6 +38,11 @@ export type ShoppingCartItem = {
   item: ShoppingItem,
   quantity: number,
   selectedOptions: ?ShoppingItemChoiceOption[]
+}
+
+export type ShoppingItemTag = {
+  id: string,
+  title: string
 }
 
 export type ShoppingCart = {

@@ -140,6 +140,10 @@ const getRoomServiceCategoryWithItems = gql`
             choiceId
           }
         }
+        tags {
+          id
+          title
+        }
       }
     }
   }
