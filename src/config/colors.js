@@ -56,7 +56,9 @@ const colors = {
 
   itemDetailImageGradientColors: ['rgba(35, 42, 54, 0)', 'rgba(35, 42, 54, 1)', 'rgba(35, 42, 54, 0)'],
 
-  validationErrorMessage: '#ed2a44'
+  validationErrorMessage: '#ed2a44',
+
+  tag: '#2B3341'
 }
 
 export default colors

@@ -27,6 +27,7 @@ export { default as ItemsInCategory } from './shopping/ItemsInCategory'
 export { default as ItemDetails } from './shopping/ItemDetails'
 export { default as Cart } from './shopping/Cart'
 export { default as Order } from './shopping/Order'
+export { default as ItemTags } from './shopping/ItemTags'
 
 // Misc
 export { default as Card } from './misc/Card'
