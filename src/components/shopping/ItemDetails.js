@@ -5,7 +5,18 @@ import FastImage from 'react-native-fast-image'
 import LinearGradient from 'react-native-linear-gradient'
 import _ from 'lodash'
 
-import { Title, PrimaryButton, Stepper, Heading3, Body, SvgIcon, CircularButton, Card, OptionGroup } from '../.'
+import {
+  Title,
+  PrimaryButton,
+  Stepper,
+  Heading3,
+  Body,
+  SvgIcon,
+  CircularButton,
+  Card,
+  OptionGroup,
+  ItemTags
+} from '../.'
 import * as icons from '../../../assets/iconData'
 import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice, ShoppingItemChoiceOption } from '../../types/shopping'
 import colors from '../../config/colors'
@@ -282,6 +293,7 @@ class ItemDetails extends Component<Props, State> {
     const {
       style,
       onCloseButtonPress,
+      item,
       item: { title, price, description }
     } = this.props
     const { cartItem: { quantity } } = this.state
@@ -302,6 +314,7 @@ class ItemDetails extends Component<Props, State> {
               <Title style={styles.title}>{title}</Title>
               <Title style={styles.price}>{price}</Title>
             </View>
+            <ItemTags item={item} />
             <Body style={styles.description}>{description}</Body>
 
             <View style={styles.choicesContainer}>
@@ -370,7 +383,7 @@ const styles = StyleSheet.create({
   },
   description: {
     width: '100%',
-    marginTop: 10,
+    marginTop: 15,
     opacity: 0.7
   },
   quantityStepper: {
