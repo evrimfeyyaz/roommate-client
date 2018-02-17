@@ -55,6 +55,8 @@ class SecondaryButton extends Component<Props> {
   }
 }
 
+// TODO: This won't be needed after the update to RN 0.54.
+// $FlowFixMe
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(0, 0, 0, 0)',

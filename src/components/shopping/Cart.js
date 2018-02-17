@@ -55,9 +55,7 @@ class Cart extends Component<Props> {
           <Heading2 style={styles.itemTitle}>{title}</Heading2>
           <Heading2 style={styles.itemPrice}>{total}</Heading2>
         </View>
-        <View style={styles.titleAndOptionsContainer}>
-          <Heading3>{selectedOptionNamesString(cartItem)}</Heading3>
-        </View>
+        <Heading3>{selectedOptionNamesString(cartItem)}</Heading3>
         <View style={styles.itemBottomRowContainer}>
           <Stepper
             value={quantity}
@@ -112,6 +110,8 @@ class Cart extends Component<Props> {
   }
 }
 
+// TODO: This won't be needed after the update to RN 0.54.
+// $FlowFixMe
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,

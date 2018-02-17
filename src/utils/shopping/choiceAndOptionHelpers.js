@@ -1,13 +1,9 @@
 // @flow
-import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice } from '../../types/shopping'
+import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice, ShoppingItemChoiceOption } from '../../types/shopping'
 import type { Option } from '../../components/controls/OptionGroup'
 
 export function isChoiceMultipleSelection(choice: ShoppingItemChoice) {
   return choice.maximumNumberOfSelections !== 1
-}
-
-export function isChoiceOptional(choice: ShoppingItemChoice) {
-  return (choice.minimumNumberOfSelections == null && isChoiceMultipleSelection(choice))
 }
 
 /**
@@ -43,9 +39,9 @@ export function choiceLabel(choice: ShoppingItemChoice) {
  * for use in `OptionGroup`s.
  *
  * @param choice
- * @returns {Option[]}
+ * @returns {Option<ShoppingItemChoiceOption>[]}
  */
-export function optionsArrayFromChoice(choice: ShoppingItemChoice): Option[] {
+export function optionsArrayFromChoice(choice: ShoppingItemChoice): Option<ShoppingItemChoiceOption>[] {
   return choice.options.map((option) => {
     let label = option.title
 

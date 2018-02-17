@@ -7,7 +7,7 @@ const LESS_THAN_MINIMUM = 'less-than-minimum'
 const MORE_THAN_MAXIMUM = 'more-than-maximum'
 
 export type ValidationErrorsByChoiceId = {
-  [choiceId: string]: (LESS_THAN_MINIMUM | MORE_THAN_MAXIMUM)[]
+  [choiceId: string]: string[]
 }
 
 export function validateSelectedOptions(cartItem: ShoppingCartItem): ValidationErrorsByChoiceId {
@@ -37,7 +37,7 @@ export function validateSelectedOptions(cartItem: ShoppingCartItem): ValidationE
   return _.pickBy(errors, choiceErrors => choiceErrors.length > 0)
 }
 
-export function getErrorMessages(errors: string[], choice: ShoppingItemChoice): ?string {
+export function getErrorMessages(errors: string[], choice: ShoppingItemChoice): string[] {
   return errors.map((error) => {
     switch (error) {
       case LESS_THAN_MINIMUM:
@@ -47,5 +47,5 @@ export function getErrorMessages(errors: string[], choice: ShoppingItemChoice): 
       default:
         return null
     }
-  })
+  }).filter(Boolean) // Removes `null` values.
 }

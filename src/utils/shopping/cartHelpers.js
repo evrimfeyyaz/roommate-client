@@ -45,7 +45,7 @@ export function generateTemporaryIdForCartItem(cartItem: ShoppingCartItem) {
   return itemId
 }
 
-export function getCartItemsArray(cart: ShoppingCart) {
+export function getCartItemsArray(cart: ShoppingCart): ShoppingCartItem[] {
   return Object.values(cart.cartItems)
 }
 

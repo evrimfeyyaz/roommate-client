@@ -27,6 +27,11 @@ export type Action =
   | RemoveNotificationAction
   | FlashNotificationAction
 
+type GetState = () => State
+type PromiseAction = Promise<Action>
+type ThunkAction = (dispatch: Dispatch, getState: GetState) => any
+type Dispatch = (action: Action | ThunkAction | PromiseAction | Array<Action>) => any
+
 const initialState: State = {
   notifications: {}
 }
@@ -69,7 +74,7 @@ export function removeNotification(id: string): RemoveNotificationAction {
 /**
  * Puts a notification in the store for a certain period of time, then removes it.
  */
-export function flashNotification(notification: FlashNotificationData) {
+export function flashNotification(notification: FlashNotificationData): ThunkAction {
   return (dispatch) => {
     dispatch(addNotification(notification))
 

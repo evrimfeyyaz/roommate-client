@@ -62,7 +62,7 @@ class RoomServiceItemsInCategory extends Component<Props> {
     }
 
     return (
-      <View style={styles.container}>
+      <View>
         <ItemsInCategory
           items={roomServiceCategory.items}
           onItemPress={showRoomServiceItem}

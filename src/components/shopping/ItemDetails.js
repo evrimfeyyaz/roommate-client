@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 import { Title, PrimaryButton, Stepper, Heading3, Body, SvgIcon, CircularButton, Card, OptionGroup } from '../.'
 import * as icons from '../../../assets/iconData'
-import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice } from '../../types/shopping'
+import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice, ShoppingItemChoiceOption } from '../../types/shopping'
 import colors from '../../config/colors'
 import type { Option } from '../controls/OptionGroup'
 import { getCartItemTotal } from '../../utils/shopping/cartHelpers'
@@ -67,12 +67,14 @@ class ItemDetails extends Component<Props, State> {
       const topContainerWithError = this.choiceContainersWithError[0]
 
       topContainerWithError.measure((x, y) => {
-        this.mainScrollView.scrollTo({ x, y, animated: true })
+        if (this.mainScrollView != null) {
+          this.mainScrollView.scrollTo({ x, y, animated: true })
+        }
       })
     }
   }
 
-  onOptionPress = (option: Option) => {
+  onOptionPress = (option: Option<ShoppingItemChoiceOption>) => {
     const { selectedOptions } = this.state.cartItem
     const choice = this.props.item.choices.find(c => c.id === option.value.choiceId)
     const indexOfOptionInSelectedOptions = selectedOptions.findIndex(o => o.id === option.id)
@@ -100,7 +102,7 @@ class ItemDetails extends Component<Props, State> {
 
   onAddButtonPress = () => {
     // TODO: Probably better as a part of the state.
-    this.choiceContainersWithError = undefined
+    this.choiceContainersWithError = []
 
     this.setState({
       ...this.state,
@@ -115,7 +117,10 @@ class ItemDetails extends Component<Props, State> {
     })
   }
 
-  addOptionToSelectedOptions(option: Option) {
+  choiceContainersWithError: View[]
+  mainScrollView: ?ScrollView
+
+  addOptionToSelectedOptions(option: Option<ShoppingItemChoiceOption>) {
     const { selectedOptions } = this.state.cartItem
 
     this.setState({
@@ -127,7 +132,7 @@ class ItemDetails extends Component<Props, State> {
     })
   }
 
-  removeIndexFromSelectedOptions(optionIndex) {
+  removeIndexFromSelectedOptions(optionIndex: number) {
     const { selectedOptions } = this.state.cartItem
 
     this.setState({
@@ -142,7 +147,7 @@ class ItemDetails extends Component<Props, State> {
     })
   }
 
-  changeSelectedOption(option: Option) {
+  changeSelectedOption(option: Option<ShoppingItemChoiceOption>) {
     const { selectedOptions } = this.state.cartItem
     const choice = this.props.item.choices.find(c => c.id === option.value.choiceId)
 
@@ -162,7 +167,7 @@ class ItemDetails extends Component<Props, State> {
     })
   }
 
-  saveRefToChoiceContainerWithError = (choiceContainer: React.Component, choice: ShoppingItemChoice) => {
+  saveRefToChoiceContainerWithError = (choiceContainer: ?View, choice: ShoppingItemChoice) => {
     if (!this.doesChoiceHaveError(choice)) {
       return
     }
@@ -174,7 +179,7 @@ class ItemDetails extends Component<Props, State> {
     this.choiceContainersWithError.push(choiceContainer)
   }
 
-  doesChoiceHaveError = choice => _.has(this.state.validationErrors, choice.id)
+  doesChoiceHaveError = (choice: ShoppingItemChoice) => _.has(this.state.validationErrors, choice.id)
 
   hasValidationErrors = () => _.keys(this.state.validationErrors).length > 0
 
@@ -183,7 +188,7 @@ class ItemDetails extends Component<Props, State> {
 
     return (
       <Body style={styles.validationErrorMessage} key={key}>
-      {errorMessage}
+        {errorMessage}
       </Body>
     )
   }

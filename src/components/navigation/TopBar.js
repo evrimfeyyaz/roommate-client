@@ -19,6 +19,8 @@ const TopBar = ({ title }: Props) => (
   </View>
 )
 
+// TODO: This won't be needed after the update to RN 0.54.
+// $FlowFixMe
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',

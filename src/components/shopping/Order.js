@@ -12,8 +12,8 @@ import { selectedOptionNamesString } from '../../utils/shopping/choiceAndOptionH
 type Props = {
   cart: ShoppingCart,
   onChangeSpecialRequest: (value: string) => void,
-  onPaymentOptionPress: (option: Option) => void,
-  paymentOptions: Option[],
+  onPaymentOptionPress: (option: Option<string>) => void,
+  paymentOptions: Option<string>[],
   selectedPaymentOptionValue: string,
   placeOrderButtonPress: () => void,
   style?: ?ViewPropTypes.style
@@ -105,6 +105,8 @@ class Order extends Component<Props> {
   }
 }
 
+// TODO: This won't be needed after the update to RN 0.54.
+// $FlowFixMe
 const styles = StyleSheet.create({
   container: {
     paddingBottom: 5

@@ -22,6 +22,11 @@ export type Action =
   | ShowActivityIndicatorAction
   | HideActivityIndicatorAction
 
+type GetState = () => State
+type PromiseAction = Promise<Action>
+type ThunkAction = (dispatch: Dispatch, getState: GetState) => any
+type Dispatch = (action: Action | ThunkAction | PromiseAction | Array<Action>) => any
+
 const initialState: State = {
   visible: false,
   message: null
@@ -64,7 +69,7 @@ export function hideActivityIndicator(): HideActivityIndicatorAction {
 /**
  * Hides the loading view after a short delay to avoid flickering.
  */
-export function hideActivityIndicatorWithDelay() {
+export function hideActivityIndicatorWithDelay(): ThunkAction {
   return dispatch => (
     wait(HIDE_DELAY).then(() => {
       dispatch(hideActivityIndicator())

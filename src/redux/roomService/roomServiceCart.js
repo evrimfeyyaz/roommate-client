@@ -1,6 +1,9 @@
 // @flow
+import _ from 'lodash'
+
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
 import { generateTemporaryIdForCartItem } from '../../utils/shopping/cartHelpers'
+import type { Option } from '../../components/controls/OptionGroup'
 
 const ADD_CART_ITEM = 'roommate/roomServiceCart/ADD_CART_ITEM'
 const REMOVE_CART_ITEM = 'roommate/roomServiceCart/REMOVE_CART_ITEM'
@@ -16,7 +19,7 @@ type RemoveCartItemAction = { type: typeof REMOVE_CART_ITEM, cartItem: ShoppingC
 type ClearCartAction = { type: typeof CLEAR_CART }
 type AdjustCartItemQuantity = { type: typeof ADJUST_CART_ITEM_QUANTITY, cartItem: ShoppingCartItem, quantity: number }
 type UpdateSpecialRequest = { type: typeof UPDATE_SPECIAL_REQUEST, value: string }
-type UpdatePaymentOption = { type: typeof UPDATE_PAYMENT_OPTION, option: string }
+type UpdatePaymentOption = { type: typeof UPDATE_PAYMENT_OPTION, option: Option<string> }
 
 export type Action =
   | AddCartItemAction
@@ -52,7 +55,7 @@ export default function reducer(state: State = initialState, action: Action) {
     case UPDATE_PAYMENT_OPTION:
       return {
         ...state,
-        paymentOption: action.option.id
+        paymentOption: action.option.value
       }
     default:
       return state
@@ -122,14 +125,14 @@ export function updateSpecialRequest(value: string) {
   return { type: UPDATE_SPECIAL_REQUEST, value }
 }
 
-export function updatePaymentOption(option: string) {
+export function updatePaymentOption(option: Option<string>) {
   return { type: UPDATE_PAYMENT_OPTION, option }
 }
 
 // UTILITY FUNCTIONS
 
 function includesCartItem(cart: ShoppingCart, cartItem: ShoppingCartItem) {
-  return Object.hasOwnProperty.call(cart.cartItems, cartItem.id)
+  return _.has(cart.cartItems, cartItem.id)
 }
 
 /**

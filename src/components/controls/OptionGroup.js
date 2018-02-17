@@ -9,25 +9,25 @@ import * as icons from '../../../assets/iconData'
 
 const OPTION_SIZE = 18
 
-export type Option = {
+export type Option<T> = {
   id: string,
   label: string,
   /**
    * Contains the actual option object. For example,
    * a shopping item choice option.
    */
-  value?: any
+  value: T
 }
 
-type Props = {
+type Props<T> = {
   allowMultipleSelection?: boolean,
-  options: Option[],
+  options: Option<T>[],
   selectedOptionIds: [string],
-  onOptionPress: (option: Option) => void,
+  onOptionPress: (option: Option<T>) => void,
   style?: ?ViewPropTypes.style
 }
 
-class OptionGroup extends Component<Props> {
+class OptionGroup<T> extends Component<Props<T>> {
   static defaultProps = {
     allowMultipleSelection: false
   }
@@ -67,7 +67,7 @@ class OptionGroup extends Component<Props> {
     return options.map(option => this.renderOption(option))
   }
 
-  renderOption(option: Option) {
+  renderOption(option: Option<T>) {
     const { selectedOptionIds, onOptionPress } = this.props
     const hitSlop = getHitSlop(OPTION_SIZE, 0, true)
 
@@ -100,6 +100,8 @@ class OptionGroup extends Component<Props> {
   }
 }
 
+// TODO: This won't be needed after the update to RN 0.54.
+// $FlowFixMe
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',

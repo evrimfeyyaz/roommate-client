@@ -21,29 +21,32 @@ type DispatchProps = {
   updateSpecialRequest: (value: string) => void,
   clearRoomServiceCart: () => void,
   showActivityIndicator: (message: string) => void,
-  hideActivityIndicatorWithDelay: () => void,
+  hideActivityIndicatorWithDelay: () => Promise<*>,
   flashNotification: (notification: FlashNotificationData) => void,
   navigateToRoomServiceScreen: () => void
 }
 
 type Props = {
   roomServiceCart: ShoppingCart,
-  mutate: Function,
+  mutate: (*) => Promise<*>,
   style?: ?ViewPropTypes.style
 } & DispatchProps
 
-const paymentOptions: Option[] = [
+const paymentOptions: Option<string>[] = [
   {
     id: 'room_bill',
-    label: 'Room bill'
+    label: 'Room bill',
+    value: 'room_bill'
   },
   {
     id: 'credit_card_on_delivery',
-    label: 'Credit card on delivery'
+    label: 'Credit card on delivery',
+    value: 'credit_card_on_delivery'
   },
   {
     id: 'cash_on_delivery',
-    label: 'Cash on delivery'
+    label: 'Cash on delivery',
+    value: 'cash_on_delivery'
   }
 ]
 
@@ -118,7 +121,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updatePaymentOption: (option: string) => dispatch(RoomServiceCartRedux.updatePaymentOption(option)),
+  updatePaymentOption: (option: Option<string>) => dispatch(RoomServiceCartRedux.updatePaymentOption(option)),
   updateSpecialRequest: (value: string) => dispatch(RoomServiceCartRedux.updateSpecialRequest(value)),
   clearRoomServiceCart: () => dispatch(RoomServiceCartRedux.clearCart()),
   showActivityIndicator: (message: string) => dispatch(GlobalActivityIndicatorRedux.showActivityIndicator(message)),

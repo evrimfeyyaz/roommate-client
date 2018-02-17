@@ -40,6 +40,8 @@ class ItemsInCategory extends Component<Props> {
   }
 }
 
+// TODO: This won't be needed after the update to RN 0.54.
+// $FlowFixMe
 const styles = StyleSheet.create({
   contentContainer: {
     paddingBottom: 24
