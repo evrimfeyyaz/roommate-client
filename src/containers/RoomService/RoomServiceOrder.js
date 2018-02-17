@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { NavigationActions } from 'react-navigation'
+import { ViewPropTypes } from 'react-native'
 
 import type { ShoppingCart } from '../../types/shopping'
 import { Order } from '../../components/index'
@@ -27,7 +28,8 @@ type DispatchProps = {
 
 type Props = {
   roomServiceCart: ShoppingCart,
-  mutate: Function
+  mutate: Function,
+  style?: ?ViewPropTypes.style
 } & DispatchProps
 
 const paymentOptions: Option[] = [
@@ -92,7 +94,8 @@ class RoomServiceOrder extends Component<Props> {
       roomServiceCart: cart,
       roomServiceCart: {
         paymentOption
-      }
+      },
+      style
     } = this.props
 
     return (
@@ -103,6 +106,7 @@ class RoomServiceOrder extends Component<Props> {
         onPaymentOptionPress={updatePaymentOption}
         onChangeSpecialRequest={updateSpecialRequest}
         placeOrderButtonPress={this.createRoomServiceOrder}
+        style={style}
       />
     )
   }

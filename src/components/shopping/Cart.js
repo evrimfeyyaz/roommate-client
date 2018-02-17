@@ -55,7 +55,7 @@ class Cart extends Component<Props> {
           <Heading2 style={styles.itemTitle}>{title}</Heading2>
           <Heading2 style={styles.itemPrice}>{total}</Heading2>
         </View>
-        <View style={styles.selectedOptionsContainer}>
+        <View style={styles.titleAndOptionsContainer}>
           <Heading3>{selectedOptionNamesString(cartItem)}</Heading3>
         </View>
         <View style={styles.itemBottomRowContainer}>

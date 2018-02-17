@@ -1,13 +1,13 @@
 // @flow
 import React, { Component } from 'react'
-import { View, ScrollView, StyleSheet, Text, KeyboardAvoidingView } from 'react-native'
+import { View, ScrollView, StyleSheet, Text, KeyboardAvoidingView, ViewPropTypes } from 'react-native'
 
 import { Heading, Body, TextField, Heading3, OptionGroup, PrimaryButton } from '../.'
 import type { ShoppingCart, ShoppingCartItem } from '../../types/shopping'
-import { getCartItemsArray } from '../../utils/shopping/cartHelpers'
 import colors from '../../config/colors'
 import type { Option } from '../controls/OptionGroup'
-import { getCartItemTotal, getCartTotal } from '../../utils/shopping/cartHelpers'
+import { getCartItemsArray, getCartItemTotal, getCartTotal } from '../../utils/shopping/cartHelpers'
+import { selectedOptionNamesString } from '../../utils/shopping/choiceAndOptionHelpers'
 
 type Props = {
   cart: ShoppingCart,
@@ -15,7 +15,8 @@ type Props = {
   onPaymentOptionPress: (option: Option) => void,
   paymentOptions: Option[],
   selectedPaymentOptionValue: string,
-  placeOrderButtonPress: () => void
+  placeOrderButtonPress: () => void,
+  style?: ?ViewPropTypes.style
 }
 
 class Order extends Component<Props> {
@@ -26,9 +27,14 @@ class Order extends Component<Props> {
     return (
       <View style={styles.itemContainer} key={id}>
         <View style={styles.itemTopRowContainer}>
-          <Body style={styles.itemTitle}>
-            <Text style={styles.quantity}>{quantity}x</Text>&nbsp;&nbsp;&nbsp;{title}
-          </Body>
+          <View style={styles.titleAndOptionsContainer}>
+            <Body style={styles.itemTitle}>
+              <Text style={styles.quantity}>{quantity}x</Text>&nbsp;&nbsp;&nbsp;{title}
+            </Body>
+            <Heading3>
+              {selectedOptionNamesString(cartItem)}
+            </Heading3>
+          </View>
           <Body style={styles.itemPrice}>{total}</Body>
         </View>
 
@@ -51,13 +57,14 @@ class Order extends Component<Props> {
       selectedPaymentOptionValue,
       cart,
       cart: { specialRequest },
-      placeOrderButtonPress
+      placeOrderButtonPress,
+      style
     } = this.props
     const cartTotal = getCartTotal(cart)
 
     return (
       <KeyboardAvoidingView behavior="padding">
-        <ScrollView centerContent contentContainerStyle={styles.container}>
+        <ScrollView centerContent contentContainerStyle={[styles.container, style]}>
           <Heading style={styles.title}>Order</Heading>
 
           <View style={styles.cartItemsContainer}>
@@ -114,9 +121,7 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     fontSize: 14,
-    lineHeight: 19,
-    marginEnd: 15,
-    flexShrink: 1
+    lineHeight: 19
   },
   itemPrice: {
     fontSize: 14,
@@ -150,6 +155,10 @@ const styles = StyleSheet.create({
   },
   placeOrderButton: {
     alignSelf: 'center'
+  },
+  titleAndOptionsContainer: {
+    marginEnd: 15,
+    flexShrink: 1
   }
 })
 

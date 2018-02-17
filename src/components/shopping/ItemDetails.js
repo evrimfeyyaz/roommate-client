@@ -66,8 +66,6 @@ class ItemDetails extends Component<Props, State> {
     if (this.choiceContainersWithError.length > 0) {
       const topContainerWithError = this.choiceContainersWithError[0]
 
-      console.log(this.choiceContainersWithError)
-
       topContainerWithError.measure((x, y) => {
         this.mainScrollView.scrollTo({ x, y, animated: true })
       })

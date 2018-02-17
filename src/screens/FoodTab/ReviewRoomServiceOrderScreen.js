@@ -13,7 +13,7 @@ class ReviewOrderScreen extends Component<void> {
   render() {
     return (
       <View style={styles.container}>
-        <RoomServiceOrder />
+        <RoomServiceOrder style={styles.order} />
       </View>
     )
   }
@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  order: {
+    width: '80%'
   }
 })
 
