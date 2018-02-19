@@ -18,7 +18,13 @@ import {
   ItemTags
 } from '../.'
 import * as icons from '../../../assets/iconData'
-import type { ShoppingCartItem, ShoppingItem, ShoppingItemChoice, ShoppingItemChoiceOption } from '../../types/shopping'
+import type {
+  ShoppingCartItem,
+  ShoppingCategory,
+  ShoppingItem,
+  ShoppingItemChoice,
+  ShoppingItemChoiceOption
+} from '../../types/shopping'
 import colors from '../../config/colors'
 import type { Option } from '../controls/OptionGroup'
 import { getCartItemTotal } from '../../utils/shopping/cartHelpers'
@@ -31,9 +37,12 @@ import {
 } from '../../utils/shopping/choiceAndOptionHelpers'
 import { getErrorMessages, validateSelectedOptions } from '../../utils/shopping/cartItemValidationHelpers'
 import type { ValidationErrorsByChoiceId } from '../../utils/shopping/cartItemValidationHelpers'
+import { availabilityTimesMessage, isCurrentlyAvailable } from '../../utils/shopping/categoryHelpers'
+import { titleCase } from '../../utils/stringUtils'
 
 type Props = {
   item: ShoppingItem,
+  category: ShoppingCategory,
   style?: ?ViewPropTypes.style,
   onCloseButtonPress: () => void,
   onAddButtonPress: (ShoppingCartItem) => void
@@ -42,12 +51,6 @@ type Props = {
 type State = {
   cartItem: ShoppingCartItem,
   validationErrors: ValidationErrorsByChoiceId,
-  /**
-   * X and y coordinates of the top element with a validation error.
-   * Used for scrolling to the top element with error for an improved
-   * user experience.
-   */
-  topComponentWithErrorPosition: { x: number, y: number }
 }
 
 class ItemDetails extends Component<Props, State> {
@@ -68,8 +71,7 @@ class ItemDetails extends Component<Props, State> {
         quantity: 1,
         selectedOptions
       },
-      validationErrors: {},
-      topComponentWithErrorPosition: { x: 0, y: -Infinity }
+      validationErrors: {}
     }
   }
 
@@ -117,8 +119,7 @@ class ItemDetails extends Component<Props, State> {
 
     this.setState({
       ...this.state,
-      validationErrors: validateSelectedOptions(this.state.cartItem),
-      topComponentWithErrorPosition: { x: 0, y: -Infinity }
+      validationErrors: validateSelectedOptions(this.state.cartItem)
     }, () => {
       if (this.hasValidationErrors()) {
         return
@@ -289,6 +290,18 @@ class ItemDetails extends Component<Props, State> {
     return item.choices.map(choice => this.renderChoice(choice))
   }
 
+  renderAddButton() {
+    const { category } = this.props
+
+    if (isCurrentlyAvailable(category)) {
+      return <PrimaryButton title="Add to Order" onPress={this.onAddButtonPress} style={styles.addButton} />
+    }
+
+    const availabilityMessage = titleCase(availabilityTimesMessage(category))
+
+    return <PrimaryButton title={availabilityMessage} style={styles.addButton} disabled />
+  }
+
   render() {
     const {
       style,
@@ -335,7 +348,7 @@ class ItemDetails extends Component<Props, State> {
               <Heading3>Total: {getCartItemTotal(this.state.cartItem)}</Heading3>
             </View>
 
-            <PrimaryButton title="Add to Order" onPress={this.onAddButtonPress} style={styles.addButton} />
+            {this.renderAddButton()}
           </View>
         </ScrollView>
 

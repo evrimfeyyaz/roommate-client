@@ -4,7 +4,10 @@ import { FlatList, StyleSheet, ViewPropTypes, View } from 'react-native'
 
 import { ItemCard, Heading2 } from '../.'
 import type { ShoppingCategory, ShoppingItem } from '../../types/shopping'
-import { isCurrentlyAvailable, utcHoursAndMinutesToLocaleTimeString } from '../../utils/shopping/categoryHelpers'
+import {
+  availabilityTimesMessage, isCurrentlyAvailable,
+  utcHoursAndMinutesToLocaleTimeString
+} from '../../utils/shopping/categoryHelpers'
 import colors from '../../config/colors'
 
 type Props = {
@@ -39,17 +42,7 @@ class ItemsInCategory extends Component<Props> {
       return null
     }
 
-    const availableFromTimestring = utcHoursAndMinutesToLocaleTimeString(category.availableFrom)
-    const availableUntilTimestring = utcHoursAndMinutesToLocaleTimeString(category.availableUntil)
-    let message = ''
-
-    if (!availableFromTimestring) {
-      message = `This category is only available until ${availableUntilTimestring}.`
-    } else if (!availableUntilTimestring) {
-      message = `This category is only available after ${availableFromTimestring}.`
-    } else {
-      message = `This category is only available between ${availableFromTimestring} and ${availableUntilTimestring}.`
-    }
+    const message = availabilityTimesMessage(category, 'This category is only')
 
     return (
       <View style={styles.unavailableContainer}>

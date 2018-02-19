@@ -1,4 +1,6 @@
 // @flow
+import _ from 'lodash'
+
 import type { ShoppingCategory } from '../../types/shopping'
 
 // TODO: Create a separate class to handle "hours and minutes."
@@ -31,6 +33,33 @@ export function utcHoursAndMinutesToLocaleTimeString(hoursAndMinutes: string) {
   dummyDate.setUTCMinutes(minutes)
 
   return dummyDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+}
+
+/**
+ * Returns a string that explains the availability times in English.
+ *
+ * @param category
+ * @param prefix: Prefix that will be prepended to the message.
+ * @returns {string}
+ */
+export function availabilityTimesMessage(category: ShoppingCategory, prefix: ?string = null) {
+  const availableFromTimeString = utcHoursAndMinutesToLocaleTimeString(category.availableFrom)
+  const availableUntilTimeString = utcHoursAndMinutesToLocaleTimeString(category.availableUntil)
+  let message = ''
+
+  if (!availableFromTimeString) {
+    message = `available until ${availableUntilTimeString}`
+  } else if (!availableUntilTimeString) {
+    message = `available after ${availableFromTimeString}`
+  } else {
+    message = `available between ${availableFromTimeString} and ${availableUntilTimeString}`
+  }
+
+  if (prefix) {
+    return `${prefix} ${message}`
+  }
+
+  return message
 }
 
 function getHours(hoursAndMinutes: string): number {

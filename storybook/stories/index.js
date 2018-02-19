@@ -346,6 +346,23 @@ storiesOf('Shopping', module)
       onAddButtonPress={action('item-details-add-button-press')}
     />
   ))
+  .add('item details with image', () => (
+    <ItemDetails
+      item={shoppingItem2}
+      style={{ width: 800, height: 600 }}
+      onCloseButtonPress={action('item-details-close-button-press')}
+      onAddButtonPress={action('item-details-add-button-press')}
+    />
+  ))
+  .add('item details (unavailable)', () => (
+    <ItemDetails
+      item={shoppingItem2}
+      style={{ width: 800, height: 600 }}
+      onCloseButtonPress={action('item-details-close-button-press')}
+      onAddButtonPress={action('item-details-add-button-press')}
+      category={unavailableShoppingCategory}
+    />
+  ))
   .add('cart', () => (
     <Cart
       cart={cart}
