@@ -382,6 +382,13 @@ storiesOf('Controls', module)
       onPress={action('primary-button-press')}
     />
   ))
+  .add('primary button (disabled)', () => (
+    <PrimaryButton
+      title="Book a Table"
+      onPress={action('primary-button-press')}
+      disabled
+    />
+  ))
   .add('secondary button', () => (
     <SecondaryButton
       title="Wake-Up Alarm"
