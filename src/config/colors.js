@@ -60,7 +60,7 @@ const colors = {
 
   tag: '#2B3341',
 
-  unavailableCategoryMessageBackground: 'rgb(232, 161, 9)'
+  unavailableCategoryMessageBackground: 'rgba(232, 161, 9, 0.9)'
 }
 
 export default colors

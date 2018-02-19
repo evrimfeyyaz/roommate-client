@@ -4,10 +4,7 @@ import { FlatList, StyleSheet, ViewPropTypes, View } from 'react-native'
 
 import { ItemCard, Heading2 } from '../.'
 import type { ShoppingCategory, ShoppingItem } from '../../types/shopping'
-import {
-  availabilityTimesMessage, isCurrentlyAvailable,
-  utcHoursAndMinutesToLocaleTimeString
-} from '../../utils/shopping/categoryHelpers'
+import { availabilityTimesMessage, isCurrentlyAvailable } from '../../utils/shopping/categoryHelpers'
 import colors from '../../config/colors'
 
 type Props = {
@@ -35,7 +32,7 @@ class ItemsInCategory extends Component<Props> {
     return <ItemCard item={item} style={style} onPress={this.props.onItemPress} />
   }
 
-  renderUnavailableMessage() {
+  renderUnavailableMessage = () => {
     const { category } = this.props
 
     if (isCurrentlyAvailable(category)) {
@@ -55,18 +52,15 @@ class ItemsInCategory extends Component<Props> {
     const { category: { items }, numOfColumns, style } = this.props
 
     return (
-      <View>
-        {this.renderUnavailableMessage()}
-
-        <FlatList
-          data={items}
-          renderItem={this.renderItem}
-          keyExtractor={item => item.id}
-          numColumns={numOfColumns}
-          contentContainerStyle={styles.contentContainer}
-          style={style}
-        />
-      </View>
+      <FlatList
+        data={items}
+        renderItem={this.renderItem}
+        keyExtractor={item => item.id}
+        numColumns={numOfColumns}
+        contentContainerStyle={styles.contentContainer}
+        style={style}
+        ListHeaderComponent={this.renderUnavailableMessage}
+      />
     )
   }
 }
