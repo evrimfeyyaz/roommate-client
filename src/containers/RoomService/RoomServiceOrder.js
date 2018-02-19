@@ -83,7 +83,7 @@ class RoomServiceOrder extends Component<Props> {
         hideActivityIndicatorWithDelay().then(() => {
           flashNotification({
             id: getCurrentTimestampString(),
-            message: response,
+            message: response.message,
             type: 'error'
           })
         })
