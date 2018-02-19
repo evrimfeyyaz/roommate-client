@@ -118,6 +118,8 @@ const getRoomServiceCategoryWithItems = gql`
   query getRoomServiceCategoryWithItems($selectedRoomServiceCategoryId: ID!) {
     roomServiceCategory(id: $selectedRoomServiceCategoryId) {
       id
+      availableFrom
+      availableUntil
       items {
         id
         title

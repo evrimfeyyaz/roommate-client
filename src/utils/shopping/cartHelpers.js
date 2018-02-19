@@ -26,9 +26,9 @@ export function getCartTotal(cart: ShoppingCart) {
  * Generates a temporary, client-only ID for a cart item.
  *
  * This ID uses the parameters of the cart item, and allows us to
- * uniquely track it. For example, two of the same items that has
+ * uniquely track it. For example, two of the same category that has
  * different options selected by the guest shouldn't be the same,
- * but two items that have the same options, but different quantities
+ * but two category that have the same options, but different quantities
  * should be the same.
  *
  * This way, if the guest tries to add the same

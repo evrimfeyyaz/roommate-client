@@ -58,7 +58,9 @@ const colors = {
 
   validationErrorMessage: '#ed2a44',
 
-  tag: '#2B3341'
+  tag: '#2B3341',
+
+  unavailableCategoryMessageBackground: 'rgb(232, 161, 9)'
 }
 
 export default colors

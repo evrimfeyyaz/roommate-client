@@ -1,22 +1,29 @@
 // @flow
 import React, { Component } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, StyleSheet, ViewPropTypes, View } from 'react-native'
 
-import { ItemCard } from '../.'
-import type { ShoppingItem } from '../../types/shopping'
+import { ItemCard, Heading2 } from '../.'
+import type { ShoppingCategory, ShoppingItem } from '../../types/shopping'
+import { isCurrentlyAvailable, utcHoursAndMinutesToLocaleTimeString } from '../../utils/shopping/categoryHelpers'
+import colors from '../../config/colors'
 
 type Props = {
-  items: ShoppingItem[],
+  category: ShoppingCategory,
   onItemPress: (ShoppingItem) => void,
-  numOfColumns: number
+  numOfColumns: number,
+  style?: ?ViewPropTypes.style
 }
 
 class ItemsInCategory extends Component<Props> {
-// eslint-disable-next-line react/no-unused-prop-types
+  static isLastColumn(index: number, numOfColumns: number) {
+    return (index + 1) % numOfColumns === 0
+  }
+
+  // eslint-disable-next-line react/no-unused-prop-types
   renderItem = ({ item, index }: { item: ShoppingItem, index: number }) => {
     let style
 
-    if ((index + 1) % this.props.numOfColumns === 0) { // If this is the last column.
+    if (ItemsInCategory.isLastColumn(index, this.props.numOfColumns)) {
       style = [styles.item, styles.lastColumn]
     } else {
       style = [styles.item]
@@ -25,17 +32,48 @@ class ItemsInCategory extends Component<Props> {
     return <ItemCard item={item} style={style} onPress={this.props.onItemPress} />
   }
 
-  render() {
-    const { items, numOfColumns } = this.props
+  renderUnavailableMessage() {
+    const { category } = this.props
+
+    if (isCurrentlyAvailable(category)) {
+      return null
+    }
+
+    const availableFromTimestring = utcHoursAndMinutesToLocaleTimeString(category.availableFrom)
+    const availableUntilTimestring = utcHoursAndMinutesToLocaleTimeString(category.availableUntil)
+    let message = ''
+
+    if (!availableFromTimestring) {
+      message = `Only available until ${availableUntilTimestring}.`
+    } else if (!availableUntilTimestring) {
+      message = `Only available after ${availableFromTimestring}.`
+    } else {
+      message = `Only available between ${availableFromTimestring} and ${availableUntilTimestring}.`
+    }
 
     return (
-      <FlatList
-        data={items}
-        renderItem={this.renderItem}
-        keyExtractor={item => item.id}
-        numColumns={numOfColumns}
-        contentContainerStyle={styles.contentContainer}
-      />
+      <View style={styles.unavailableContainer}>
+        <Heading2>{message}</Heading2>
+      </View>
+    )
+  }
+
+  render() {
+    const { category: { items }, numOfColumns, style } = this.props
+
+    return (
+      <View>
+        {this.renderUnavailableMessage()}
+
+        <FlatList
+          data={items}
+          renderItem={this.renderItem}
+          keyExtractor={item => item.id}
+          numColumns={numOfColumns}
+          contentContainerStyle={styles.contentContainer}
+          style={style}
+        />
+      </View>
     )
   }
 }
@@ -52,6 +90,15 @@ const styles = StyleSheet.create({
   },
   lastColumn: {
     marginEnd: 0
+  },
+  unavailableContainer: {
+    alignItems: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    backgroundColor: colors.unavailableCategoryMessageBackground,
+    borderRadius: 20,
+    alignSelf: 'center'
   }
 })
 
