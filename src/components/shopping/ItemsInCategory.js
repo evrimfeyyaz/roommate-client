@@ -44,11 +44,11 @@ class ItemsInCategory extends Component<Props> {
     let message = ''
 
     if (!availableFromTimestring) {
-      message = `Only available until ${availableUntilTimestring}.`
+      message = `This category is only available until ${availableUntilTimestring}.`
     } else if (!availableUntilTimestring) {
-      message = `Only available after ${availableFromTimestring}.`
+      message = `This category is only available after ${availableFromTimestring}.`
     } else {
-      message = `Only available between ${availableFromTimestring} and ${availableUntilTimestring}.`
+      message = `This category is only available between ${availableFromTimestring} and ${availableUntilTimestring}.`
     }
 
     return (
