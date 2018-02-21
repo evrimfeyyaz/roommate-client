@@ -11,7 +11,7 @@ import { SvgIcon } from '../.'
 
 type Props = {
   item: ShoppingItem,
-  style?: ViewPropTypes.style
+  style?: ?ViewPropTypes.style
 }
 
 const ItemImage = ({ item, style }: Props) => {
@@ -47,6 +47,10 @@ const ItemImage = ({ item, style }: Props) => {
       />
     </View>
   )
+}
+
+ItemImage.defaultProps = {
+  style: null
 }
 
 const styles = StyleSheet.create({

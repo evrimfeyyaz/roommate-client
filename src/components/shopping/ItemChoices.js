@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react'
 import { View, StyleSheet, ViewPropTypes } from 'react-native'
-import type { Layout, LayoutEvent } from 'react-native/Libraries/Types/CoreEventTypes'
+import type { LayoutEvent } from 'react-native/Libraries/Types/CoreEventTypes'
 import _ from 'lodash'
 
-import { Body, Heading3, OptionGroup } from '../.'
+import { Heading3, OptionGroup, ValidationError } from '../.'
 import {
   choiceLabel, isChoiceMultipleSelection,
   optionsArrayFromChoice
@@ -12,10 +12,9 @@ import {
 import type {
   ShoppingItemChoiceOption, ShoppingItem, ShoppingItemChoice
 } from '../../types/shopping'
-import { getErrorMessages } from '../../utils/shopping/cartItemValidationHelpers'
-import colors from '../../config/colors'
 import type { Option } from '../controls/OptionGroup'
 import type { ValidationErrorsByObjectId } from '../../types/validation'
+import { getErrorMessages } from '../../utils/shopping/cartItemValidationHelpers'
 
 type Props = {
   item: ShoppingItem,
@@ -27,36 +26,27 @@ type Props = {
 }
 
 class ItemChoices extends Component<Props> {
-  static renderErrorMessage(errorMessage: string, choice: ShoppingItemChoice) {
-    const key = `${choice.id}_${errorMessage}`
-
-    return (
-      <Body style={styles.validationErrorMessage} key={key}>
-        {errorMessage}
-      </Body>
-    )
-  }
-
   onValidationErrorElementLayout(e: LayoutEvent, id: string) {
     if (_.has(this.props.validationErrors, id)) {
       this.props.onValidationErrorElementLayout(e)
     }
   }
 
-  renderValidationErrorMessage(choice: ShoppingItemChoice) {
-    const { validationErrors } = this.props
+  renderValidationError = (choice: ShoppingItemChoice) => {
+    const errors = this.props.validationErrors[choice.id]
 
-    if (validationErrors[choice.id] == null) {
-      return null
+    if (errors != null) {
+      return (
+        <ValidationError
+          validationErrors={errors}
+          errorObject={choice}
+          getErrorMessages={getErrorMessages}
+          style={styles.validationErrorsContainer}
+        />
+      )
     }
 
-    const errorMessages = getErrorMessages(validationErrors[choice.id], choice)
-
-    return (
-      <View style={styles.validationErrorContainer}>
-        {errorMessages.map(m => ItemChoices.renderErrorMessage(m, choice))}
-      </View>
-    )
+    return null
   }
 
   renderChoice(choice: ShoppingItemChoice) {
@@ -71,7 +61,7 @@ class ItemChoices extends Component<Props> {
         onLayout={e => this.onValidationErrorElementLayout(e, choice.id)}
       >
         <Heading3 style={styles.title}>{choiceLabel(choice)}</Heading3>
-        {this.renderValidationErrorMessage(choice)}
+        {this.renderValidationError(choice)}
         <OptionGroup
           allowMultipleSelection={allowMultipleSelection}
           options={options}
@@ -102,11 +92,8 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 10
   },
-  validationErrorContainer: {
+  validationErrorsContainer: {
     marginBottom: 15
-  },
-  validationErrorMessage: {
-    color: colors.validationErrorMessage
   }
 })
 
