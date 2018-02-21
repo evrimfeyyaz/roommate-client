@@ -2,7 +2,7 @@ import React from 'react'
 import { View, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { storiesOf, addDecorator } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
-import { withKnobs, boolean, select, number, array } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, number, array, object } from '@storybook/addon-knobs/react'
 import _ from 'lodash'
 
 import CenterView from './CenterView'
@@ -22,6 +22,7 @@ import {
   NavigationBar,
   Card,
   ItemsInCategory,
+  ItemChoices,
   ItemDetails,
   Stepper,
   Cart,
@@ -179,13 +180,23 @@ const unavailableShoppingCategory: ShoppingCategory = {
 const shoppingCartItem1 = {
   id: 'shopping-cart-item-1-id',
   item: shoppingItem1,
-  quantity: 1
+  quantity: 1,
+  selectedOptions: [
+    toppingsChoice.options[0],
+    sauceChoice.options[0],
+    extrasChoice.options[0]
+  ]
 }
 
 const shoppingCartItem2 = {
   id: 'shopping-cart-item-2-id',
   item: shoppingItem2,
-  quantity: 2
+  quantity: 2,
+  selectedOptions: [
+    toppingsChoice.options[0],
+    sauceChoice.options[0],
+    extrasChoice.options[0]
+  ]
 }
 
 const cart: ShoppingCart = {
@@ -330,12 +341,23 @@ storiesOf('Shopping', module)
   .add('item card with thumbnail', () => (
     <ItemCard item={shoppingItem2} onPress={action('item-card-press')} />
   ))
+  .add('item choices', () => (
+    <ItemChoices
+      item={shoppingItem2}
+      style={{ width: 800, height: 600 }}
+      onOptionPress={action('item-choices-option-press')}
+      selectedOptions={
+        object('Selected Item Choice Options', shoppingCartItem1.selectedOptions, 'cart-item-selected-options')
+      }
+    />
+  ))
   .add('item details without image', () => (
     <ItemDetails
       item={shoppingItem1}
       style={{ width: 800, height: 600 }}
       onCloseButtonPress={action('item-details-close-button-press')}
       onAddButtonPress={action('item-details-add-button-press')}
+      category={shoppingCategory}
     />
   ))
   .add('item details with image', () => (
@@ -344,14 +366,7 @@ storiesOf('Shopping', module)
       style={{ width: 800, height: 600 }}
       onCloseButtonPress={action('item-details-close-button-press')}
       onAddButtonPress={action('item-details-add-button-press')}
-    />
-  ))
-  .add('item details with image', () => (
-    <ItemDetails
-      item={shoppingItem2}
-      style={{ width: 800, height: 600 }}
-      onCloseButtonPress={action('item-details-close-button-press')}
-      onAddButtonPress={action('item-details-add-button-press')}
+      category={shoppingCategory}
     />
   ))
   .add('item details (unavailable)', () => (

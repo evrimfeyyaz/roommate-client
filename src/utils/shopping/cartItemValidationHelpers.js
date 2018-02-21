@@ -2,15 +2,12 @@
 import _ from 'lodash'
 
 import type { ShoppingCartItem, ShoppingItemChoice } from '../../types/shopping'
+import type { ValidationErrorsByObjectId } from '../../types/validation'
 
 const LESS_THAN_MINIMUM = 'less-than-minimum'
 const MORE_THAN_MAXIMUM = 'more-than-maximum'
 
-export type ValidationErrorsByChoiceId = {
-  [choiceId: string]: string[]
-}
-
-export function validateSelectedOptions(cartItem: ShoppingCartItem): ValidationErrorsByChoiceId {
+export function validateSelectedOptions(cartItem: ShoppingCartItem): ValidationErrorsByObjectId {
   const { item, selectedOptions } = cartItem
   const selectedOptionsByChoiceId = _.groupBy(selectedOptions, o => o.choiceId)
 
