@@ -1,10 +1,8 @@
 // @flow
-import React, { Component, Fragment } from 'react'
-import ReactNative, { View, StyleSheet, ViewPropTypes, ScrollView } from 'react-native'
-import FastImage from 'react-native-fast-image'
-import LinearGradient from 'react-native-linear-gradient'
+import React, { Component } from 'react'
+import { View, StyleSheet, ViewPropTypes, ScrollView } from 'react-native'
 import _ from 'lodash'
-import type { Layout, LayoutEvent } from 'react-native/Libraries/Types/CoreEventTypes'
+import type { LayoutEvent } from 'react-native/Libraries/Types/CoreEventTypes'
 
 import {
   Title,
@@ -12,11 +10,11 @@ import {
   Stepper,
   Heading3,
   Body,
-  SvgIcon,
   CircularButton,
   Card,
   ItemChoices,
-  ItemTags
+  ItemTags,
+  ItemImage
 } from '../.'
 import * as icons from '../../../assets/iconData'
 import type {
@@ -28,7 +26,6 @@ import type {
 import colors from '../../config/colors'
 import type { Option } from '../controls/OptionGroup'
 import { getCartItemTotal } from '../../utils/shopping/cartHelpers'
-import { getImageUrlFromItem } from '../../utils/shopping/itemHelpers'
 import {
   isChoiceMultipleSelection,
   arrayOfDefaultOptionsFromItem
@@ -215,39 +212,6 @@ class ItemDetails extends Component<Props, State> {
     this.choicesView = choicesView
   }
 
-  renderImage() {
-    const imageUrl = getImageUrlFromItem(this.props.item)
-
-    if (imageUrl != null) {
-      return (
-        <Fragment>
-          <FastImage
-            style={styles.image}
-            source={{ uri: imageUrl }}
-            resizeMode={FastImage.resizeMode.cover}
-          />
-
-          <LinearGradient
-            style={styles.gradientOverlay}
-            colors={colors.itemDetailImageGradientColors}
-            locations={[0, 0.9, 1]}
-          />
-        </Fragment>
-      )
-    }
-
-    return (
-      <SvgIcon
-        iconData={icons.food}
-        fill={colors.primaryIcon}
-        height={90}
-        width={90}
-        style={styles.foodIcon}
-        opacity={0.3}
-      />
-    )
-  }
-
   renderAddButton() {
     const { category } = this.props
 
@@ -274,9 +238,7 @@ class ItemDetails extends Component<Props, State> {
         <ScrollView
           ref={this.saveScrollViewRef}
         >
-          <View style={styles.imageContainer}>
-            {this.renderImage()}
-          </View>
+          <ItemImage item={item} style={styles.imageContainer} />
 
           <View style={styles.informationContainer}>
             <View style={styles.titleContainer}>
@@ -335,9 +297,6 @@ const styles = StyleSheet.create({
     top: 30,
     borderColor: colors.circularButtonBorderSolid
   },
-  foodIcon: {
-    marginTop: 120
-  },
   informationContainer: {
     paddingHorizontal: 38,
     paddingVertical: 30
@@ -373,17 +332,6 @@ const styles = StyleSheet.create({
     right: 0,
     height: 500,
     alignItems: 'center'
-  },
-  image: {
-    ...StyleSheet.absoluteFillObject,
-    bottom: 40
-  },
-  gradientOverlay: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 400
   },
   addButton: {
     alignSelf: 'center'
