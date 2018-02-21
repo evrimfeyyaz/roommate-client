@@ -64,7 +64,7 @@ class RoomServiceItemsInCategory extends Component<Props> {
     return (
       <View>
         <ItemsInCategory
-          items={roomServiceCategory.items}
+          category={roomServiceCategory}
           onItemPress={showRoomServiceItem}
           numOfColumns={numOfColumns}
           key={`room-service-items-${numOfColumns}`} // This is needed to force re-render when changing `numOfColumns`.
@@ -83,6 +83,7 @@ class RoomServiceItemsInCategory extends Component<Props> {
         >
           <ItemDetails
             item={selectedRoomServiceItem}
+            category={roomServiceCategory}
             onCloseButtonPress={hideRoomServiceItem}
             style={styles.itemDetails}
             onAddButtonPress={this.addButtonPress}
@@ -118,6 +119,8 @@ const getRoomServiceCategoryWithItems = gql`
   query getRoomServiceCategoryWithItems($selectedRoomServiceCategoryId: ID!) {
     roomServiceCategory(id: $selectedRoomServiceCategoryId) {
       id
+      availableFrom
+      availableUntil
       items {
         id
         title

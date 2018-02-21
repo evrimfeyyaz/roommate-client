@@ -28,6 +28,8 @@ export { default as ItemDetails } from './shopping/ItemDetails'
 export { default as Cart } from './shopping/Cart'
 export { default as Order } from './shopping/Order'
 export { default as ItemTags } from './shopping/ItemTags'
+export { default as ItemChoices } from './shopping/ItemChoices'
+export { default as ItemImage } from './shopping/ItemImage'
 
 // Misc
 export { default as Card } from './misc/Card'
@@ -35,3 +37,4 @@ export { default as SvgIcon } from './misc/SvgIcon'
 export { default as LoadingView } from './misc/LoadingView'
 export { default as FlashNotification } from './misc/FlashNotification'
 export { default as FlashNotificationList } from './misc/FlashNotificationList'
+export { default as ValidationError } from './misc/ValidationError'

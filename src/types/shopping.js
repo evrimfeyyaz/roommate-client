@@ -1,18 +1,20 @@
 export type ShoppingCategory = {
   id: string,
   title: string,
-  items?: ShoppingItem[]
+  availableFrom: ?string,
+  availableUntil: ?string,
+  items: ShoppingItem[]
 }
 
 export type ShoppingItem = {
   id: string,
   title: string,
-  description?: ?string,
+  description: ?string,
   price: ?string,
-  image1x?: ?string,
-  image2x?: ?string,
-  thumbnail1x?: ?string,
-  thumbnail2x?: ?string,
+  image1x: ?string,
+  image2x: ?string,
+  thumbnail1x: ?string,
+  thumbnail2x: ?string,
   choices: ShoppingItemChoice[],
   tags: ShoppingItemTag[]
 }
@@ -20,16 +22,16 @@ export type ShoppingItem = {
 export type ShoppingItemChoice = {
   id: string,
   title: string,
-  minimumNumberOfSelections?: ?number,
-  maximumNumberOfSelections?: ?number,
-  defaultOptionId?: ?string,
+  minimumNumberOfSelections: ?number,
+  maximumNumberOfSelections: ?number,
+  defaultOptionId: ?string,
   options: ShoppingItemChoiceOption[]
 }
 
 export type ShoppingItemChoiceOption = {
   id: string,
   title: string,
-  price?: ?string,
+  price: ?string,
   choiceId: string
 }
 
@@ -37,7 +39,9 @@ export type ShoppingCartItem = {
   id: string,
   item: ShoppingItem,
   quantity: number,
-  selectedOptions: ?ShoppingItemChoiceOption[]
+  selectedOptions: ?ShoppingItemChoiceOption[],
+  availableFrom: ?string,
+  availableUntil: ?string
 }
 
 export type ShoppingItemTag = {
@@ -52,7 +56,7 @@ export type ShoppingCart = {
   specialRequest: ?string,
   // The values below use underscores, because these are the values
   // we use in our Rails back-end. It's probably a better idea to
-  // define these payment options as dynamic items in the database
+  // define these payment options as dynamic category in the database
   // at one point.
   paymentOption: 'room_bill' | 'credit_card_on_delivery' | 'cash_on_delivery'
 }

@@ -2,7 +2,8 @@ import React from 'react'
 import { View, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { storiesOf, addDecorator } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
-import { withKnobs, boolean, select, number, array } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, number, array, object } from '@storybook/addon-knobs/react'
+import _ from 'lodash'
 
 import CenterView from './CenterView'
 import {
@@ -21,6 +22,7 @@ import {
   NavigationBar,
   Card,
   ItemsInCategory,
+  ItemChoices,
   ItemDetails,
   Stepper,
   Cart,
@@ -35,9 +37,13 @@ import {
 } from '../../src/components'
 import * as icons from '../../assets/iconData'
 import type { SideMenuRoute } from '../../src/components/navigation/SideMenu'
-import type { ShoppingCart, ShoppingItem, ShoppingItemChoice, ShoppingItemTag } from '../../src/types/shopping'
+import type {
+  ShoppingCart, ShoppingCategory, ShoppingItem, ShoppingItemChoice,
+  ShoppingItemTag
+} from '../../src/types/shopping'
 import type { Option } from '../../src/components/controls/OptionGroup'
 import type { FlashNotificationData } from '../../src/components/misc/FlashNotification'
+import { asHoursAndMinutesInUTC } from '../../src/utils/timeUtils'
 
 
 /**
@@ -148,16 +154,49 @@ const shoppingItem2: ShoppingItem = {
     'file:///Users/evrimfeyyaz/workspace/roommate_client/assets/sample_images/smoked-salmon-eggs-benedict-thumbnail.jpg'
 }
 
+const shoppingItems = _.times(20, (n) => {
+  if (Math.floor(Math.random() * 10) % 2 === 0) {
+    return { ...shoppingItem1, id: n }
+  }
+
+  return { ...shoppingItem2, id: n }
+})
+
+const shoppingCategory: ShoppingCategory = {
+  id: 'shopping-category',
+  title: 'Breakfast',
+  items: shoppingItems
+}
+
+const now = new Date()
+const hourLater = new Date(now.setHours(now.getHours() + 1))
+const twoHoursLater = new Date(now.setHours(now.getHours() + 1))
+const unavailableShoppingCategory: ShoppingCategory = {
+  ...shoppingCategory,
+  availableFrom: asHoursAndMinutesInUTC(hourLater),
+  availableUntil: asHoursAndMinutesInUTC(twoHoursLater)
+}
+
 const shoppingCartItem1 = {
   id: 'shopping-cart-item-1-id',
   item: shoppingItem1,
-  quantity: 1
+  quantity: 1,
+  selectedOptions: [
+    toppingsChoice.options[0],
+    sauceChoice.options[0],
+    extrasChoice.options[0]
+  ]
 }
 
 const shoppingCartItem2 = {
   id: 'shopping-cart-item-2-id',
   item: shoppingItem2,
-  quantity: 2
+  quantity: 2,
+  selectedOptions: [
+    toppingsChoice.options[0],
+    sauceChoice.options[0],
+    extrasChoice.options[0]
+  ]
 }
 
 const cart: ShoppingCart = {
@@ -251,7 +290,7 @@ storiesOf('Navigation', module)
   .add('navigation bar', () => (
     <NavigationBar onBackButtonPress={action('back-button-tap')} title="Room Service" />
   ))
-  .add('side menu', () => (
+  .add('side menu', () => ( // TODO: Fix this.
     <SideMenu
       routes={routes}
       activeRouteKey={select('Active Route', routeKeys, routeKeys[0])}
@@ -278,11 +317,39 @@ storiesOf('Navigation', module)
   ))
 
 storiesOf('Shopping', module)
+  .add('items in available category', () => (
+    <View style={{ height: '80%' }}>
+      <ItemsInCategory
+        numOfColumns={4}
+        category={shoppingCategory}
+        onItemPress={action('item-in-available-category-press')}
+      />
+    </View>
+  ))
+  .add('items in unavailable category', () => (
+    <View style={{ height: '80%' }}>
+      <ItemsInCategory
+        numOfColumns={4}
+        category={unavailableShoppingCategory}
+        onItemPress={action('item-in-unavailable-category-press')}
+      />
+    </View>
+  ))
   .add('item card without thumbnail', () => (
-    <ItemCard item={shoppingItem1} onPress={action('on-item-card-press')} />
+    <ItemCard item={shoppingItem1} onPress={action('item-card-press')} />
   ))
   .add('item card with thumbnail', () => (
-    <ItemCard item={shoppingItem2} onPress={action('on-item-card-press')} />
+    <ItemCard item={shoppingItem2} onPress={action('item-card-press')} />
+  ))
+  .add('item choices', () => (
+    <ItemChoices
+      item={shoppingItem2}
+      style={{ width: 800, height: 600 }}
+      onOptionPress={action('item-choices-option-press')}
+      selectedOptions={
+        object('Selected Item Choice Options', shoppingCartItem1.selectedOptions, 'cart-item-selected-options')
+      }
+    />
   ))
   .add('item details without image', () => (
     <ItemDetails
@@ -290,6 +357,7 @@ storiesOf('Shopping', module)
       style={{ width: 800, height: 600 }}
       onCloseButtonPress={action('item-details-close-button-press')}
       onAddButtonPress={action('item-details-add-button-press')}
+      category={shoppingCategory}
     />
   ))
   .add('item details with image', () => (
@@ -298,6 +366,16 @@ storiesOf('Shopping', module)
       style={{ width: 800, height: 600 }}
       onCloseButtonPress={action('item-details-close-button-press')}
       onAddButtonPress={action('item-details-add-button-press')}
+      category={shoppingCategory}
+    />
+  ))
+  .add('item details (unavailable)', () => (
+    <ItemDetails
+      item={shoppingItem2}
+      style={{ width: 800, height: 600 }}
+      onCloseButtonPress={action('item-details-close-button-press')}
+      onAddButtonPress={action('item-details-add-button-press')}
+      category={unavailableShoppingCategory}
     />
   ))
   .add('cart', () => (
@@ -334,6 +412,13 @@ storiesOf('Controls', module)
     <PrimaryButton
       title="Book a Table"
       onPress={action('primary-button-press')}
+    />
+  ))
+  .add('primary button (disabled)', () => (
+    <PrimaryButton
+      title="Book a Table"
+      onPress={action('primary-button-press')}
+      disabled
     />
   ))
   .add('secondary button', () => (

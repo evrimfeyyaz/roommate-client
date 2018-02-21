@@ -13,21 +13,30 @@ const FONT_SIZE = 12
 type Props = {
   title: string,
   onPress: () => void,
-  style?: ViewPropTypes.style
+  disabled?: boolean,
+  style?: ViewPropTypes.style,
 }
 
-const PrimaryButton = ({ title, onPress, style }: Props) => (
-  <TouchableOpacity onPress={onPress} hitSlop={getHitSlop(FONT_SIZE, PADDING_VERTICAL, true)}>
-    <View style={[styles.container, style]}>
-      <LinearGradient colors={colors.primaryButtonGradient} style={styles.gradientContainer} />
+const PrimaryButton = ({ title, onPress, disabled, style }: Props) => {
+  const buttonStyle = [styles.container, style]
+  if (disabled) {
+    buttonStyle.push(styles.disabled)
+  }
 
-      <Body style={styles.title}>{title}</Body>
-    </View>
-  </TouchableOpacity>
-)
+  return (
+    <TouchableOpacity onPress={onPress} hitSlop={getHitSlop(FONT_SIZE, PADDING_VERTICAL, true)} disabled={disabled}>
+      <View style={buttonStyle}>
+        <LinearGradient colors={colors.primaryButtonGradient} style={styles.gradientContainer} />
+
+        <Body style={styles.title}>{title}</Body>
+      </View>
+    </TouchableOpacity>
+  )
+}
 
 PrimaryButton.defaultProps = {
-  style: null
+  style: null,
+  disabled: false
 }
 
 const styles = StyleSheet.create({
@@ -53,6 +62,9 @@ const styles = StyleSheet.create({
   gradientContainer: {
     ...StyleSheet.absoluteFillObject,
     borderRadius: 999
+  },
+  disabled: {
+    opacity: 0.5
   }
 })
 
