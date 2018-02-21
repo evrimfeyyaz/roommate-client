@@ -43,7 +43,7 @@ import type {
 } from '../../src/types/shopping'
 import type { Option } from '../../src/components/controls/OptionGroup'
 import type { FlashNotificationData } from '../../src/components/misc/FlashNotification'
-import { asHoursAndMinutesInUTC } from '../../src/utils/shopping/categoryHelpers'
+import { asHoursAndMinutesInUTC } from '../../src/utils/timeUtils'
 
 
 /**

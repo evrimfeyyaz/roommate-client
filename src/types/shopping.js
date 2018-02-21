@@ -39,7 +39,9 @@ export type ShoppingCartItem = {
   id: string,
   item: ShoppingItem,
   quantity: number,
-  selectedOptions: ?ShoppingItemChoiceOption[]
+  selectedOptions: ?ShoppingItemChoiceOption[],
+  availableFrom: ?string,
+  availableUntil: ?string
 }
 
 export type ShoppingItemTag = {

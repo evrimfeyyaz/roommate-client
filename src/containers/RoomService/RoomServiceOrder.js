@@ -108,7 +108,7 @@ class RoomServiceOrder extends Component<Props> {
         selectedPaymentOptionValue={paymentOption}
         onPaymentOptionPress={updatePaymentOption}
         onChangeSpecialRequest={updateSpecialRequest}
-        placeOrderButtonPress={this.createRoomServiceOrder}
+        onPlaceOrderButtonPress={this.createRoomServiceOrder}
         style={style}
       />
     )

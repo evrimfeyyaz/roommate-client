@@ -1,11 +1,12 @@
 // @flow
 import _ from 'lodash'
 
-import type { ShoppingCartItem, ShoppingItemChoice } from '../../types/shopping'
+import type { ShoppingCartItem, ShoppingCategory, ShoppingItemChoice } from '../../types/shopping'
 import type { ValidationErrorsByObjectId } from '../../types/validation'
+import { asHoursAndMinutesInUTC } from '../timeUtils'
 
-const LESS_THAN_MINIMUM = 'less-than-minimum'
-const MORE_THAN_MAXIMUM = 'more-than-maximum'
+const LESS_THAN_MINIMUM = 'LESS_THAN_MINIMUM'
+const MORE_THAN_MAXIMUM = 'MORE_THAN_MAXIMUM'
 
 export function validateSelectedOptions(cartItem: ShoppingCartItem): ValidationErrorsByObjectId {
   const { item, selectedOptions } = cartItem

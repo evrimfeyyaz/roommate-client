@@ -4,8 +4,9 @@ import { FlatList, StyleSheet, ViewPropTypes, View } from 'react-native'
 
 import { ItemCard, Heading2 } from '../.'
 import type { ShoppingCategory, ShoppingItem } from '../../types/shopping'
-import { availabilityTimesMessage, isCurrentlyAvailable } from '../../utils/shopping/categoryHelpers'
+import { availabilityTimesMessage} from '../../utils/timeUtils'
 import colors from '../../config/colors'
+import { isCurrentlyAvailable } from '../../utils/timeUtils'
 
 type Props = {
   category: ShoppingCategory,

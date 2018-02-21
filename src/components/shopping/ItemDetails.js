@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react'
 import { View, StyleSheet, ViewPropTypes, ScrollView } from 'react-native'
-import _ from 'lodash'
 import type { LayoutEvent } from 'react-native/Libraries/Types/CoreEventTypes'
 
 import {
@@ -30,10 +29,11 @@ import {
   isChoiceMultipleSelection,
   arrayOfDefaultOptionsFromItem
 } from '../../utils/shopping/choiceAndOptionHelpers'
-import { validateSelectedOptions } from '../../utils/shopping/cartItemValidationHelpers'
-import { availabilityTimesMessage, isCurrentlyAvailable } from '../../utils/shopping/categoryHelpers'
+import { validateSelectedOptions } from '../../utils/shopping/cartItemHelpers'
+import { availabilityTimesMessage, isCurrentlyAvailable} from '../../utils/timeUtils'
 import { titleCase } from '../../utils/stringUtils'
-import type { ValidationErrorsByObjectId } from '../../types/validation'
+import type { ValidatingContainerState } from '../../types/validation'
+import { hasValidationErrors } from '../../utils/validationHelpers'
 
 type Props = {
   item: ShoppingItem,
@@ -45,27 +45,22 @@ type Props = {
 
 type State = {
   cartItem: ShoppingCartItem,
-  validationErrors: ValidationErrorsByObjectId,
-  /**
-   * After validation is done, we scroll to the validation
-   * error to alert the user. This keeps track of whether
-   * or not we have done it after validation, otherwise the
-   * screen would scroll multiple times to different errors.
-   */
-  hasScrolledToValidationError: boolean
-}
+} & ValidatingContainerState
 
 class ItemDetails extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
-    const selectedOptions = arrayOfDefaultOptionsFromItem(this.props.item)
+    const { category, item } = this.props
+    const selectedOptions = arrayOfDefaultOptionsFromItem(item)
 
     this.state = {
       cartItem: {
-        item: this.props.item,
+        item,
         quantity: 1,
-        selectedOptions
+        selectedOptions,
+        availableFrom: category.availableFrom,
+        availableUntil: category.availableUntil
       },
       validationErrors: {},
       hasScrolledToValidationError: true
@@ -102,7 +97,7 @@ class ItemDetails extends Component<Props, State> {
       validationErrors: validateSelectedOptions(this.state.cartItem),
       hasScrolledToValidationError: false
     }, () => {
-      if (this.hasValidationErrors()) {
+      if (hasValidationErrors(this.state.validationErrors)) {
         return
       }
 
@@ -170,8 +165,6 @@ class ItemDetails extends Component<Props, State> {
     })
   }
 
-  hasValidationErrors = () => _.keys(this.state.validationErrors).length > 0
-
   scrollToValidationError = (e: LayoutEvent) => {
     if (this.state.hasScrolledToValidationError) {
       return
@@ -188,7 +181,7 @@ class ItemDetails extends Component<Props, State> {
       }
 
       this.choicesView.measure((_, choicesViewY) => {
-        if (this.mainScrollView == null || this.choicesView == null) {
+        if (this.mainScrollView == null) {
           return
         }
 
@@ -213,13 +206,13 @@ class ItemDetails extends Component<Props, State> {
   }
 
   renderAddButton() {
-    const { category } = this.props
+    const { cartItem } = this.state
 
-    if (isCurrentlyAvailable(category)) {
+    if (isCurrentlyAvailable(cartItem)) {
       return <PrimaryButton title="Add to Order" onPress={this.onAddButtonPress} style={styles.addButton} />
     }
 
-    const availabilityMessage = titleCase(availabilityTimesMessage(category))
+    const availabilityMessage = titleCase(availabilityTimesMessage(cartItem))
 
     return <PrimaryButton title={availabilityMessage} style={styles.addButton} disabled />
   }
@@ -235,9 +228,7 @@ class ItemDetails extends Component<Props, State> {
 
     return (
       <Card style={[styles.container, style]}>
-        <ScrollView
-          ref={this.saveScrollViewRef}
-        >
+        <ScrollView ref={this.saveScrollViewRef}>
           <ItemImage item={item} style={styles.imageContainer} />
 
           <View style={styles.informationContainer}>

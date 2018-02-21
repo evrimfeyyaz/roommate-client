@@ -14,13 +14,16 @@ import type {
 } from '../../types/shopping'
 import type { Option } from '../controls/OptionGroup'
 import type { ValidationErrorsByObjectId } from '../../types/validation'
-import { getErrorMessages } from '../../utils/shopping/cartItemValidationHelpers'
+import { getErrorMessages } from '../../utils/shopping/cartItemHelpers'
 
 type Props = {
   item: ShoppingItem,
   selectedOptions: ShoppingItemChoiceOption[],
   onOptionPress: (option: Option<ShoppingItemChoiceOption>) => void,
   validationErrors: ValidationErrorsByObjectId,
+  /**
+   * Fired when a choice element which has a validation error is laid out.
+   */
   onValidationErrorElementLayout: (LayoutEvent) => void,
   style?: ViewPropTypes.style
 }
@@ -32,27 +35,11 @@ class ItemChoices extends Component<Props> {
     }
   }
 
-  renderValidationError = (choice: ShoppingItemChoice) => {
-    const errors = this.props.validationErrors[choice.id]
-
-    if (errors != null) {
-      return (
-        <ValidationError
-          validationErrors={errors}
-          errorObject={choice}
-          getErrorMessages={getErrorMessages}
-          style={styles.validationErrorsContainer}
-        />
-      )
-    }
-
-    return null
-  }
-
   renderChoice(choice: ShoppingItemChoice) {
-    const { selectedOptions, onOptionPress } = this.props
+    const { selectedOptions, onOptionPress, validationErrors } = this.props
     const allowMultipleSelection = isChoiceMultipleSelection(choice)
     const options = optionsArrayFromChoice(choice)
+    const errors = validationErrors[choice.id]
 
     return (
       <View
@@ -61,7 +48,14 @@ class ItemChoices extends Component<Props> {
         onLayout={e => this.onValidationErrorElementLayout(e, choice.id)}
       >
         <Heading3 style={styles.title}>{choiceLabel(choice)}</Heading3>
-        {this.renderValidationError(choice)}
+
+        <ValidationError
+          validationErrors={errors}
+          errorObject={choice}
+          getErrorMessages={getErrorMessages}
+          style={styles.validationErrorsContainer}
+        />
+
         <OptionGroup
           allowMultipleSelection={allowMultipleSelection}
           options={options}

@@ -5,7 +5,13 @@ import { Body } from '../.'
 import colors from '../../config/colors'
 
 type Props<T> = {
+  /**
+   * Full list of validation errors for the given object.
+   */
   validationErrors: string[],
+  /**
+   * The object that has the validation error.
+   */
   errorObject: T,
   /**
    * The function to use to retrieve error messages for a given error.
@@ -27,6 +33,10 @@ class ValidationError extends Component<Props> {
 
   render() {
     const { validationErrors, style, getErrorMessages, errorObject } = this.props
+
+    if (validationErrors == null) {
+      return null
+    }
 
     const errorMessages = getErrorMessages(validationErrors, errorObject)
 
